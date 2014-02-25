@@ -1,0 +1,170 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A07403A1-F5BB-4A7C-A2E3-9C7625128C10}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Mosa.Compiler.Analysis</RootNamespace>
+    <AssemblyName>Mosa.Compiler.Analysis</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>full</DebugType>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <WarningLevel>2</WarningLevel>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Blocks\BasicBlock.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blocks\BlockBase.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Blocks\BlockExtension.cs" />
+    <Compile Include="Blocks\BlockParser.cs" />
+    <Compile Include="Blocks\BlockType.cs" />
+    <Compile Include="Blocks\MethodBody.cs" />
+    <Compile Include="Blocks\ScopeBlock.cs" />
+    <Compile Include="IR\BlockInfo.cs" />
+    <Compile Include="CIL\CILCode.cs" />
+    <Compile Include="CIL\CILOpCodes.cs" />
+    <Compile Include="CIL\EvaluationStack.cs" />
+    <Compile Include="CIL\OpCodes\BinaryConditional.cs" />
+    <Compile Include="CIL\OpCodes\Compare.cs" />
+    <Compile Include="CIL\OpCodes\Arithmetic.cs" />
+    <Compile Include="CIL\OpCodes\Ret.cs" />
+    <Compile Include="CIL\OpCodes\Ldarg.cs" />
+    <Compile Include="CIL\OpCodes\Pop.cs" />
+    <Compile Include="CIL\OpCodes\Dup.cs" />
+    <Compile Include="CIL\OpCodes\Starg.cs" />
+    <Compile Include="CIL\OpCodes\UnaryConditional.cs" />
+    <Compile Include="CIL\OpCodes\Ldloc.cs" />
+    <Compile Include="CIL\OpCodes\Stloc.cs" />
+    <Compile Include="CIL\OpCodes\Ldc.cs" />
+    <Compile Include="CIL\OpCodes\Nop.cs" />
+    <Compile Include="CIL\OpCodes\Unconditional.cs" />
+    <Compile Include="Dominance\IDominanceProvider.cs" />
+    <Compile Include="InstrPointer.cs" />
+    <Compile Include="IR\ConditionCode.cs" />
+    <Compile Include="IR\ConditionCodeExtension.cs" />
+    <Compile Include="IR\IIRVisitor.cs" />
+    <Compile Include="IR\OpCodeExtension.cs" />
+    <Compile Include="IR\IROpCode.cs" />
+    <Compile Include="IR\IROpCodes.cs" />
+    <Compile Include="IR\IRTransformer.cs" />
+    <Compile Include="IR\OpCodes\AddFloat.cs" />
+    <Compile Include="IR\OpCodes\AddressOf.cs" />
+    <Compile Include="IR\OpCodes\AddSigned.cs" />
+    <Compile Include="IR\OpCodes\AddUnsigned.cs" />
+    <Compile Include="IR\OpCodes\ArithmeticShiftRight.cs" />
+    <Compile Include="IR\OpCodes\Break.cs" />
+    <Compile Include="IR\OpCodes\Call.cs" />
+    <Compile Include="IR\OpCodes\CondBranch.cs" />
+    <Compile Include="IR\OpCodes\DivFloat.cs" />
+    <Compile Include="IR\OpCodes\DivSigned.cs" />
+    <Compile Include="IR\OpCodes\DivUnsigned.cs" />
+    <Compile Include="IR\OpCodes\Epilogue.cs" />
+    <Compile Include="IR\OpCodes\EHPrologue.cs" />
+    <Compile Include="IR\OpCodes\FloatCompare.cs" />
+    <Compile Include="IR\OpCodes\FloatToIntegerConversion.cs" />
+    <Compile Include="IR\OpCodes\IntegerCompare.cs" />
+    <Compile Include="IR\OpCodes\IntegerToFloatConversion.cs" />
+    <Compile Include="IR\OpCodes\EHEpilogue.cs" />
+    <Compile Include="IR\OpCodes\IntrinsicMethodCall.cs" />
+    <Compile Include="IR\OpCodes\Branch.cs" />
+    <Compile Include="IR\OpCodes\Load.cs" />
+    <Compile Include="IR\OpCodes\LoadSignExtended.cs" />
+    <Compile Include="IR\OpCodes\LoadZeroExtended.cs" />
+    <Compile Include="IR\OpCodes\LogicalAnd.cs" />
+    <Compile Include="IR\OpCodes\LogicalNot.cs" />
+    <Compile Include="IR\OpCodes\LogicalOr.cs" />
+    <Compile Include="IR\OpCodes\LogicalXor.cs" />
+    <Compile Include="IR\OpCodes\Move.cs" />
+    <Compile Include="IR\OpCodes\MulFloat.cs" />
+    <Compile Include="IR\OpCodes\MulSigned.cs" />
+    <Compile Include="IR\OpCodes\MulUnsigned.cs" />
+    <Compile Include="IR\OpCodes\Nop.cs" />
+    <Compile Include="IR\OpCodes\Prologue.cs" />
+    <Compile Include="IR\OpCodes\RemFloat.cs" />
+    <Compile Include="IR\OpCodes\RemSigned.cs" />
+    <Compile Include="IR\OpCodes\RemUnsigned.cs" />
+    <Compile Include="IR\OpCodes\Return.cs" />
+    <Compile Include="IR\OpCodes\ShiftLeft.cs" />
+    <Compile Include="IR\OpCodes\ShiftRight.cs" />
+    <Compile Include="IR\OpCodes\MoveSignExtended.cs" />
+    <Compile Include="IR\OpCodes\Store.cs" />
+    <Compile Include="IR\OpCodes\SubFloat.cs" />
+    <Compile Include="IR\OpCodes\SubSigned.cs" />
+    <Compile Include="IR\OpCodes\SubUnsigned.cs" />
+    <Compile Include="IR\OpCodes\Switch.cs" />
+    <Compile Include="IR\OpCodes\Throw.cs" />
+    <Compile Include="IR\VmCall.cs" />
+    <Compile Include="IR\OpCodes\MoveZeroExtended.cs" />
+    <Compile Include="IR\TransformContext.cs" />
+    <Compile Include="CIL\FlowControl.cs" />
+    <Compile Include="IVisitor.cs" />
+    <Compile Include="Operands\ConstantOperand.cs" />
+    <Compile Include="Instruction.cs" />
+    <Compile Include="CIL\CILOpCode.cs" />
+    <Compile Include="Operands\CallOperand.cs" />
+    <Compile Include="OpCode.cs" />
+    <Compile Include="Operand.cs" />
+    <Compile Include="Operands\LabelOperand.cs" />
+    <Compile Include="Operands\PhiOperand.cs" />
+    <Compile Include="Operands\StaticFieldOperand.cs" />
+    <Compile Include="Dominance\SimpleFastDominance.cs" />
+    <Compile Include="Stages\IRConstructionStage.cs" />
+    <Compile Include="Value.cs" />
+    <Compile Include="Operands\ValueOperand.cs" />
+    <Compile Include="Values\ConstantValue.cs" />
+    <Compile Include="Values\LocalValue.cs" />
+    <Compile Include="Values\SSAValue.cs" />
+    <Compile Include="Values\StackValue.cs" />
+    <Compile Include="Values\VRegValue.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Mosa.Compiler.Common\Mosa.Compiler.Common.csproj">
+      <Project>{0B1011A6-8FCD-4F9E-BBB8-8DB86E23D2E8}</Project>
+      <Name>Mosa.Compiler.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.Framework\Mosa.Compiler.Framework.csproj">
+      <Project>{75A12A8A-8C8F-4D1E-801B-689D8F781BF4}</Project>
+      <Name>Mosa.Compiler.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
+      <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
+      <Name>Mosa.Compiler.MosaTypeSystem</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
