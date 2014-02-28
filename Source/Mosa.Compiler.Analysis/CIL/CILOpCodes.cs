@@ -162,93 +162,93 @@ namespace Mosa.Compiler.Analysis.CIL
 			/* 0x045 */
 			//OpCodes[(int)CILCode.Switch] = new Switch(CILCode.Switch);
 			/* 0x046 */
-			//OpCodes[(int)CILCode.Ldind_i1] = new Ldobj(CILCode.Ldind_i1);
+			OpCodes[(int)CILCode.Ldind_i1] = new Ldobj(CILCode.Ldind_i1);
 			/* 0x047 */
-			//OpCodes[(int)CILCode.Ldind_u1] = new Ldobj(CILCode.Ldind_u1);
+			OpCodes[(int)CILCode.Ldind_u1] = new Ldobj(CILCode.Ldind_u1);
 			/* 0x048 */
-			//OpCodes[(int)CILCode.Ldind_i2] = new Ldobj(CILCode.Ldind_i2);
+			OpCodes[(int)CILCode.Ldind_i2] = new Ldobj(CILCode.Ldind_i2);
 			/* 0x049 */
-			//OpCodes[(int)CILCode.Ldind_u2] = new Ldobj(CILCode.Ldind_u2);
+			OpCodes[(int)CILCode.Ldind_u2] = new Ldobj(CILCode.Ldind_u2);
 			/* 0x04A */
-			//OpCodes[(int)CILCode.Ldind_i4] = new Ldobj(CILCode.Ldind_i4);
+			OpCodes[(int)CILCode.Ldind_i4] = new Ldobj(CILCode.Ldind_i4);
 			/* 0x04B */
-			//OpCodes[(int)CILCode.Ldind_u4] = new Ldobj(CILCode.Ldind_u4);
+			OpCodes[(int)CILCode.Ldind_u4] = new Ldobj(CILCode.Ldind_u4);
 			/* 0x04C */
-			//OpCodes[(int)CILCode.Ldind_i8] = new Ldobj(CILCode.Ldind_i8);
+			OpCodes[(int)CILCode.Ldind_i8] = new Ldobj(CILCode.Ldind_i8);
 			/* 0x04D */
-			//OpCodes[(int)CILCode.Ldind_i] = new Ldobj(CILCode.Ldind_i);
+			OpCodes[(int)CILCode.Ldind_i] = new Ldobj(CILCode.Ldind_i);
 			/* 0x04E */
-			//OpCodes[(int)CILCode.Ldind_r4] = new Ldobj(CILCode.Ldind_r4);
+			OpCodes[(int)CILCode.Ldind_r4] = new Ldobj(CILCode.Ldind_r4);
 			/* 0x04F */
-			//OpCodes[(int)CILCode.Ldind_r8] = new Ldobj(CILCode.Ldind_r8);
+			OpCodes[(int)CILCode.Ldind_r8] = new Ldobj(CILCode.Ldind_r8);
 			/* 0x050 */
-			//OpCodes[(int)CILCode.Ldind_ref] = new Ldobj(CILCode.Ldind_ref);
+			OpCodes[(int)CILCode.Ldind_ref] = new Ldobj(CILCode.Ldind_ref);
 			/* 0x051 */
-			//OpCodes[(int)CILCode.Stind_ref] = new Stobj(CILCode.Stind_ref);
+			OpCodes[(int)CILCode.Stind_ref] = new Stobj(CILCode.Stind_ref);
 			/* 0x052 */
-			//OpCodes[(int)CILCode.Stind_i1] = new Stobj(CILCode.Stind_i1);
+			OpCodes[(int)CILCode.Stind_i1] = new Stobj(CILCode.Stind_i1);
 			/* 0x053 */
-			//OpCodes[(int)CILCode.Stind_i2] = new Stobj(CILCode.Stind_i2);
+			OpCodes[(int)CILCode.Stind_i2] = new Stobj(CILCode.Stind_i2);
 			/* 0x054 */
-			//OpCodes[(int)CILCode.Stind_i4] = new Stobj(CILCode.Stind_i4);
+			OpCodes[(int)CILCode.Stind_i4] = new Stobj(CILCode.Stind_i4);
 			/* 0x055 */
-			//OpCodes[(int)CILCode.Stind_i8] = new Stobj(CILCode.Stind_i8);
+			OpCodes[(int)CILCode.Stind_i8] = new Stobj(CILCode.Stind_i8);
 			/* 0x056 */
-			//OpCodes[(int)CILCode.Stind_r4] = new Stobj(CILCode.Stind_r4);
+			OpCodes[(int)CILCode.Stind_r4] = new Stobj(CILCode.Stind_r4);
 			/* 0x057 */
-			//OpCodes[(int)CILCode.Stind_r8] = new Stobj(CILCode.Stind_r8);
+			OpCodes[(int)CILCode.Stind_r8] = new Stobj(CILCode.Stind_r8);
 			/* 0x058 */
-			OpCodes[(int)CILCode.Add] = new Arithmetic(CILCode.Add);
+			OpCodes[(int)CILCode.Add] = new BinaryNumeric(CILCode.Add);
 			/* 0x059 */
-			OpCodes[(int)CILCode.Sub] = new Arithmetic(CILCode.Sub);
+			OpCodes[(int)CILCode.Sub] = new BinaryNumeric(CILCode.Sub);
 			/* 0x05A */
-			OpCodes[(int)CILCode.Mul] = new Arithmetic(CILCode.Mul);
+			OpCodes[(int)CILCode.Mul] = new BinaryNumeric(CILCode.Mul);
 			/* 0x05B */
-			OpCodes[(int)CILCode.Div] = new Arithmetic(CILCode.Div);
+			OpCodes[(int)CILCode.Div] = new BinaryNumeric(CILCode.Div);
 			/* 0x05C */
-			//OpCodes[(int)CILCode.Div_un] = new BinaryLogic(CILCode.Div_un);
+			OpCodes[(int)CILCode.Div_un] = new IntegralOp(CILCode.Div_un);
 			/* 0x05D */
-			OpCodes[(int)CILCode.Rem] = new Arithmetic(CILCode.Rem);
+			OpCodes[(int)CILCode.Rem] = new BinaryNumeric(CILCode.Rem);
 			/* 0x05E */
-			//OpCodes[(int)CILCode.Rem_un] = new BinaryLogic(CILCode.Rem_un);
+			OpCodes[(int)CILCode.Rem_un] = new IntegralOp(CILCode.Rem_un);
 			/* 0x05F */
-			//OpCodes[(int)CILCode.And] = new BinaryLogic(CILCode.And);
+			OpCodes[(int)CILCode.And] = new IntegralOp(CILCode.And);
 			/* 0x060 */
-			//OpCodes[(int)CILCode.Or] = new BinaryLogic(CILCode.Or);
+			OpCodes[(int)CILCode.Or] = new IntegralOp(CILCode.Or);
 			/* 0x061 */
-			//OpCodes[(int)CILCode.Xor] = new BinaryLogic(CILCode.Xor);
+			OpCodes[(int)CILCode.Xor] = new IntegralOp(CILCode.Xor);
 			/* 0x062 */
-			//OpCodes[(int)CILCode.Shl] = new Shift(CILCode.Shl);
+			OpCodes[(int)CILCode.Shl] = new Shift(CILCode.Shl);
 			/* 0x063 */
-			//OpCodes[(int)CILCode.Shr] = new Shift(CILCode.Shr);
+			OpCodes[(int)CILCode.Shr] = new Shift(CILCode.Shr);
 			/* 0x064 */
-			//OpCodes[(int)CILCode.Shr_un] = new Shift(CILCode.Shr_un);
+			OpCodes[(int)CILCode.Shr_un] = new Shift(CILCode.Shr_un);
 			/* 0x065 */
-			//OpCodes[(int)CILCode.Neg] = new Neg(CILCode.Neg);
+			OpCodes[(int)CILCode.Neg] = new Neg();
 			/* 0x066 */
-			//OpCodes[(int)CILCode.Not] = new Not(CILCode.Not);
+			OpCodes[(int)CILCode.Not] = new Not();
 			/* 0x067 */
-			//OpCodes[(int)CILCode.Conv_i1] = new Conversion(CILCode.Conv_i1);
+			OpCodes[(int)CILCode.Conv_i1] = new Conversion(CILCode.Conv_i1);
 			/* 0x068 */
-			//OpCodes[(int)CILCode.Conv_i2] = new Conversion(CILCode.Conv_i2);
+			OpCodes[(int)CILCode.Conv_i2] = new Conversion(CILCode.Conv_i2);
 			/* 0x069 */
-			//OpCodes[(int)CILCode.Conv_i4] = new Conversion(CILCode.Conv_i4);
+			OpCodes[(int)CILCode.Conv_i4] = new Conversion(CILCode.Conv_i4);
 			/* 0x06A */
-			//OpCodes[(int)CILCode.Conv_i8] = new Conversion(CILCode.Conv_i8);
+			OpCodes[(int)CILCode.Conv_i8] = new Conversion(CILCode.Conv_i8);
 			/* 0x06B */
-			//OpCodes[(int)CILCode.Conv_r4] = new Conversion(CILCode.Conv_r4);
+			OpCodes[(int)CILCode.Conv_r4] = new Conversion(CILCode.Conv_r4);
 			/* 0x06C */
-			//OpCodes[(int)CILCode.Conv_r8] = new Conversion(CILCode.Conv_r8);
+			OpCodes[(int)CILCode.Conv_r8] = new Conversion(CILCode.Conv_r8);
 			/* 0x06D */
-			//OpCodes[(int)CILCode.Conv_u4] = new Conversion(CILCode.Conv_u4);
+			OpCodes[(int)CILCode.Conv_u4] = new Conversion(CILCode.Conv_u4);
 			/* 0x06E */
-			//OpCodes[(int)CILCode.Conv_u8] = new Conversion(CILCode.Conv_u8);
+			OpCodes[(int)CILCode.Conv_u8] = new Conversion(CILCode.Conv_u8);
 			/* 0x06F */
 			//OpCodes[(int)CILCode.Callvirt] = new Callvirt(CILCode.Callvirt);
 			/* 0x070 */
 			//OpCodes[(int)CILCode.Cpobj] = new Cpobj(CILCode.Cpobj);
 			/* 0x071 */
-			//OpCodes[(int)CILCode.Ldobj] = new Ldobj(CILCode.Ldobj);
+			OpCodes[(int)CILCode.Ldobj] = new Ldobj(CILCode.Ldobj);
 			/* 0x072 */
 			OpCodes[(int)CILCode.Ldstr] = new Ldc(CILCode.Ldstr);
 			/* 0x073 */
@@ -258,7 +258,7 @@ namespace Mosa.Compiler.Analysis.CIL
 			/* 0x075 */
 			//OpCodes[(int)CILCode.Isinst] = new IsInst(CILCode.Isinst);
 			/* 0x076 */
-			//OpCodes[(int)CILCode.Conv_r_un] = new Conversion(CILCode.Conv_r_un);
+			OpCodes[(int)CILCode.Conv_r_un] = new Conversion(CILCode.Conv_r_un);
 			/* Opcodes 0x077-0x078 undefined */
 			/* 0x079 */
 			//OpCodes[(int)CILCode.Unbox] = new Unbox(CILCode.Unbox);
@@ -277,7 +277,7 @@ namespace Mosa.Compiler.Analysis.CIL
 			/* 0x080 */
 			//OpCodes[(int)CILCode.Stsfld] = new Stsfld(CILCode.Stsfld);
 			/* 0x081 */
-			//OpCodes[(int)CILCode.Stobj] = new Stobj(CILCode.Stobj);
+			OpCodes[(int)CILCode.Stobj] = new Stobj(CILCode.Stobj);
 			/* 0x082 */
 			//OpCodes[(int)CILCode.Conv_ovf_i1_un] = new Conversion(CILCode.Conv_ovf_i1_un);
 			/* 0x083 */
@@ -379,27 +379,27 @@ namespace Mosa.Compiler.Analysis.CIL
 			/* 0x0D0 */
 			//OpCodes[(int)CILCode.Ldtoken] = new Ldtoken(CILCode.Ldtoken);
 			/* 0x0D1 */
-			//OpCodes[(int)CILCode.Conv_u2] = new Conversion(CILCode.Conv_u2);
+			OpCodes[(int)CILCode.Conv_u2] = new Conversion(CILCode.Conv_u2);
 			/* 0x0D2 */
-			//OpCodes[(int)CILCode.Conv_u1] = new Conversion(CILCode.Conv_u1);
+			OpCodes[(int)CILCode.Conv_u1] = new Conversion(CILCode.Conv_u1);
 			/* 0x0D3 */
-			//OpCodes[(int)CILCode.Conv_i] = new Conversion(CILCode.Conv_i);
+			OpCodes[(int)CILCode.Conv_i] = new Conversion(CILCode.Conv_i);
 			/* 0x0D4 */
 			//OpCodes[(int)CILCode.Conv_ovf_i] = new Conversion(CILCode.Conv_ovf_i);
 			/* 0x0D5 */
 			//OpCodes[(int)CILCode.Conv_ovf_u] = new Conversion(CILCode.Conv_ovf_u);
 			/* 0x0D6 */
-			//OpCodes[(int)CILCode.Add_ovf] = new ArithmeticOverflow(CILCode.Add_ovf);
+			OpCodes[(int)CILCode.Add_ovf] = new OverflowNumeric(CILCode.Add_ovf);
 			/* 0x0D7 */
-			//OpCodes[(int)CILCode.Add_ovf_un] = new ArithmeticOverflow(CILCode.Add_ovf_un);
+			OpCodes[(int)CILCode.Add_ovf_un] = new OverflowNumeric(CILCode.Add_ovf_un);
 			/* 0x0D8 */
-			//OpCodes[(int)CILCode.Mul_ovf] = new ArithmeticOverflow(CILCode.Mul_ovf);
+			OpCodes[(int)CILCode.Mul_ovf] = new OverflowNumeric(CILCode.Mul_ovf);
 			/* 0x0D9 */
-			//OpCodes[(int)CILCode.Mul_ovf_un] = new ArithmeticOverflow(CILCode.Mul_ovf_un);
+			OpCodes[(int)CILCode.Mul_ovf_un] = new OverflowNumeric(CILCode.Mul_ovf_un);
 			/* 0x0DA */
-			//OpCodes[(int)CILCode.Sub_ovf] = new ArithmeticOverflow(CILCode.Sub_ovf);
+			OpCodes[(int)CILCode.Sub_ovf] = new OverflowNumeric(CILCode.Sub_ovf);
 			/* 0x0DB */
-			//OpCodes[(int)CILCode.Sub_ovf_un] = new ArithmeticOverflow(CILCode.Sub_ovf_un);
+			OpCodes[(int)CILCode.Sub_ovf_un] = new OverflowNumeric(CILCode.Sub_ovf_un);
 			/* 0x0DC */
 			//OpCodes[(int)CILCode.Endfinally] = new EndFinally(CILCode.Endfinally);
 			/* 0x0DD */
@@ -407,9 +407,9 @@ namespace Mosa.Compiler.Analysis.CIL
 			/* 0x0DE */
 			//OpCodes[(int)CILCode.Leave_s] = new Leave(CILCode.Leave_s);
 			/* 0x0DF */
-			//OpCodes[(int)CILCode.Stind_i] = new Stobj(CILCode.Stind_i);
+			OpCodes[(int)CILCode.Stind_i] = new Stobj(CILCode.Stind_i);
 			/* 0x0E0 */
-			//OpCodes[(int)CILCode.Conv_u] = new Conversion(CILCode.Conv_u);
+			OpCodes[(int)CILCode.Conv_u] = new Conversion(CILCode.Conv_u);
 			/* Opcodes 0xE1-0xFF are reserved */
 			/* 0x100 */
 			//OpCodes[(int)CILCode.Arglist] = new Arglist(CILCode.Arglist);

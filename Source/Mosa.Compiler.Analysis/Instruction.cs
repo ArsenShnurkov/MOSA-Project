@@ -95,11 +95,7 @@ namespace Mosa.Compiler.Analysis
 				{
 					if (value.Definition != null)
 					{
-#if DEBUG
 						throw new CompilerException("Attempted to violate SSA property.");
-#else
-						value.Definition.Result = null;
-#endif
 					}
 					value.Definition = this;
 				}

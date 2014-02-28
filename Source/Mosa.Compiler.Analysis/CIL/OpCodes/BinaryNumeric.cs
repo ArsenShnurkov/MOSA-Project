@@ -13,9 +13,9 @@ using Mosa.Compiler.MosaTypeSystem;
 
 namespace Mosa.Compiler.Analysis.CIL.OpCodes
 {
-	internal class Arithmetic : CILOpCode
+	internal class BinaryNumeric : CILOpCode
 	{
-		public Arithmetic(CILCode code)
+		public BinaryNumeric(CILCode code)
 			: base(code)
 		{
 		}
@@ -34,6 +34,8 @@ namespace Mosa.Compiler.Analysis.CIL.OpCodes
 				return typeSystem.BuiltIn.I8;
 			else if (a.IsN || b.IsN)
 				return typeSystem.BuiltIn.I;
+			else if (a.IsR || b.IsR)
+				return a.IsR8 || b.IsR8 ? typeSystem.BuiltIn.R8 : typeSystem.BuiltIn.R4;
 			else
 				return typeSystem.BuiltIn.I4;
 		}

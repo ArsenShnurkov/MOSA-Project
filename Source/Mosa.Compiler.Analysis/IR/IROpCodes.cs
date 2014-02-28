@@ -61,6 +61,8 @@ namespace Mosa.Compiler.Analysis.IR
 
 		public static readonly LogicalXor LogicalXor = new LogicalXor();
 
+		public static readonly Negate Negate = new Negate();
+
 		public static readonly Move Move = new Move();
 
 		public static readonly MulFloat MulF = new MulFloat();
@@ -85,7 +87,7 @@ namespace Mosa.Compiler.Analysis.IR
 
 		public static readonly ShiftLeft ShiftLeft = new ShiftLeft();
 
-		public static readonly MoveSignExtended SignExtendedMove = new MoveSignExtended();
+		public static readonly MoveSignExtended MoveSignExtended = new MoveSignExtended();
 
 		public static readonly Store Store = new Store();
 

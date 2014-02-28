@@ -20,6 +20,31 @@ namespace Mosa.Compiler.Analysis.IR
 			return type.IsR ? (IROpCode)IROpCodes.FloatCompare : IROpCodes.IntegerCompare;
 		}
 
+		public static IROpCode GetMoveOpCode(this MosaType type)
+		{
+			if (type.IsI1 || type.IsI2)
+				return IROpCodes.MoveSignExtended;
+
+			else if (type.IsU1 || type.IsU2 || type.IsChar || type.IsBoolean)
+				return IROpCodes.MoveZeroExtended;
+
+			else
+				return IROpCodes.Move;
+		}
+
+		public static IROpCode GetLoadOpCode(this MosaType type)
+		{
+			if (type.IsI1 || type.IsI2)
+				return IROpCodes.LoadSignExtended;
+
+			else if (type.IsU1 || type.IsU2 || type.IsChar || type.IsBoolean)
+				return IROpCodes.LoadZeroExtended;
+
+			else
+				return IROpCodes.Load;
+		}
+
+
 		public static ConditionCode ToConditionCode(this CILCode code)
 		{
 			switch (code)
@@ -69,7 +94,7 @@ namespace Mosa.Compiler.Analysis.IR
 				case CILCode.Ble_un_s:
 					return ConditionCode.UnsignedLessOrEqual;
 			}
-			throw new NotImplementCompilerException();
+			throw new InvalidCompilerException();
 		}
 
 		public static IROpCode ToIRArithmetic(this CILCode code, MosaType type)
@@ -107,7 +132,7 @@ namespace Mosa.Compiler.Analysis.IR
 				case CILCode.Rem_un:
 					return IROpCodes.RemU;
 			}
-			throw new NotImplementCompilerException();
+			throw new InvalidCompilerException();
 		}
 
 		public static int? GetStlocIndex(this MosaInstruction instr)

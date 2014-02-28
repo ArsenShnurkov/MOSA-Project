@@ -111,16 +111,16 @@ namespace Mosa.Compiler.Analysis.IR
 		void LogicalNot(InstrPointer ptr);
 
 		/// <summary>
+		/// Visitation function for Negate.
+		/// </summary>
+		/// <param name="ptr">The instruction pointer.</param>
+		void Negate(InstrPointer ptr);
+
+		/// <summary>
 		/// Visitation function for Move.
 		/// </summary>
 		/// <param name="ptr">The instruction pointer.</param>
 		void Move(InstrPointer ptr);
-
-		/// <summary>
-		/// Visitation function for Phi.
-		/// </summary>
-		/// <param name="ptr">The instruction pointer.</param>
-		void Phi(InstrPointer ptr);
 
 		/// <summary>
 		/// Visitation function for Prologue.
@@ -291,7 +291,7 @@ namespace Mosa.Compiler.Analysis.IR
 		void EHPrologue(InstrPointer ptr);
 
 		/// <summary>
-		/// Visitation function for intrinsic the method call.
+		/// Visitation function for IntrinsicMethodCall.
 		/// </summary>
 		/// <param name="ptr">The instruction pointer.</param>
 		void IntrinsicMethodCall(InstrPointer ptr);

@@ -1,3 +1,4 @@
+
 /*
  * (c) 2008 MOSA - The Managed Operating System Alliance
  *
@@ -35,21 +36,6 @@ namespace Mosa.Compiler.Analysis.IR
 		Box32,
 		Box64,
 		Box,
-
-		/// <summary>
-		/// Casts an object references to a specific type.
-		/// </summary>
-		Castclass,
-
-		/// <summary>
-		/// Loads the address of a function.
-		/// </summary>
-		GetFunctionPtr,
-
-		/// <summary>
-		/// Retrieves a handle for the specified token.
-		/// </summary>
-		GetHandleForToken,
 
 		/// <summary>
 		/// Loads the address of a virtual function.

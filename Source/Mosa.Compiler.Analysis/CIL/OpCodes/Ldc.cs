@@ -56,7 +56,7 @@ namespace Mosa.Compiler.Analysis.CIL.OpCodes
 				case CILCode.Ldc_i4_7: value = (int)7; goto case CILCode.Ldc_i4;
 				case CILCode.Ldc_i4_8: value = (int)8; goto case CILCode.Ldc_i4;
 				case CILCode.Ldc_i4_m1: value = (int)-1; goto case CILCode.Ldc_i4;
-				default: throw new NotImplementCompilerException();
+				default: throw new InvalidCompilerException();
 			}
 		}
 

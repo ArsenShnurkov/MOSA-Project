@@ -35,7 +35,15 @@ namespace Mosa.Compiler.Analysis.CIL.OpCodes
 				index = (int)ctx.Instruction.Operand;
 			}
 
-			ctx.EvaluationStack.Push(ctx.GetLocal(index));
+			var local = ctx.GetLocal(index);
+			var result = ctx.CreateVReg(local.Type);
+
+			ctx.IRPointer.Append()
+				.SetOpCode(local.Type.GetMoveOpCode())
+				.SetResult(result)
+				.SetOperand1(local.ToOperand());
+
+			ctx.EvaluationStack.Push(result);
 		}
 	}
 }
