@@ -26,7 +26,7 @@ namespace Mosa.Compiler.Analysis.IR
 
 		public BlockInfo CurrentBlockInfo { get; private set; }
 
-		public InstrPointer IRPointer;
+		public InstrPointer IRPointer { get; private set; }
 
 		public MosaInstruction Instruction { get; internal set; }
 
@@ -60,13 +60,15 @@ namespace Mosa.Compiler.Analysis.IR
 			localVers = new List<SSAValue>[body.Locals.Count];
 			for (int i = 0; i < body.Locals.Count; i++)
 				localVers[i] = new List<SSAValue>() { new SSAValue(body.Locals[i], 0) };
+
+			IRPointer = new InstrPointer();
 		}
 
 		internal void SetBlock(BasicBlock block)
 		{
 			Block = block;
-			IRPointer = IRPointer.SetBlock(block).Last();
-			CurrentBlockInfo = BlockInfos[block.ID];
+			IRPointer.SetBlock(block).Last();
+			CurrentBlockInfo = BlockInfos[block.Sequence];
 		}
 
 		public Value GetLocal(int index)

@@ -9,8 +9,18 @@
 
 namespace Mosa.Compiler.Analysis
 {
-	public class OpCode
+	public abstract class OpCode
 	{
+		protected OpCode(int operandCount, int resultCount)
+		{
+			OperandCount = operandCount;
+			ResultCount = resultCount;
+		}
+
+		public int OperandCount { get; private set; }
+
+		public int ResultCount { get; private set; }
+
 		/// <summary>
 		/// Allows visitor based dispatch for this opcode object.
 		/// </summary>

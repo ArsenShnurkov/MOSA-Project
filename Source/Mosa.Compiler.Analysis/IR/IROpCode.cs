@@ -9,8 +9,13 @@
 
 namespace Mosa.Compiler.Analysis.IR
 {
-	public class IROpCode : OpCode
+	public abstract class IROpCode : OpCode
 	{
+		protected IROpCode(int operandCount, int resultCount)
+			: base(operandCount, resultCount)
+		{
+		}
+
 		/// <summary>
 		/// Returns a string representation of the context.
 		/// </summary>

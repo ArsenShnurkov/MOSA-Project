@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="CondBranch" /> class.
 		/// </summary>
 		public CondBranch()
+			: base(2, 0)
 		{
 		}
 

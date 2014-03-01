@@ -26,6 +26,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="RemSigned"/> class.
 		/// </summary>
 		public RemSigned()
+			: base(2, 1)
 		{
 		}
 

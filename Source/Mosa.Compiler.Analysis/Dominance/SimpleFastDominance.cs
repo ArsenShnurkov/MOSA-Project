@@ -292,14 +292,14 @@ namespace Mosa.Compiler.Analysis.Dominance
 
 			while (finger2 != null && finger1 != null && finger1 != finger2)
 			{
-				while (finger1 != null && finger1.ID > finger2.ID)
+				while (finger1 != null && finger1.Sequence > finger2.Sequence)
 				{
 					BasicBlock f = null;
 					doms.TryGetValue(finger1, out f);
 					finger1 = f;
 				}
 
-				while (finger2 != null && finger1 != null && finger2.ID > finger1.ID)
+				while (finger2 != null && finger1 != null && finger2.Sequence > finger1.Sequence)
 				{
 					BasicBlock f = null;
 					doms.TryGetValue(finger2, out f);

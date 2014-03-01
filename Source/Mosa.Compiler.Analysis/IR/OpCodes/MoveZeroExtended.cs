@@ -21,6 +21,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="MoveZeroExtended"/> class.
 		/// </summary>
 		public MoveZeroExtended()
+			: base(1, 1)
 		{
 		}
 

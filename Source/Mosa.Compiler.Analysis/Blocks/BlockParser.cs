@@ -95,7 +95,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 
 		static MethodBody BuildScope(MosaMethod method, IList<BasicBlock> blocks, out IList<ScopeBlock> ehs)
 		{
-			MethodBody root = new MethodBody(method);
+			MethodBody root = new MethodBody(method, blocks);
 			ehs = new List<ScopeBlock>();
 
 			if (method.ExceptionBlocks.Count == 0)

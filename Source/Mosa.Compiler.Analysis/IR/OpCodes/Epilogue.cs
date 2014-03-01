@@ -22,6 +22,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Epilogue"/> class.
 		/// </summary>
 		public Epilogue()
+			: base(0, 0)
 		{
 		}
 

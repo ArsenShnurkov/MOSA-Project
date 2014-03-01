@@ -26,6 +26,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="AddSigned"/> class.
 		/// </summary>
 		public AddSigned()
+			: base(2, 1)
 		{
 		}
 

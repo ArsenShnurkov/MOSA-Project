@@ -21,6 +21,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="EHPrologue"/> class.
 		/// </summary>
 		public EHPrologue()
+			: base(0, 0)
 		{
 		}
 

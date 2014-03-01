@@ -13,7 +13,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 	/// Intermediate representation of the load memory value operation.
 	/// </summary>
 	/// <remarks>
-	/// The load instruction is used to load a value from a memory pointer and an offset. The types must be compatible.
+	/// The load instruction is used to load a value from a memory pointer. The types must be compatible.
 	/// </remarks>
 	public sealed class Load : IROpCode
 	{
@@ -21,6 +21,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Load"/> class.
 		/// </summary>
 		public Load()
+			: base(1, 1)
 		{
 		}
 

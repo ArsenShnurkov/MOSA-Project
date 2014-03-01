@@ -23,6 +23,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Store"/> class.
 		/// </summary>
 		public Store()
+			: base(1, 1)
 		{
 		}
 

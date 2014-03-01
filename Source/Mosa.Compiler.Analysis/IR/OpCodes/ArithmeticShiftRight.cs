@@ -30,6 +30,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="ArithmeticShiftRight"/> class.
 		/// </summary>
 		public ArithmeticShiftRight()
+			: base(2, 1)
 		{
 		}
 

@@ -108,5 +108,7 @@ namespace Mosa.Compiler.Analysis.IR
 		public static readonly EHPrologue EHPrologue = new EHPrologue();
 
 		public static readonly IntrinsicMethodCall IntrinsicMethodCall = new IntrinsicMethodCall();
+
+		public static readonly Phi Phi = new Phi();
 	}
 }

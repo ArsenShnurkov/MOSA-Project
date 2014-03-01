@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="LogicalOr"/> class.
 		/// </summary>
 		public LogicalOr()
+			: base(2, 1)
 		{
 		}
 

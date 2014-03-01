@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Branch"/> class.
 		/// </summary>
 		public Branch()
+			: base(1, 0)
 		{
 		}
 

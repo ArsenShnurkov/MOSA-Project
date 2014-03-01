@@ -15,7 +15,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 {
 	public class BasicBlock : BlockBase
 	{
-		public int ID { get; private set; }
+		public int Sequence { get; private set; }
 
 		public uint? BeginOffset
 		{
@@ -23,7 +23,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 			{
 				if (Body.Count == 0)
 					return null;
-				return Body.First.Value.CILOffset;
+				return Body.First.Value.OriginOffset;
 			}
 		}
 
@@ -49,7 +49,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 
 		public BasicBlock(int id)
 		{
-			this.ID = id;
+			this.Sequence = id;
 			Body = new LinkedList<Instruction>();
 			CILInstructions = new List<MosaInstruction>();
 			Sources = new List<BasicBlock>(2);
@@ -102,7 +102,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 		public override string ToString()
 		{
 			StringBuilder result = new StringBuilder();
-			result.AppendLine("Block_" + ID + ":");
+			result.AppendLine("Block_" + Sequence + ":");
 			foreach (var instr in Body)
 				result.AppendLine(instr.ToString());
 			return result.ToString();

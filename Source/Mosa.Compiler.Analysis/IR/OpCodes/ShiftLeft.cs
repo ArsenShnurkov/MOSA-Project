@@ -27,6 +27,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="ShiftLeft"/> class.
 		/// </summary>
 		public ShiftLeft()
+			: base(2, 1)
 		{
 		}
 

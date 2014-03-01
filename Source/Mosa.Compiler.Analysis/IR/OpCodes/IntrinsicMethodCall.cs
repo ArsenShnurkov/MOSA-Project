@@ -9,6 +9,7 @@
 		/// Initializes a new instance of the <see cref="IntrinsicMethodCall"/> class.
 		/// </summary>
 		public IntrinsicMethodCall()
+			: base(0, 0)
 		{
 		}
 

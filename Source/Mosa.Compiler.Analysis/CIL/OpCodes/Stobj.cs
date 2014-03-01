@@ -8,8 +8,8 @@
  */
 
 using Mosa.Compiler.Analysis.IR;
-using Mosa.Compiler.MosaTypeSystem;
 using Mosa.Compiler.Common;
+using Mosa.Compiler.MosaTypeSystem;
 
 namespace Mosa.Compiler.Analysis.CIL.OpCodes
 {

@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="IntegerCompare"/> class.
 		/// </summary>
 		public IntegerCompare()
+			: base(2, 1)
 		{
 		}
 

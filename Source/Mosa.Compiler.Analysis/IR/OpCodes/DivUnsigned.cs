@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="DivUnsigned"/> class.
 		/// </summary>
 		public DivUnsigned()
+			: base(2, 1)
 		{
 		}
 

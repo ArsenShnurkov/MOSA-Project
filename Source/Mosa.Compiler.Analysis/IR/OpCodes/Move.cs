@@ -21,6 +21,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Move"/> class.
 		/// </summary>
 		public Move()
+			: base(1, 1)
 		{
 		}
 

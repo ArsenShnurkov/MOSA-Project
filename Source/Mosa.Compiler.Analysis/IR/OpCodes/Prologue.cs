@@ -22,6 +22,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Prologue"/> class.
 		/// </summary>
 		public Prologue()
+			: base(0, 0)
 		{
 		}
 

@@ -7,9 +7,7 @@
  *  Ki (kiootic) <kiootic@gmail.com>
  */
 
-using System.Diagnostics;
 using Mosa.Compiler.Analysis.IR;
-using Mosa.Compiler.MosaTypeSystem;
 using Mosa.Compiler.Common;
 
 namespace Mosa.Compiler.Analysis.CIL.OpCodes

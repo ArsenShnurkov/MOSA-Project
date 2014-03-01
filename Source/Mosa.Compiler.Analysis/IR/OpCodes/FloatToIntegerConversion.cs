@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="FloatToIntegerConversion"/> class.
 		/// </summary>
 		public FloatToIntegerConversion()
+			: base(1, 1)
 		{
 		}
 

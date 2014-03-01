@@ -7,9 +7,9 @@
  *  Ki (kiootic) <kiootic@gmail.com>
  */
 
+using System;
 using System.Text;
-using Mosa.Compiler.Analysis.Blocks;
-using Mosa.Compiler.Analysis.IR.Operands;
+using Mosa.Compiler.Analysis.IR;
 using Mosa.Compiler.Analysis.Operands;
 using Mosa.Compiler.Common;
 
@@ -21,31 +21,97 @@ namespace Mosa.Compiler.Analysis
 		{
 		}
 
-		public uint CILOffset { get; set; }
+		public uint OriginOffset { get; set; }
 
-		public BasicBlock Parent { get; set; }
-
-		public OpCode OpCode { get; set; }
-
-		Operand operand1;
-		public Operand Operand1
+		OpCode opCode;
+		public OpCode OpCode
 		{
-			get { return operand1; }
+			get { return opCode; }
 			set
 			{
-				SetUsage(this.operand1, value);
-				this.operand1 = value;
+				if (opCode != value)
+				{
+					opCode = value;
+
+					if (operands == null || operands.Length < opCode.OperandCount)
+						Array.Resize(ref operands, opCode.OperandCount);
+
+					if (results == null || results.Length < opCode.ResultCount)
+					Array.Resize(ref results, opCode.ResultCount);
+				}
 			}
 		}
 
-		Operand operand2;
-		public Operand Operand2
+		public struct OperandCollection
 		{
-			get { return operand2; }
+			public Instruction instr;
+			public Operand this[int index]
+			{
+				get { return instr.operands[index]; }
+				set
+				{
+					instr.SetUsage(instr.operands[index], value);
+					instr.operands[index] = value;
+				}
+			}
+
+			public int Count { get { return instr.operands.Length; } }
+		}
+
+		public struct ResultCollection
+		{
+			public Instruction instr;
+			public Value this[int index]
+			{
+				get { return instr.results[index]; }
+				set
+				{
+					instr.SetDefinition(instr.results[index], value);
+					instr.results[index] = value;
+				}
+			}
+
+			public int Count { get { return instr.results.Length; } }
+		}
+
+		Operand[] operands;
+		public OperandCollection Operands { get; private set; }
+
+		public Operand Operand1
+		{
+			get { return operands[0]; }
 			set
 			{
-				SetUsage(this.operand2, value);
-				this.operand2 = value;
+				SetUsage(operands[0], value);
+				operands[0] = value;
+			}
+		}
+
+		public Operand Operand2
+		{
+			get { return operands[1]; }
+			set
+			{
+				SetUsage(operands[1], value);
+				operands[1] = value;
+			}
+		}
+
+		public void SetOperands(Operand[] operands)
+		{
+			this.operands = operands;
+		}
+
+		Value[] results;
+		public ResultCollection Results { get; private set; }
+
+		public Value Result
+		{
+			get { return results[0]; }
+			set
+			{
+				SetDefinition(results[0], value);
+				results[0] = value;
 			}
 		}
 
@@ -56,82 +122,68 @@ namespace Mosa.Compiler.Analysis
 			{
 				((ValueOperand)originalVal).Value.Usages.Remove(this);
 			}
-			else if (originalVal is PhiOperand)
-			{
-				foreach (var val in ((PhiOperand)originalVal).Versions)
-					val.Usages.Remove(this);
-			}
-			else if (originalVal is CallOperand)
-			{
-				foreach (var val in ((CallOperand)originalVal).Arguments)
-					val.Usages.Remove(this);
-			}
 
 			// Add
 			if (newVal is ValueOperand)
 			{
 				((ValueOperand)newVal).Value.Usages.Add(this);
 			}
-			else if (newVal is PhiOperand)
-			{
-				foreach (var val in ((PhiOperand)newVal).Versions)
-					val.Usages.Add(this);
-			}
-			else if (originalVal is CallOperand)
-			{
-				foreach (var val in ((CallOperand)newVal).Arguments)
-					val.Usages.Add(this);
-			}
-
 		}
 
-		Value result;
-		public Value Result
+		void SetDefinition(Value originalVal, Value newVal)
 		{
-			get { return result; }
-			set
+			if (newVal != null)
 			{
-				if (value != null)
+				if (newVal.Definition != null)
 				{
-					if (value.Definition != null)
-					{
-						throw new CompilerException("Attempted to violate SSA property.");
-					}
-					value.Definition = this;
+					throw new CompilerException("Attempted to violate SSA property.");
 				}
-				if (result != null)
-					result.Definition = null;
-				result = value;
+				newVal.Definition = this;
 			}
+			if (originalVal != null)
+				originalVal.Definition = null;
 		}
 
 		public object Extra { get; set; }
 
 		public void Clear()
 		{
-			OpCode = null;
-			Operand1 = null;
-			Operand2 = null;
-			Result = null;
+			OpCode = IROpCodes.Nop;
 		}
 
 		public override string ToString()
 		{
 			StringBuilder result = new StringBuilder();
-			result.AppendFormat("L_{0:x4}: ", CILOffset);
+			result.AppendFormat("L_{0:x4}: ", OriginOffset);
 
-			if (Result != null)
-				result.AppendFormat("{0} ({1}) := ", Result.ToString(), Result.Type.Name);
+			if (results.Length > 1)
+			{
+				result.Append("{");
+				for (int i = 0; i < results.Length; i++)
+				{
+					if (i == 0)
+						result.Append(", ");
+					result.AppendFormat("{0} ({1})", results[i].ToString(), results[i].Type.Name);
+				}
+				result.Append("}");
+			}
+			else if (results.Length > 0)
+			{
+				result.AppendFormat("{0} ({1}) := ", results[0].ToString(), results[0].Type.Name);
+			}
 
 			result.Append(OpCode.ToString());
 			if (Extra != null)
 				result.AppendFormat("[{0}]", Extra);
 
-			if (Operand1 != null)
-				result.AppendFormat(" {0}", Operand1.ToString());
-
-			if (Operand2 != null)
-				result.AppendFormat(", {0}", Operand2.ToString());
+			for (int i = 0; i < operands.Length; i++)
+			{
+				if (i == 0)
+					result.Append(" ");
+				else
+					result.Append(", ");
+				result.Append(operands[i].ToString());
+			}
 
 			return result.ToString();
 		}

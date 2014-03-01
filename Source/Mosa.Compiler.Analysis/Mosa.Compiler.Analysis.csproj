@@ -91,6 +91,7 @@
     <Compile Include="IR\OpCodes\Break.cs" />
     <Compile Include="IR\OpCodes\Call.cs" />
     <Compile Include="IR\OpCodes\CondBranch.cs" />
+    <Compile Include="IR\OpCodes\Phi.cs" />
     <Compile Include="IR\OpCodes\Negate.cs" />
     <Compile Include="IR\OpCodes\DivFloat.cs" />
     <Compile Include="IR\OpCodes\DivSigned.cs" />
@@ -138,11 +139,9 @@
     <Compile Include="Operands\ConstantOperand.cs" />
     <Compile Include="Instruction.cs" />
     <Compile Include="CIL\CILOpCode.cs" />
-    <Compile Include="Operands\CallOperand.cs" />
     <Compile Include="OpCode.cs" />
     <Compile Include="Operand.cs" />
     <Compile Include="Operands\LabelOperand.cs" />
-    <Compile Include="Operands\PhiOperand.cs" />
     <Compile Include="Operands\StaticFieldOperand.cs" />
     <Compile Include="Dominance\SimpleFastDominance.cs" />
     <Compile Include="Stages\IRConstructionStage.cs" />

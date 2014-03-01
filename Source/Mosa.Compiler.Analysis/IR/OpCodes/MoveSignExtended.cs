@@ -21,6 +21,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="MoveSignExtended"/> class.
 		/// </summary>
 		public MoveSignExtended()
+			: base(1, 1)
 		{
 		}
 

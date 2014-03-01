@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Throw" /> class.
 		/// </summary>
 		public Throw()
+			: base(1, 0)
 		{
 		}
 

@@ -30,7 +30,10 @@ namespace Mosa.Compiler.Analysis.Blocks
 
 		public int VRegNumber { get; private set; }
 
-		public MethodBody(MosaMethod method)
+		List<VRegValue> vRegs;
+		public IList<VRegValue> VirtualRegisters { get; private set; }
+
+		internal MethodBody(MosaMethod method, IList<BasicBlock> blocks)
 			: base(BlockType.Method)
 		{
 			Method = method;
@@ -39,11 +42,14 @@ namespace Mosa.Compiler.Analysis.Blocks
 			EntryBlock = new BasicBlock(0) { IsTechnicalBlock = true };
 			EntryBlock.CILInstructions.Add(new MosaInstruction(-1, 0, null, null, null));
 
-			ReturnBlock = new BasicBlock(-1) { IsTechnicalBlock = true };
+			ReturnBlock = new BasicBlock(blocks.Count + 1) { IsTechnicalBlock = true };
 			ReturnBlock.CILInstructions.Add(new MosaInstruction(-1, 0, null, null, null));
 
-			AbnormalBlock = new BasicBlock(-2) { IsTechnicalBlock = true };
+			AbnormalBlock = new BasicBlock(blocks.Count + 2) { IsTechnicalBlock = true };
 			AbnormalBlock.CILInstructions.Add(new MosaInstruction(-1, 0, null, null, null));
+
+			vRegs = new List<VRegValue>();
+			VirtualRegisters = vRegs.AsReadOnly();
 		}
 
 		void BuildStackValues()
@@ -81,10 +87,12 @@ namespace Mosa.Compiler.Analysis.Blocks
 				Locals.Add(new LocalValue(variable, varType, canRegister));
 			}
 		}
-		
+
 		public VRegValue CreateVReg(MosaType type)
 		{
-			return new VRegValue(type, VRegNumber++);
+			VRegValue result = new VRegValue(type, VRegNumber++);
+			vRegs.Add(result);
+			return result;
 		}
 
 		public override string ToString()

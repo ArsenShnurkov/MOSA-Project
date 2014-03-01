@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Nop"/> class.
 		/// </summary>
 		public Nop()
+			: base(0, 0)
 		{
 		}
 

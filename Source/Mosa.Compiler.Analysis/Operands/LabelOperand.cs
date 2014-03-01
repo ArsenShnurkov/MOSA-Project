@@ -27,7 +27,7 @@ namespace Mosa.Compiler.Analysis.Operands
 
 		public override string ToString()
 		{
-			return "Block_" + Target.ID;
+			return "Block_" + Target.Sequence;
 		}
 	}
 }

@@ -295,5 +295,11 @@ namespace Mosa.Compiler.Analysis.IR
 		/// </summary>
 		/// <param name="ptr">The instruction pointer.</param>
 		void IntrinsicMethodCall(InstrPointer ptr);
+
+		/// <summary>
+		/// Visitation function for Phi.
+		/// </summary>
+		/// <param name="ptr">The instruction pointer.</param>
+		void Phi(InstrPointer ptr);
 	}
 }

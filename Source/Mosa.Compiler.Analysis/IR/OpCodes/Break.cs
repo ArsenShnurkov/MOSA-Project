@@ -18,6 +18,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="Break"/> class.
 		/// </summary>
 		public Break()
+			: base(0, 0)
 		{
 		}
 

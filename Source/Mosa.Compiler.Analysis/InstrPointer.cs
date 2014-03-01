@@ -12,30 +12,30 @@ using Mosa.Compiler.Analysis.Blocks;
 
 namespace Mosa.Compiler.Analysis
 {
-	public struct InstrPointer
+	public class InstrPointer
 	{
+		public InstrPointer()
+		{
+			current = null;
+			offset = 0xffffffff;
+		}
 		public InstrPointer(BasicBlock block)
 		{
-			this.block = block;
 			current = block.Body.First;
-			offset = current.Value.CILOffset;
+			offset = current.Value.OriginOffset;
 		}
 
-		private BasicBlock block;
 		private LinkedListNode<Instruction> current;
 		private uint offset;
 
-		public uint CILOffset { get { return offset; } set { offset = value; } }
+		public uint Offset { get { return offset; } set { offset = value; } }
 
-		public Instruction Current { get { return current.Value; } }
-
-		public BasicBlock Block { get { return block; } }
+		public Instruction Instruction { get { return current.Value; } }
 
 		public InstrPointer SetBlock(BasicBlock block)
 		{
-			this.block = block;
 			current = block.Body.First;
-			offset = current.Value.CILOffset;
+			offset = current.Value.OriginOffset;
 			return this;
 		}
 
@@ -47,8 +47,13 @@ namespace Mosa.Compiler.Analysis
 		public InstrPointer Next()
 		{
 			current = current.Next;
-			offset = current.Value.CILOffset;
+			offset = current.Value.OriginOffset;
 			return this;
+		}
+
+		public Instruction GetNext()
+		{
+			return current.Next == null ? null : current.Next.Value;
 		}
 
 		public bool HasPrevious()
@@ -59,40 +64,43 @@ namespace Mosa.Compiler.Analysis
 		public InstrPointer Previous()
 		{
 			current = current.Previous;
-			offset = current.Value.CILOffset;
+			offset = current.Value.OriginOffset;
 			return this;
+		}
+
+		public Instruction GetPrevious()
+		{
+			return current.Next == null ? null : current.Previous.Value;
 		}
 
 		public InstrPointer First()
 		{
-			current = block.Body.First;
-			offset = current.Value.CILOffset;
+			current = current.List.First;
+			offset = current.Value.OriginOffset;
 			return this;
 		}
 
 		public InstrPointer Last()
 		{
-			current = block.Body.Last;
-			offset = current.Value.CILOffset;
+			current = current.List.Last;
+			offset = current.Value.OriginOffset;
 			return this;
 		}
 
 		public InstrPointer InsertPrevious()
 		{
-			current = block.Body.AddBefore(current, new Instruction()
+			current = current.List.AddBefore(current, new Instruction()
 			{
-				CILOffset = offset,
-				Parent = block
+				OriginOffset = offset
 			});
 			return this;
 		}
 
 		public InstrPointer Append()
 		{
-			current = block.Body.AddAfter(current, new Instruction()
+			current = current.List.AddAfter(current, new Instruction()
 			{
-				CILOffset = offset,
-				Parent = block
+				OriginOffset = offset
 			});
 			return this;
 		}
@@ -100,37 +108,58 @@ namespace Mosa.Compiler.Analysis
 		public InstrPointer Clear()
 		{
 			current.Value.Clear();
-			current.Value.CILOffset = offset;
+			current.Value.OriginOffset = offset;
 			return this;
+		}
+
+		public InstrPointer Remove()
+		{
+			var newPos = current.Next ?? current.Previous;
+			current.List.Remove(current);
+			current = newPos;
+			return this;
+		}
+
+		public override string ToString()
+		{
+			if (current == null)
+				return "<<NULL>>";
+			return Instruction.ToString();
 		}
 
 		public InstrPointer SetOpCode(OpCode opCode)
 		{
-			Current.OpCode = opCode;
+			Instruction.OpCode = opCode;
 			return this;
 		}
 
 		public InstrPointer SetOperand1(Operand operand)
 		{
-			Current.Operand1 = operand;
+			Instruction.Operand1 = operand;
 			return this;
 		}
 
 		public InstrPointer SetOperand2(Operand operand)
 		{
-			Current.Operand2 = operand;
+			Instruction.Operand2 = operand;
+			return this;
+		}
+
+		public InstrPointer SetOperands(Operand[] operands)
+		{
+			Instruction.SetOperands(operands);
 			return this;
 		}
 
 		public InstrPointer SetResult(Value result)
 		{
-			Current.Result = result;
+			Instruction.Result = result;
 			return this;
 		}
 
 		public InstrPointer SetExtra(object value)
 		{
-			Current.Extra = value;
+			Instruction.Extra = value;
 			return this;
 		}
 	}

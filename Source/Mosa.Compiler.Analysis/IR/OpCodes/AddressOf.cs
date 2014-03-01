@@ -22,6 +22,7 @@ namespace Mosa.Compiler.Analysis.IR.OpCodes
 		/// Initializes a new instance of the <see cref="AddressOf"/> class.
 		/// </summary>
 		public AddressOf()
+			: base(1, 1)
 		{
 		}
 
