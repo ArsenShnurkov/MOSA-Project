@@ -141,9 +141,23 @@
     <Compile Include="CIL\CILOpCode.cs" />
     <Compile Include="OpCode.cs" />
     <Compile Include="Operand.cs" />
+    <Compile Include="Operands\PhiOperand.cs" />
     <Compile Include="Operands\LabelOperand.cs" />
     <Compile Include="Operands\StaticFieldOperand.cs" />
     <Compile Include="Dominance\SimpleFastDominance.cs" />
+    <Compile Include="RegisterAllocator\BlockLiveness.cs" />
+    <Compile Include="RegisterAllocator\Interval.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegisterAllocator\LiveInterval.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegisterAllocator\LoopAwareBlockOrder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RegisterAllocator\SSARegisterAllocator.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Stages\IRConstructionStage.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Operands\ValueOperand.cs" />

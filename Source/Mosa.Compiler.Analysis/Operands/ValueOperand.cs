@@ -14,11 +14,11 @@ namespace Mosa.Compiler.Analysis.Operands
 {
 	public class ValueOperand : Operand
 	{
-		public Value Value { get; private set; }
+		public Value Value { get; protected set; }
 
 		public override MosaType Type { get { return Value.Type; } }
 
-		private ValueOperand() { }
+		protected ValueOperand() { }
 
 		internal static ValueOperand Create(Value value)
 		{

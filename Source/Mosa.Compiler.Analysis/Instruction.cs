@@ -19,9 +19,13 @@ namespace Mosa.Compiler.Analysis
 	{
 		internal Instruction()
 		{
+			Operands = new OperandCollection() { instr = this };
+			Results = new ResultCollection() { instr = this };
 		}
 
 		public uint OriginOffset { get; set; }
+
+		public uint Sequence { get; set; }
 
 		OpCode opCode;
 		public OpCode OpCode
@@ -36,15 +40,23 @@ namespace Mosa.Compiler.Analysis
 					if (operands == null || operands.Length < opCode.OperandCount)
 						Array.Resize(ref operands, opCode.OperandCount);
 
+					operandCount = opCode.OperandCount;
+					for (int i = operandCount; i < operands.Length; i++)
+							SetUsage(operands[i], null);
+
 					if (results == null || results.Length < opCode.ResultCount)
-					Array.Resize(ref results, opCode.ResultCount);
+						Array.Resize(ref results, opCode.ResultCount);
+
+					resultCount = opCode.ResultCount;
+					for (int i = resultCount; i < results.Length; i++)
+							SetDefinition(results[i], null);
 				}
 			}
 		}
 
 		public struct OperandCollection
 		{
-			public Instruction instr;
+			internal Instruction instr;
 			public Operand this[int index]
 			{
 				get { return instr.operands[index]; }
@@ -55,12 +67,12 @@ namespace Mosa.Compiler.Analysis
 				}
 			}
 
-			public int Count { get { return instr.operands.Length; } }
+			public int Count { get { return instr.operandCount; } }
 		}
 
 		public struct ResultCollection
 		{
-			public Instruction instr;
+			internal Instruction instr;
 			public Value this[int index]
 			{
 				get { return instr.results[index]; }
@@ -71,10 +83,11 @@ namespace Mosa.Compiler.Analysis
 				}
 			}
 
-			public int Count { get { return instr.results.Length; } }
+			public int Count { get { return instr.resultCount; } }
 		}
 
 		Operand[] operands;
+		int operandCount;
 		public OperandCollection Operands { get; private set; }
 
 		public Operand Operand1
@@ -99,10 +112,18 @@ namespace Mosa.Compiler.Analysis
 
 		public void SetOperands(Operand[] operands)
 		{
-			this.operands = operands;
+			foreach (var operand in this.operands)
+				SetUsage(operand, null);
+
+			this.operands = (Operand[])operands.Clone();
+			operandCount = operands.Length;
+
+			foreach (var operand in this.operands)
+				SetUsage(null, operand);
 		}
 
 		Value[] results;
+		int resultCount;
 		public ResultCollection Results { get; private set; }
 
 		public Value Result
@@ -163,13 +184,13 @@ namespace Mosa.Compiler.Analysis
 				{
 					if (i == 0)
 						result.Append(", ");
-					result.AppendFormat("{0} ({1})", results[i].ToString(), results[i].Type.Name);
+					result.AppendFormat("{0} ({1})", results[i] == null ? "<<NULL>>" : results[i].ToString(), results[i].Type.Name);
 				}
 				result.Append("}");
 			}
 			else if (results.Length > 0)
 			{
-				result.AppendFormat("{0} ({1}) := ", results[0].ToString(), results[0].Type.Name);
+				result.AppendFormat("{0} ({1}) := ", results[0] == null ? "<<NULL>>" : results[0].ToString(), results[0].Type.Name);
 			}
 
 			result.Append(OpCode.ToString());
@@ -182,7 +203,7 @@ namespace Mosa.Compiler.Analysis
 					result.Append(" ");
 				else
 					result.Append(", ");
-				result.Append(operands[i].ToString());
+				result.Append(operands[i] == null ? "<<NULL>>" : operands[i].ToString());
 			}
 
 			return result.ToString();

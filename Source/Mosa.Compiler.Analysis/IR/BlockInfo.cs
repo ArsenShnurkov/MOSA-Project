@@ -32,11 +32,11 @@ namespace Mosa.Compiler.Analysis.IR
 
 		// Stack phi
 		public VRegValue[] StackValues;
-		public Tuple<Instruction, SSAValue[]>[] StackPhis;
+		public Tuple<Instruction, Tuple<BasicBlock, SSAValue>[]>[] StackPhis;
 
 		// Local phi
 		public int[] SSAVersion;
-		public Tuple<Instruction, SSAValue[]>[] LocalPhis;
+		public Tuple<Instruction, Tuple<BasicBlock, SSAValue>[]>[] LocalPhis;
 
 		public int Status;
 	}

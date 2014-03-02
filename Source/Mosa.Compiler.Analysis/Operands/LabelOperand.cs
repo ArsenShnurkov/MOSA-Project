@@ -27,7 +27,7 @@ namespace Mosa.Compiler.Analysis.Operands
 
 		public override string ToString()
 		{
-			return "Block_" + Target.Sequence;
+			return string.Format("Block_{0} (L_{1:x4})", Target.Sequence, Target.Body.First.Value.OriginOffset);
 		}
 	}
 }

@@ -24,6 +24,11 @@ namespace Mosa.Compiler.Analysis
 			current = block.Body.First;
 			offset = current.Value.OriginOffset;
 		}
+		public InstrPointer(InstrPointer origin)
+		{
+			current = origin.current;
+			offset = origin.offset;
+		}
 
 		private LinkedListNode<Instruction> current;
 		private uint offset;
@@ -56,6 +61,18 @@ namespace Mosa.Compiler.Analysis
 			return current.Next == null ? null : current.Next.Value;
 		}
 
+		public bool MoveNext()
+		{
+			current = current.Next;
+			if (current != null)
+			{
+				offset = current.Value.OriginOffset;
+				return true;
+			}
+			else
+				return false;
+		}
+
 		public bool HasPrevious()
 		{
 			return current.Previous != null;
@@ -71,6 +88,18 @@ namespace Mosa.Compiler.Analysis
 		public Instruction GetPrevious()
 		{
 			return current.Next == null ? null : current.Previous.Value;
+		}
+
+		public bool MovePrevious()
+		{
+			current = current.Previous;
+			if (current != null)
+			{
+				offset = current.Value.OriginOffset;
+				return true;
+			}
+			else
+				return false;
 		}
 
 		public InstrPointer First()

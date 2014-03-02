@@ -76,7 +76,7 @@ namespace Mosa.Compiler.Analysis.IR
 					CILOpCodes.OpCodes[(int)instr.OpCode].Parse(ctx);
 				}
 
-				var beforeBranch = ctx.IRPointer;
+				var beforeBranch = new InstrPointer(ctx.IRPointer);
 
 				if (block.TerminatorInstruction != null)
 				{
@@ -143,7 +143,7 @@ namespace Mosa.Compiler.Analysis.IR
 							if (!ctx.BlockInfos.TryGetValue(y.Sequence, out blockInfo))
 							{
 								ctx.BlockInfos[y.Sequence] = blockInfo = new BlockInfo(y);
-								blockInfo.LocalPhis = new Tuple<Instruction, SSAValue[]>[body.Locals.Count];
+								blockInfo.LocalPhis = new Tuple<Instruction, Tuple<BasicBlock, SSAValue>[]>[body.Locals.Count];
 							}
 
 							// Insert phi function
@@ -152,7 +152,7 @@ namespace Mosa.Compiler.Analysis.IR
 
 							ptr.SetOpCode(IROpCodes.Phi)
 								.SetResult(phiValue);
-							blockInfo.LocalPhis[i] = Tuple.Create(ptr.Instruction, new SSAValue[y.Sources.Count]);
+							blockInfo.LocalPhis[i] = Tuple.Create(ptr.Instruction, new Tuple<BasicBlock, SSAValue>[y.Sources.Count]);
 
 							insertedPhi.Add(y);
 							if (!varDefs.Contains(y))
@@ -190,7 +190,7 @@ namespace Mosa.Compiler.Analysis.IR
 							// Phi function exists for this local variable => set corresponding phi argument
 							var phiValue = (SSAValue)targetInfo.LocalPhis[i].Item1.Result;
 							targetInfo.SSAVersion[i] = phiValue.Version;
-							targetInfo.LocalPhis[i].Item2[srcIndex] = ctx.GetLocalVersion(i, info.SSAVersion[i]);
+							targetInfo.LocalPhis[i].Item2[srcIndex] = Tuple.Create(info.Block, ctx.GetLocalVersion(i, info.SSAVersion[i]));
 						}
 						else
 							Debug.Assert(targetInfo.SSAVersion[i] == info.SSAVersion[i]);
@@ -276,23 +276,22 @@ namespace Mosa.Compiler.Analysis.IR
 				// Insert phi instructions in target block
 				ptr.SetBlock(target.Block).First();
 
-				target.StackPhis = new Tuple<Instruction, SSAValue[]>[target.StackValues.Length];
+				target.StackPhis = new Tuple<Instruction, Tuple<BasicBlock, SSAValue>[]>[target.StackValues.Length];
 				for (int i = 0; i < target.StackValues.Length; i++)
 				{
-					SSAValue[] versions = new SSAValue[target.Block.Sources.Count];
-					versions[srcIndex] = vars[i];
-					target.StackPhis[i] = Tuple.Create(
-						ptr.Append()
-						.SetOpCode(IROpCodes.Phi)
-						.SetResult(target.StackValues[i])
-						.Instruction,
-						versions);
+					Tuple<BasicBlock, SSAValue>[] versions = new Tuple<BasicBlock, SSAValue>[target.Block.Sources.Count];
+					versions[srcIndex] = Tuple.Create(source.Block, vars[i]);
 
 					// Final value's version ID is number of source blocks
 					SSAValue phiValue = new SSAValue(target.StackValues[i], target.Block.Sources.Count);
 
-					ptr.SetOpCode(IROpCodes.Move)
-						.SetResult(phiValue);
+					target.StackPhis[i] = Tuple.Create(
+						ptr.Append()
+						.SetOpCode(IROpCodes.Phi)
+						.SetResult(phiValue)
+						.Instruction,
+						versions);
+
 
 					target.EvalutionStack.Push(phiValue);
 				}
@@ -302,7 +301,7 @@ namespace Mosa.Compiler.Analysis.IR
 				// Add current versions to target phi function
 				for (int i = 0; i < target.StackValues.Length; i++)
 				{
-					target.StackPhis[i].Item2[srcIndex] = vars[i];
+					target.StackPhis[i].Item2[srcIndex] = Tuple.Create(source.Block, vars[i]);
 				}
 			}
 		}
@@ -317,7 +316,7 @@ namespace Mosa.Compiler.Analysis.IR
 					{
 						Operand[] operands = new Operand[phi.Item2.Length];
 						for (int i = 0; i < operands.Length; i++)
-							operands[i] = phi.Item2[i].ToOperand();
+							operands[i] = PhiOperand.Create(phi.Item2[i].Item2, phi.Item2[i].Item1);
 						phi.Item1.SetOperands(operands);
 					}
 				}
@@ -329,7 +328,7 @@ namespace Mosa.Compiler.Analysis.IR
 						{
 							Operand[] operands = new Operand[phi.Item2.Length];
 							for (int i = 0; i < operands.Length; i++)
-								operands[i] = phi.Item2[i].ToOperand();
+								operands[i] = PhiOperand.Create(phi.Item2[i].Item2, phi.Item2[i].Item1);
 							phi.Item1.SetOperands(operands);
 						}
 				}
@@ -344,7 +343,6 @@ namespace Mosa.Compiler.Analysis.IR
 			ptr.InsertPrevious().SetOpCode(IROpCodes.Prologue);
 			ptr.SetBlock(body.ReturnBlock).Last();
 			ptr.Append().SetOpCode(IROpCodes.Epilogue);
-
 
 			foreach (var block in blocks)
 			{
