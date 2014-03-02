@@ -11,18 +11,15 @@ using Mosa.Compiler.MosaTypeSystem;
 
 namespace Mosa.Compiler.Analysis.Values
 {
-	public class LocalValue : StackValue
+	public class LocalValue : Value
 	{
-		public LocalValue(MosaLocal local, MosaType type, bool regOk)
-			: base(type)
+		public LocalValue(MosaLocal local, MosaType type)
 		{
+			this.Type = type;
 			this.LocalVariable = local;
-			this.CanBeInRegister = regOk;
 		}
 
 		public MosaLocal LocalVariable { get; private set; }
-
-		public bool CanBeInRegister { get; set; }
 
 		public override string ToString()
 		{

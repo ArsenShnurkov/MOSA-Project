@@ -78,13 +78,7 @@ namespace Mosa.Compiler.Analysis.Blocks
 				if (varType.IsEnum)
 					varType = varType.GetEnumUnderlyingType();
 
-				bool canRegister = true;
-				//if (Method.ExceptionBlocks.Count > 0)
-				//    canRegister = false;
-				//if (varType.IsUserValueType)
-				//    canRegister = false;
-
-				Locals.Add(new LocalValue(variable, varType, canRegister));
+				Locals.Add(new LocalValue(variable, varType));
 			}
 		}
 

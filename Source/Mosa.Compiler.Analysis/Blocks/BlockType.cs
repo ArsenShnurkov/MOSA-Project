@@ -17,9 +17,6 @@ namespace Mosa.Compiler.Analysis.Blocks
 		TryFilter,
 		TryFault,
 		Handler,
-		Filter,
-
-		Abnormal,
-		Return
+		Filter
 	}
 }

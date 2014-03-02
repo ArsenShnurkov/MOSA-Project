@@ -17,5 +17,7 @@ namespace Mosa.Compiler.Analysis.Values
 		{
 			base.Type = type;
 		}
+
+		public int? StackOffset { get; set; }
 	}
 }

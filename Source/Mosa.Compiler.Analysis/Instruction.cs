@@ -54,7 +54,7 @@ namespace Mosa.Compiler.Analysis
 			}
 		}
 
-		public struct OperandCollection
+		public class OperandCollection
 		{
 			internal Instruction instr;
 			public Operand this[int index]
@@ -70,7 +70,7 @@ namespace Mosa.Compiler.Analysis
 			public int Count { get { return instr.operandCount; } }
 		}
 
-		public struct ResultCollection
+		public class ResultCollection
 		{
 			internal Instruction instr;
 			public Value this[int index]
@@ -138,6 +138,9 @@ namespace Mosa.Compiler.Analysis
 
 		void SetUsage(Operand originalVal, Operand newVal)
 		{
+			if (originalVal == newVal) 
+				return;
+
 			// Remove
 			if (originalVal is ValueOperand)
 			{
@@ -153,6 +156,9 @@ namespace Mosa.Compiler.Analysis
 
 		void SetDefinition(Value originalVal, Value newVal)
 		{
+			if (originalVal == newVal)
+				return;
+
 			if (newVal != null)
 			{
 				if (newVal.Definition != null)

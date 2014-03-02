@@ -167,15 +167,28 @@ namespace Mosa.Compiler.Analysis.Blocks
 				foreach (var eh in method.ExceptionBlocks)
 				{
 					var ehScope = ehScopes[eh];
+					var parent = scopeStack.Count > 0 ? scopeStack.Peek() : null;
 
 					if (block.BeginOffset == eh.TryOffset)
+					{
+						if (parent != null)
+							parent.Blocks.Add(ehScope.Item1);
 						scopeStack.Push(ehScope.Item1);
+					}
 
 					if (block.BeginOffset == eh.HandlerOffset)
+					{
+						if (parent != null)
+							parent.Blocks.Add(ehScope.Item2);
 						scopeStack.Push(ehScope.Item2);
+					}
 
 					if (eh.FilterOffset.HasValue && block.BeginOffset == eh.FilterOffset)
+					{
+						if (parent != null)
+							parent.Blocks.Add(ehScope.Item3);
 						scopeStack.Push(ehScope.Item3);
+					}
 				}
 				scopeStack.Peek().Blocks.Add(block);
 			}

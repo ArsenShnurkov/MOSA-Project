@@ -23,7 +23,7 @@ namespace Mosa.Compiler.Analysis.CIL.OpCodes
 			int index = (int)ctx.Instruction.Operand;
 
 			ctx.IRPointer.Append()
-				.SetOpCode(IROpCodes.Move)
+				.SetOpCode(IROpCodes.Store)
 				.SetOperand1(ctx.EvaluationStack.Pop().ToOperand())
 				.SetResult(ctx.GetParameter(index));
 		}

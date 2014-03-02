@@ -20,7 +20,7 @@ namespace Mosa.Compiler.Analysis.Operands
 
 		private PhiOperand() { }
 
-		internal static PhiOperand Create(SSAValue value, BasicBlock block)
+		public static PhiOperand Create(SSAValue value, BasicBlock block)
 		{
 			return new PhiOperand() { Value = value, SourceBlock = block };
 		}

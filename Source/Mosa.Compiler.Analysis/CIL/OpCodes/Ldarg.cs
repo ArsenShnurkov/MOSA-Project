@@ -38,7 +38,7 @@ namespace Mosa.Compiler.Analysis.CIL.OpCodes
 			var result = ctx.CreateVReg(arg.Type);
 
 			ctx.IRPointer.Append()
-				.SetOpCode(arg.Type.GetMoveOpCode())
+				.SetOpCode(arg.Type.GetLoadOpCode())
 				.SetResult(result)
 				.SetOperand1(arg.ToOperand());
 
