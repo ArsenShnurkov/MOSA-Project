@@ -183,10 +183,10 @@ namespace Mosa.Compiler.Analysis
 			StringBuilder result = new StringBuilder();
 			result.AppendFormat("L_{0:x4}: ", OriginOffset);
 
-			if (results.Length > 1)
+			if (resultCount > 1)
 			{
 				result.Append("{");
-				for (int i = 0; i < results.Length; i++)
+				for (int i = 0; i < resultCount; i++)
 				{
 					if (i == 0)
 						result.Append(", ");
@@ -194,7 +194,7 @@ namespace Mosa.Compiler.Analysis
 				}
 				result.Append("}");
 			}
-			else if (results.Length > 0)
+			else if (resultCount > 0)
 			{
 				result.AppendFormat("{0} ({1}) := ", results[0] == null ? "<<NULL>>" : results[0].ToString(), results[0].Type.Name);
 			}
@@ -203,7 +203,7 @@ namespace Mosa.Compiler.Analysis
 			if (Extra != null)
 				result.AppendFormat("[{0}]", Extra);
 
-			for (int i = 0; i < operands.Length; i++)
+			for (int i = 0; i < operandCount; i++)
 			{
 				if (i == 0)
 					result.Append(" ");

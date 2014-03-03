@@ -158,6 +158,7 @@
     <Compile Include="RegisterAllocator\SSARegisterAllocator.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Transformations\CopyPropagation.cs" />
     <Compile Include="Transformations\VRegPromotion.cs" />
     <Compile Include="Value.cs" />
     <Compile Include="Operands\ValueOperand.cs" />

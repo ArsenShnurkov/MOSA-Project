@@ -256,6 +256,8 @@ namespace Mosa.Compiler.Analysis.RegisterAllocator
 							{
 								end = usage;
 							}
+						if (end == null)
+							end = value.Definition ?? blockLiveness.ActualBegin;
 					}
 
 					// Ensure no phi functions are included in live intervals
