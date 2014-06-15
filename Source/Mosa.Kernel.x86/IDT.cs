@@ -47,6 +47,7 @@ namespace Mosa.Kernel.x86
 			SetTableEntries();
 
 			Native.Lidt(idtTable);
+			Native.Sti ();
 		}
 
 		public static void SetInterruptHandler(InterruptHandler interruptHandler)
@@ -363,67 +364,14 @@ namespace Mosa.Kernel.x86
 		/// <param name="errorCode">The error code.</param>
 		private static void ProcessInterrupt(uint edi, uint esi, uint ebp, uint esp, uint ebx, uint edx, uint ecx, uint eax, uint interrupt, uint errorCode)
 		{
-			/*
-			if (interrupt == 0x020) // Double Fault
-			{
-				uint xp = 60;
-				uint line = 13;
-				Panic.Write (xp, line, "Double Fault");
-				line+=1;
-				uint cr2 = Native.GetCR2 ();
-				Panic.Number (xp, line, cr2, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "errorCode");
-				Panic.Number (xp+10, line, errorCode, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "edi:");
-				Panic.Number (xp+5, line, edi, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "esi:");
-				Panic.Number (xp+5, line, esi, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "ebp:");
-				Panic.Number (xp+5, line, ebp, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "esp:");
-				Panic.Number (xp+5, line, esp, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "ebx:");
-				Panic.Number (xp+5, line, ebx, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "edx:");
-				Panic.Number (xp+5, line, edx, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "ecx:");
-				Panic.Number (xp+5, line, ecx, 16, 8);
-				line+=1;
-				Panic.Write (xp, line, "eax:");
-				Panic.Number (xp+5, line, eax, 16, 8);
-				line+=1;
-				//Panic.Now (20);
-			}
-			*/
 			if (interrupt == 14)
 			{
-				//Panic.Write (0, 20, "PageFaultHandler.Fault");
-				//Panic.Now (14);
-				// Page Fault!
 				PageFaultHandler.Fault (errorCode);
-			} else
+			} else if (interruptHandler != null)
 			{
-				if (interruptHandler != null)
-				{
-					//Panic.Now (1000);
-					interruptHandler (interrupt, errorCode);
-				} else
-				{
-					// Panic.Write (0, 22, "ProcessInterrupt");
-					// Panic.Number (0, 23, interrupt,10,10);
-					// Panic.Now (1001);
-				}
+				interruptHandler (interrupt, errorCode);
 			}
 
-			// Panic.Now (1002);
 			PIC.SendEndOfInterrupt(interrupt);
 		}
 	}

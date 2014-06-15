@@ -22,23 +22,17 @@ namespace Mosa.Kernel.x86
 			IDT.SetInterruptHandler(null);
 			SSE.Setup();
 			Multiboot.Setup();
-
-			//Native.Cli();
-
 			PIC.Setup();
 			GDT.Setup();
 			IDT.Setup();
 			PageFrameAllocator.Setup();
-			VirtualPageAllocator.Setup();
 			PageTable.Setup();
-
+			VirtualPageAllocator.Setup();
 			ProcessManager.Setup();
 			TaskManager.Setup();
 			SmbiosManager.Setup();
 			ConsoleManager.Setup();
-
 			//Serial.Setup();
-			Native.Sti();
 		}
 	}
 }

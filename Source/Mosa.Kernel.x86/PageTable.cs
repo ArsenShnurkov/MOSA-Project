@@ -73,12 +73,7 @@ namespace Mosa.Kernel.x86
 		/// </summary>
 		public static void Setup()
 		{
-			//Panic.Write (0, 1, "numberOfPages");
-			//Panic.Number (0, 2, numberOfPages, 10, 10);
-
 			uint totalSizeOfAllPagePointers = numberOfPages * sizeOfPageTableEntry;
-			//Panic.Write (0, 7, "totalSizeOfAllPagePointers");
-			//Panic.Number (0, 8, totalSizeOfAllPagePointers, 10, 10);
 			uint numberOfPageTablePages = (totalSizeOfAllPagePointers + PageFrameAllocator.PageSize - 1) / PageFrameAllocator.PageSize;
 			uint numberOfDirectoryPages = (numberOfPageTablePages  + numberOfPageDirectoryEntriesPerPage - 1)/ numberOfPageDirectoryEntriesPerPage;
 
@@ -86,31 +81,16 @@ namespace Mosa.Kernel.x86
 			for (uint uindex = 0; uindex < numberOfPageTablePages; uindex++)
 			{
 				uint addressOfPageTablePage = pageTable + uindex * PageFrameAllocator.PageSize;
-				//Panic.Write (40, 15, "addressOfPageTablePage");
-				//Panic.Number (70, 15, addressOfPageTablePage, 16, 8);
-
 				uint dirEntryAddr = pageDirectory + uindex * sizeOfPageDirectoryEntry;
-				//Panic.Write (40, 16, "dirEntryAddr");
-				//Panic.Number (70, 16, dirEntryAddr, 16, 8);
-
 				uint dirEntryVal = MakePageDirectoryEntry (addressOfPageTablePage);
-				//Panic.Write (40, 17, "dirEntryVal");
-				//Panic.Number (70, 17, dirEntryVal, 16, 8);
-
 				Native.Set32 (dirEntryAddr, dirEntryVal);
 
 			}
-			//Panic.Write (0, 3, "numberOfDirectoryPages");
-			//Panic.Number (0, 4, numberOfDirectoryPages, 10, 10);
-			//Panic.Write (0, 5, "numberOfPageTablePages");
-			//Panic.Number (0, 6, numberOfPageTablePages, 10, 10);
 
 			// Map 4G of memory
 			for (uint uPage = 0; uPage < numberOfPages; uPage++)
 			{
 				uint addressOfMemoryPage = uPage * PageFrameAllocator.PageSize;
-				//Panic.Write (40, 20, "addressOfMemoryPage");
-				//Panic.Number (70, 20, addressOfMemoryPage, 16, 8);
 
 				uint uDirEntry = uPage / numberOfPageDirectoryEntriesPerPage;
 				uint uPageEntryIndex = uPage - uDirEntry * numberOfPageDirectoryEntriesPerPage;
@@ -118,23 +98,15 @@ namespace Mosa.Kernel.x86
 				uint uPageEntryValue = Native.Get32 (pageDirectory + uDirEntry * sizeOfPageDirectoryEntry);
 				uint uPageTableAddress = uPageEntryValue & ~0xFFFu;
 				uint addressOfPageTableEntry = uPageTableAddress + uPageEntryIndex * sizeOfPageTableEntry;
-				//Panic.Write (40, 19, "addressOfPageTableEntry");
-				//Panic.Number (70, 19, addressOfPageTableEntry, 16, 8);
+
 				if (addressOfPageTableEntry >= pageDirectory || addressOfPageTableEntry < pageTable)
 				{
 					Panic.Now (238904791);
 				}
 
 				uint entry = MakePageTableEntry (addressOfMemoryPage);
-				//Panic.Write (40, 21, "entry");
-				//Panic.Number (70, 21, entry, 16, 8);
 				Native.Set32 (addressOfPageTableEntry, entry);
 			}
-
-			//uint val = Native.Get32 (pageDirectory);
-			//Panic.Write (40, 23, "Native.Get32");
-			//Panic.Number (60, 23, val, 16, 8);
-			//Panic.Now (0);
 
 			// Set CR3 register on processor - sets page directory
 			Native.SetCR3(pageDirectory);
