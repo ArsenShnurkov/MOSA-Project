@@ -11,6 +11,8 @@
 
 namespace Mosa.Platform.Internal.x86
 {
+	using Mosa.Kernel.x86;
+
 	public unsafe static class Runtime
 	{
 		private const uint nativeIntSize = 4;

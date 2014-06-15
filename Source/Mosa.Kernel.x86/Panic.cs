@@ -41,10 +41,29 @@ namespace Mosa.Kernel.x86
 			Screen.Write('C');
 			Screen.Write('!');
 			Screen.Write(' ');
-			Screen.Write(errorCode, 8, 8);
+			Screen.Write(errorCode, 10, 20);
 
 			while (true)
 				Native.Hlt();
+		}
+
+		public static void Message(uint x, uint y, string msg)
+		{
+			Screen.Color = 0x0C;
+			Screen.Row = y;
+			for (uint i = 0; i < msg.Length; ++i)
+			{
+				Screen.Column = x + i;
+				Screen.Write (msg[(int)i]);
+			}
+		}
+
+		public static void Number(uint x, uint y, uint n, byte digitBase, int digitCount)
+		{
+			Screen.Color = 0x0E;
+			Screen.Column = x;
+			Screen.Row = y;
+			Screen.Write (n, digitBase, digitCount);
 		}
 	}
 }
