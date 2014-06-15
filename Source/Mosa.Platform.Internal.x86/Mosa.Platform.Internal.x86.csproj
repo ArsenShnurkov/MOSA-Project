@@ -66,6 +66,8 @@
     <Compile Include="SpinLock.cs" />
     <Compile Include="Runtime.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="Panic.cs" />
+    <Compile Include="Screen.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Korlib\Korlib.csproj">
