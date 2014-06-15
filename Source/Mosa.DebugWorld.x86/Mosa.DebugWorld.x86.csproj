@@ -64,7 +64,6 @@
   <ItemGroup>
     <Compile Include="Boot.cs" />
     <Compile Include="KernelMemory.cs" />
-    <Compile Include="Screen.cs" />
     <Compile Include="SSE.cs" />
   </ItemGroup>
   <ItemGroup>
