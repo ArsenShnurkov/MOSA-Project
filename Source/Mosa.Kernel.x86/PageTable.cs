@@ -121,7 +121,7 @@ namespace Mosa.Kernel.x86
 			//Panic.Number (2, 2, oldCR0, 2, 32);
 			Native.SetCR0(oldCR0 | PG);
 		}
-
+		/*
 		public static void CheckMemoryTranslation ()
 		{
 			Screen.Color = 0;
@@ -198,7 +198,7 @@ namespace Mosa.Kernel.x86
 			Panic.Write (35,line,"fullAddr");	Panic.Number (65,line, pageAddr + offset_page,16,8); line = line - 1;
 			return pageAddr + offset_page;
 		}
-
+*/
 		/// <summary>
 		/// Maps the virtual address to physical.
 		/// </summary>
