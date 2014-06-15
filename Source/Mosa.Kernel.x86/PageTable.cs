@@ -98,6 +98,7 @@ namespace Mosa.Kernel.x86
 				//Panic.Number (70, 17, dirEntryVal, 16, 8);
 
 				Native.Set32 (dirEntryAddr, dirEntryVal);
+
 			}
 			//Panic.Write (0, 3, "numberOfDirectoryPages");
 			//Panic.Number (0, 4, numberOfDirectoryPages, 10, 10);
@@ -114,9 +115,15 @@ namespace Mosa.Kernel.x86
 				uint uDirEntry = uPage / numberOfPageDirectoryEntriesPerPage;
 				uint uPageEntryIndex = uPage - uDirEntry * numberOfPageDirectoryEntriesPerPage;
 
-				uint addressOfPageTableEntry = Native.Get32(pageDirectory + uDirEntry * sizeOfPageDirectoryEntry) + uPageEntryIndex * sizeOfPageTableEntry;
+				uint uPageEntryValue = Native.Get32 (pageDirectory + uDirEntry * sizeOfPageDirectoryEntry);
+				uint uPageTableAddress = uPageEntryValue & ~0xFFFu;
+				uint addressOfPageTableEntry = uPageTableAddress + uPageEntryIndex * sizeOfPageTableEntry;
 				//Panic.Write (40, 19, "addressOfPageTableEntry");
 				//Panic.Number (70, 19, addressOfPageTableEntry, 16, 8);
+				if (addressOfPageTableEntry >= pageDirectory || addressOfPageTableEntry < pageTable)
+				{
+					Panic.Now (238904791);
+				}
 
 				uint entry = MakePageTableEntry (addressOfMemoryPage);
 				//Panic.Write (40, 21, "entry");
@@ -124,10 +131,15 @@ namespace Mosa.Kernel.x86
 				Native.Set32 (addressOfPageTableEntry, entry);
 			}
 
+			uint val = Native.Get32 (pageDirectory);
+			Panic.Write (40, 23, "Native.Get32");
+			Panic.Number (60, 23, val, 16, 8);
+			//Panic.Now (0);
+
 			// Set CR3 register on processor - sets page directory
 			Native.SetCR3(pageDirectory);
 
-			CheckMemoryTranslation ();
+			//CheckMemoryTranslation ();
 
 			// Set CR0 register on processor - turns on virtual memory
 			// It is enabled by setting the PG bit to 1 (left most bit in CR0 ).
@@ -141,13 +153,31 @@ namespace Mosa.Kernel.x86
 
 		public static void CheckMemoryTranslation ()
 		{
+			uint line = 24;
+			for (uint offset_dir = 0; offset_dir < numberOfPages / 1024; offset_dir++)
+			{
+				uint cr3_val = Native.GetCR3 () & ~0xFFFu;
+				uint pageDirAddr = cr3_val + offset_dir * 4;
+				uint pageDirVal = Native.Get32 (pageDirAddr);
+
+				if (offset_dir < 5)
+				{
+					Panic.Write (05, line, "pageDirAddr");
+					Panic.Number (25, line, pageDirAddr, 16, 8);
+					line = line - 1;
+					Panic.Write (05, line, "pageDirVal");
+					Panic.Number (25, line, pageDirVal, 16, 8);
+					line = line - 1;
+				}
+			}
+
 			for (uint uPage = 0; uPage < numberOfPages; uPage++)
 			{
 				uint startAddress = uPage * PageFrameAllocator.PageSize;
 				uint pa = GetPhysicalAddress (uPage * startAddress);
 				if (pa != startAddress)
 				{
-					Panic.Now (113);
+					Panic.Now (startAddress);
 				} else
 				{
 					Panic.Number (0,0,pa,16,8);
