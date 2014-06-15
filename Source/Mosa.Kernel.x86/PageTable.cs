@@ -67,12 +67,12 @@ namespace Mosa.Kernel.x86
 			return address | flagUser | flagWriteable | flagPresent;
 		}
 
+		const uint numberOfPages = 1u << (32 - 12);
 		/// <summary>
 		/// Sets up the PageTable
 		/// </summary>
 		public static void Setup()
 		{
-			uint numberOfPages = 1u << (32 - 12);
 			//Panic.Write (0, 1, "numberOfPages");
 			//Panic.Number (0, 2, numberOfPages, 10, 10);
 
@@ -127,6 +127,8 @@ namespace Mosa.Kernel.x86
 			// Set CR3 register on processor - sets page directory
 			Native.SetCR3(pageDirectory);
 
+			CheckMemoryTranslation ();
+
 			// Set CR0 register on processor - turns on virtual memory
 			// It is enabled by setting the PG bit to 1 (left most bit in CR0 ).
 			// The paging system operates in both real and protected mode.
@@ -135,6 +137,53 @@ namespace Mosa.Kernel.x86
 			Panic.Number (2, 2, oldCR0, 2, 32);
 			Native.SetCR0(oldCR0 | PG);
 			Panic.Now (127);
+		}
+
+		public static void CheckMemoryTranslation ()
+		{
+			for (uint uPage = 0; uPage < numberOfPages; uPage++)
+			{
+				uint startAddress = uPage * PageFrameAllocator.PageSize;
+				uint pa = GetPhysicalAddress (uPage * startAddress);
+				if (pa != startAddress)
+				{
+					Panic.Now (113);
+				} else
+				{
+					Panic.Number (0,0,pa,16,8);
+				}
+			}
+		}
+
+		static uint GetPhysicalAddress (uint i)
+		{
+			uint line = 24;
+			Panic.Write (35,line,"GetPhysicalAddress"); Panic.Number (65,22, line,16,8); line = line - 1;
+			uint offset_dir = ((i >> 22) & ((1u << 10) - 1));
+			Panic.Write (35,line,"offset_dir");	Panic.Number (65,line, offset_dir,16,8); line = line - 1;
+			uint offset_table = ((i >> 12) & ((1u << 10) - 1));
+			Panic.Write (35,line,"offset_table");	Panic.Number (65,line, offset_table,16,8); line = line - 1;
+			uint offset_page = ((i >> 0) & ((1u << 12) - 1));
+			Panic.Write (35,line,"offset_page");	Panic.Number (65,line, offset_page,16,8); line = line - 1;
+
+			uint cr3_val = Native.GetCR3 () & ~0xFFFu;
+			Panic.Write (35,line,"cr3_val");	Panic.Number (65,line, cr3_val,16,8); line = line - 1;
+
+			uint pageDirAddr = cr3_val + offset_dir * 4;
+			Panic.Write (35,line,"pageDirAddr");	Panic.Number (65,line, pageDirAddr,16,8); line = line - 1;
+			uint pageDirVal = Native.Get32 (pageDirAddr);
+			Panic.Write (35,line,"pageDirVal");	Panic.Number (65,line, pageDirVal,16,8); line = line - 1;
+
+			uint pageTable = pageDirVal & ~0xFFFu;
+			Panic.Write (35,line,"pageTable");	Panic.Number (65,line, pageTable,16,8); line = line - 1;
+			uint pageTableAddr = pageTable + offset_table * 4;
+			Panic.Write (35,line,"pageTableAddr");	Panic.Number (65,line, pageTableAddr,16,8); line = line - 1;
+
+			uint pageAddr = Native.Get32 (pageTableAddr) & ~0xFFFu;
+			Panic.Write (35,line,"pageAddr");	Panic.Number (65,line, pageAddr,16,8); line = line - 1;
+
+			Panic.Write (35,line,"fullAddr");	Panic.Number (65,line, pageAddr + offset_page,16,8); line = line - 1;
+			return pageAddr + offset_page;
 		}
 
 		/// <summary>
