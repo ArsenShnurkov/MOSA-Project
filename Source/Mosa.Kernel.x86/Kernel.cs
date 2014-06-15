@@ -8,6 +8,7 @@
  */
 
 using Mosa.Kernel.x86.Smbios;
+using Mosa.Platform.Internal.x86;
 
 namespace Mosa.Kernel.x86
 {
@@ -21,13 +22,22 @@ namespace Mosa.Kernel.x86
 			IDT.SetInterruptHandler(null);
 			SSE.Setup();
 			Multiboot.Setup();
-			PIC.Setup();
-			GDT.Setup();
-			IDT.Setup();
-			PageFrameAllocator.Setup();
-			uint pageCount = (uint)(512ul * 1024ul * 1024ul / PageFrameAllocator.PageSize); // pages for 512M RAM
-			PageTable.Setup(pageCount);
-			VirtualPageAllocator.Setup();
+
+			Native.Cli();
+			try
+			{
+				PIC.Setup();
+				GDT.Setup();
+				IDT.Setup();
+				PageFrameAllocator.Setup();
+				VirtualPageAllocator.Setup();
+				PageTable.Setup();
+			}
+			finally
+			{
+				Native.Sti ();
+			}
+
 			ProcessManager.Setup();
 			TaskManager.Setup();
 			SmbiosManager.Setup();

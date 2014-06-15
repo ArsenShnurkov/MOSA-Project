@@ -47,7 +47,6 @@ namespace Mosa.Kernel.x86
 			SetTableEntries();
 
 			Native.Lidt(idtTable);
-			Native.Sti();
 		}
 
 		public static void SetInterruptHandler(InterruptHandler interruptHandler)
@@ -400,29 +399,30 @@ namespace Mosa.Kernel.x86
 				Panic.Write (xp, line, "eax:");
 				Panic.Number (xp+5, line, eax, 16, 8);
 				line+=1;
-				Panic.Now (2020);
+				Panic.Now (20);
 			}
 
 			if (interrupt == 14)
 			{
 				Panic.Write (0, 20, "PageFaultHandler.Fault");
-				Panic.Now (111);
+				Panic.Now (14);
 				// Page Fault!
 				PageFaultHandler.Fault (errorCode);
 			} else
 			{
 				if (interruptHandler != null)
 				{
-					Panic.Now (112);
+					Panic.Now (1000);
 					interruptHandler (interrupt, errorCode);
 				} else
 				{
 					Panic.Write (0, 22, "ProcessInterrupt");
 					Panic.Number (0, 23, interrupt,10,10);
-					Panic.Now (113);
+					Panic.Now (1001);
 				}
 			}
 
+			Panic.Now (1002);
 			PIC.SendEndOfInterrupt(interrupt);
 		}
 	}
