@@ -23,20 +23,14 @@ namespace Mosa.Kernel.x86
 			SSE.Setup();
 			Multiboot.Setup();
 
-			Native.Cli();
-			try
-			{
-				PIC.Setup();
-				GDT.Setup();
-				IDT.Setup();
-				PageFrameAllocator.Setup();
-				VirtualPageAllocator.Setup();
-				PageTable.Setup();
-			}
-			finally
-			{
-				Native.Sti ();
-			}
+			//Native.Cli();
+
+			PIC.Setup();
+			GDT.Setup();
+			IDT.Setup();
+			PageFrameAllocator.Setup();
+			VirtualPageAllocator.Setup();
+			PageTable.Setup();
 
 			ProcessManager.Setup();
 			TaskManager.Setup();
@@ -44,6 +38,7 @@ namespace Mosa.Kernel.x86
 			ConsoleManager.Setup();
 
 			//Serial.Setup();
+			Native.Sti();
 		}
 	}
 }

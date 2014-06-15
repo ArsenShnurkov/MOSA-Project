@@ -363,6 +363,7 @@ namespace Mosa.Kernel.x86
 		/// <param name="errorCode">The error code.</param>
 		private static void ProcessInterrupt(uint edi, uint esi, uint ebp, uint esp, uint ebx, uint edx, uint ecx, uint eax, uint interrupt, uint errorCode)
 		{
+			/*
 			if (interrupt == 0x020) // Double Fault
 			{
 				uint xp = 60;
@@ -399,30 +400,30 @@ namespace Mosa.Kernel.x86
 				Panic.Write (xp, line, "eax:");
 				Panic.Number (xp+5, line, eax, 16, 8);
 				line+=1;
-				Panic.Now (20);
+				//Panic.Now (20);
 			}
-
+			*/
 			if (interrupt == 14)
 			{
-				Panic.Write (0, 20, "PageFaultHandler.Fault");
-				Panic.Now (14);
+				//Panic.Write (0, 20, "PageFaultHandler.Fault");
+				//Panic.Now (14);
 				// Page Fault!
 				PageFaultHandler.Fault (errorCode);
 			} else
 			{
 				if (interruptHandler != null)
 				{
-					Panic.Now (1000);
+					//Panic.Now (1000);
 					interruptHandler (interrupt, errorCode);
 				} else
 				{
-					Panic.Write (0, 22, "ProcessInterrupt");
-					Panic.Number (0, 23, interrupt,10,10);
-					Panic.Now (1001);
+					// Panic.Write (0, 22, "ProcessInterrupt");
+					// Panic.Number (0, 23, interrupt,10,10);
+					// Panic.Now (1001);
 				}
 			}
 
-			Panic.Now (1002);
+			// Panic.Now (1002);
 			PIC.SendEndOfInterrupt(interrupt);
 		}
 	}

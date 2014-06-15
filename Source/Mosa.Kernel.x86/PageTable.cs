@@ -131,9 +131,9 @@ namespace Mosa.Kernel.x86
 				Native.Set32 (addressOfPageTableEntry, entry);
 			}
 
-			uint val = Native.Get32 (pageDirectory);
-			Panic.Write (40, 23, "Native.Get32");
-			Panic.Number (60, 23, val, 16, 8);
+			//uint val = Native.Get32 (pageDirectory);
+			//Panic.Write (40, 23, "Native.Get32");
+			//Panic.Number (60, 23, val, 16, 8);
 			//Panic.Now (0);
 
 			// Set CR3 register on processor - sets page directory
@@ -146,12 +146,19 @@ namespace Mosa.Kernel.x86
 			// The paging system operates in both real and protected mode.
 			// (If set to 0, linear addresses are physical addresses).
 			uint oldCR0 = Native.GetCR0 ();
-			Panic.Number (2, 2, oldCR0, 2, 32);
+			//Panic.Number (2, 2, oldCR0, 2, 32);
 			Native.SetCR0(oldCR0 | PG);
-			Panic.Now (127);
 		}
 
 		public static void CheckMemoryTranslation ()
+		{
+			Screen.Color = 0;
+			Screen.Clear ();
+			CheckPageDirectory ();
+			CheckPageTable ();
+		}
+
+		public static void CheckPageDirectory ()
 		{
 			uint line = 24;
 			for (uint offset_dir = 0; offset_dir < numberOfPages / 1024; offset_dir++)
@@ -170,17 +177,21 @@ namespace Mosa.Kernel.x86
 					line = line - 1;
 				}
 			}
+		}
 
+		public static void CheckPageTable ()
+		{
 			for (uint uPage = 0; uPage < numberOfPages; uPage++)
 			{
 				uint startAddress = uPage * PageFrameAllocator.PageSize;
-				uint pa = GetPhysicalAddress (uPage * startAddress);
+				uint pa = GetPhysicalAddress (startAddress);
+				Panic.Number (0,1,pa,16,8);
 				if (pa != startAddress)
 				{
 					Panic.Now (startAddress);
 				} else
 				{
-					Panic.Number (0,0,pa,16,8);
+					Panic.Number (0,0,startAddress,16,8);
 				}
 			}
 		}
@@ -188,7 +199,7 @@ namespace Mosa.Kernel.x86
 		static uint GetPhysicalAddress (uint i)
 		{
 			uint line = 24;
-			Panic.Write (35,line,"GetPhysicalAddress"); Panic.Number (65,22, line,16,8); line = line - 1;
+			Panic.Write (35,line,"GetPhysicalAddress"); Panic.Number (65,line, i,16,8); line = line - 1;
 			uint offset_dir = ((i >> 22) & ((1u << 10) - 1));
 			Panic.Write (35,line,"offset_dir");	Panic.Number (65,line, offset_dir,16,8); line = line - 1;
 			uint offset_table = ((i >> 12) & ((1u << 10) - 1));
