@@ -34,6 +34,8 @@ namespace Mosa.Kernel.x86
 			Screen.Row = 0;
 			Screen.Color = 0x0C;
 
+			// Writes PANIC! message
+			// (this comment was added to allow finding this place with full text search)
 			Screen.Write('P');
 			Screen.Write('A');
 			Screen.Write('N');
@@ -41,6 +43,7 @@ namespace Mosa.Kernel.x86
 			Screen.Write('C');
 			Screen.Write('!');
 			Screen.Write(' ');
+			// To find all error codes, please do full text search for "Panic.Now"
 			Screen.Write(errorCode, 10, 20);
 
 			while (true)
