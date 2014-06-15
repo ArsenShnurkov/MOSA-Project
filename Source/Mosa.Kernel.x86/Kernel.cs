@@ -25,7 +25,8 @@ namespace Mosa.Kernel.x86
 			GDT.Setup();
 			IDT.Setup();
 			PageFrameAllocator.Setup();
-			PageTable.Setup();
+			uint pageCount = (uint)(512ul * 1024ul * 1024ul / PageFrameAllocator.PageSize); // pages for 512M RAM
+			PageTable.Setup(pageCount);
 			VirtualPageAllocator.Setup();
 			ProcessManager.Setup();
 			TaskManager.Setup();

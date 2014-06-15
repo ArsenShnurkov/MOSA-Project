@@ -52,7 +52,7 @@ namespace Mosa.TestWorld.x86
 			Screen.Write('5');
 			PageFrameAllocator.Setup();
 			Screen.Write('6');
-			PageTable.Setup();
+			PageTable.Setup(PageFrameAllocator.TotalPages);
 			Screen.Write('7');
 			VirtualPageAllocator.Setup();
 			Screen.Write('8');

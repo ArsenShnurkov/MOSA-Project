@@ -34,7 +34,9 @@ namespace Mosa.Kernel.x86
 			uint physicalpage = PageFrameAllocator.Allocate();
 
 			if (physicalpage == 0x0)
-				Panic.Now(1);	// Panic! Out of memory
+			{
+				Panic.Now (1);	// Panic! Out of memory
+			}
 
 			PageTable.MapVirtualAddressToPhysical(virtualpage, physicalpage);
 

@@ -62,8 +62,23 @@ namespace Mosa.Kernel.x86
 				uint start = Multiboot.GetMemoryMapBase(index);
 				uint size = Multiboot.GetMemoryMapLength(index);
 				if (value == 1)
-					AddFreeMemory(cnt++, (uint)start, (uint)size);
+				{
+					AddFreeMemory (cnt++, (uint)start, (uint)size);
+
+					Panic.Write (30, index + 3, "Memory:");
+					Panic.Number (40, index + 3, start, 10, 10);
+					Panic.Number (51, index + 3, size, 10, 10);
+				} else
+				{
+					Panic.Write (30, index + 3, "Block:");
+					Panic.Number (18, index + 3, value, 10, 10);
+					Panic.Number (40, index + 3, start, 10, 10);
+					Panic.Number (51, index + 3, size, 10, 10);
+				}
 			}
+
+			at = at - 4;
+			//Panic.Now (76);
 		}
 
 		/// <summary>
@@ -80,24 +95,35 @@ namespace Mosa.Kernel.x86
 			// Normalize
 			uint normstart = (uint)((start + PageSize - 1) & ~(PageSize - 1));
 			uint normend = (uint)((start + size) & ~(PageSize - 1));
-			uint normsize = (uint)(normend - normstart);
+			uint normsize = normend - normstart;
 
 			// Adjust if memory below is reserved
 			if (normstart < ReserveMemory)
 			{
+				if (normstart + normsize <= ReserveMemory)
+				{
+					return;
+				}
 				normsize = (normstart + normsize) - ReserveMemory;
 				normstart = ReserveMemory;
-
-				if (normsize <= 0)
-					return;
 			}
 
 			// Populate free table
-			for (uint mem = normstart; mem < normstart + normsize; mem = mem + PageSize, at = at + 4)
-				Native.Set32(at, mem);
+			uint blockPageCount = normsize / PageSize;
+			Panic.Write (10, 19, "blockPageCount:");
+			Panic.Number (10, 20, blockPageCount, 10, 10);
 
-			at = at - 4;
-			totalPages = totalPages + (normsize / PageSize);
+			for (uint uindex = 0; uindex < blockPageCount; uindex++)
+			{
+				uint pagePhysicallAddress = normstart + uindex * PageSize;
+				Native.Set32 (at, pagePhysicallAddress);
+				at = at + 4;
+			}
+
+			// WTF ??? Why this line is necessary here?
+			//at = at - 4; 
+
+			totalPages = totalPages + blockPageCount;
 		}
 
 		/// <summary>
@@ -133,7 +159,7 @@ namespace Mosa.Kernel.x86
 		/// <summary>
 		/// Retrieves the size of a single memory page.
 		/// </summary>
-		public static uint PageSize { get { return 4096; } }
+		public const uint PageSize = 4096;
 
 		/// <summary>
 		/// Retrieves the amount of total physical memory pages available in the system.
