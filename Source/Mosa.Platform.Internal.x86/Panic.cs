@@ -50,14 +50,13 @@ namespace Mosa.Kernel.x86
 				Native.Hlt();
 		}
 
-		public static void Message(uint x, uint y, string msg)
+		public static void Write(uint x, uint y, string letters)
 		{
-			Screen.Color = 0x0C;
-			Screen.Row = y;
-			for (uint i = 0; i < msg.Length; ++i)
+			byte color = 0x0C;
+			uint v = x;
+			for (int i =0 ; i < letters.Length; ++i)
 			{
-				Screen.Column = x + i;
-				Screen.Write (msg[(int)i]);
+				Screen.RawWrite(y, v++, letters[i], color);
 			}
 		}
 
