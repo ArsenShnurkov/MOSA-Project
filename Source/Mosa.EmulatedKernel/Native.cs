@@ -302,7 +302,7 @@ namespace Mosa.Platform.Internal.x86
 
 		public static uint Div(ulong n, uint d)
 		{
-			return (uint)Division.udiv64 (n, d);
+			return (uint)(n/d);
 		}
 	}
 }

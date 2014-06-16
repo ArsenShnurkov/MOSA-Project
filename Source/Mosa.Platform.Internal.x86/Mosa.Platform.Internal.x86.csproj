@@ -31,8 +31,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -66,8 +64,6 @@
     <Compile Include="SpinLock.cs" />
     <Compile Include="Runtime.cs" />
     <Compile Include="Native.cs" />
-    <Compile Include="Panic.cs" />
-    <Compile Include="Screen.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Korlib\Korlib.csproj">
@@ -75,7 +71,7 @@
       <Name>Korlib</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.Internal.Plug\Mosa.Internal.Plug.csproj">
-      <Project>{77961864-db33-4189-804f-d774022c96e2}</Project>
+      <Project>{77961864-DB33-4189-804F-D774022C96E2}</Project>
       <Name>Mosa.Internal.Plug</Name>
     </ProjectReference>
   </ItemGroup>

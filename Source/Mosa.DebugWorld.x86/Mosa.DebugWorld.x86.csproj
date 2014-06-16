@@ -32,8 +32,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -50,8 +48,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\</OutputPath>
@@ -64,7 +60,6 @@
   <ItemGroup>
     <Compile Include="Boot.cs" />
     <Compile Include="KernelMemory.cs" />
-    <Compile Include="SSE.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.ClassLib\Mosa.ClassLib.csproj">
@@ -82,6 +77,10 @@
     <ProjectReference Include="..\Mosa.Test.Collection\Mosa.Test.Collection.csproj">
       <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
       <Name>Mosa.Test.Collection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Kernel.x86\Mosa.Kernel.x86.csproj">
+      <Project>{FF099D48-3FA5-4ED6-BBA0-1497D734962A}</Project>
+      <Name>Mosa.Kernel.x86</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
