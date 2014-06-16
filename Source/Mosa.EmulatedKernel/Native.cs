@@ -299,5 +299,10 @@ namespace Mosa.Platform.Internal.x86
 		public static void SwitchTask(uint esp)
 		{
 		}
+
+		public static uint Div(ulong n, uint d)
+		{
+			return (uint)Division.udiv64 (n, d);
+		}
 	}
 }

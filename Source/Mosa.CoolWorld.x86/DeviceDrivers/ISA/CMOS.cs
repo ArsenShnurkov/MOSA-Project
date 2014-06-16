@@ -9,29 +9,14 @@
 
 using Mosa.DeviceSystem;
 
-namespace Mosa.DeviceDrivers.ISA
+namespace Mosa.CoolWorld.x86
 {
 	/// <summary>
 	/// CMOS Device Driver
 	/// </summary>
 	[ISADeviceDriver(AutoLoad = true, BasePort = 0x0070, PortRange = 2, Platforms = PlatformArchitecture.X86)]
-	public class CMOS : HardwareDevice, IDevice, IHardwareDevice
+	public class CMOS : Mosa.DeviceDrivers.ISA.CMOS
 	{
-		/// <summary>
-		///
-		/// </summary>
-		protected IReadWriteIOPort commandPort;
-
-		/// <summary>
-		///
-		/// </summary>
-		protected IReadWriteIOPort dataPort;
-
-		/// <summary>
-		///
-		/// </summary>
-		protected SpinLock spinLock;
-
 		/// <summary>
 		///
 		/// </summary>
@@ -71,20 +56,6 @@ namespace Mosa.DeviceDrivers.ISA
 		public override bool OnInterrupt()
 		{
 			return true;
-		}
-
-		/// <summary>
-		/// Reads the specified address.
-		/// </summary>
-		/// <param name="address">The address.</param>
-		/// <returns></returns>
-		public byte Read(byte address)
-		{
-			spinLock.Enter();
-			commandPort.Write8(address);
-			byte b = dataPort.Read8();
-			spinLock.Exit();
-			return b;
 		}
 
 		/// <summary>
