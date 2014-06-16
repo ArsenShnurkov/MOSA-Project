@@ -284,14 +284,14 @@ namespace Mosa.HelloWorld.x86
 
 			Console.Goto(24, 0);
 
-			System.Threading.SpinLock splk = new System.Threading.SpinLock();
+			/*System.Threading.SpinLock splk = new System.Threading.SpinLock();
 			bool @lock = false;
 
 			if (@lock) Console.Write("This won't output!");
 			splk.Enter(ref @lock);
 			if (@lock) Console.Write("Entered!");
 			splk.Enter(ref @lock);
-			if (@lock) Console.Write("Can't get here!");
+			if (@lock) Console.Write("Can't get here!");*/
 
 			Console.Goto(24, 29);
 			Console.Color = Colors.Yellow;
