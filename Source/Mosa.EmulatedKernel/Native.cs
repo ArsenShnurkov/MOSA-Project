@@ -19,7 +19,7 @@ namespace Mosa.Platform.Internal.x86
 		/// </summary>
 		/// <param name="address">The address.</param>
 		/// <param name="value">The value.</param>
-		public static void Out(byte address, byte value)
+		public static void Out(ushort address, byte value)
 		{
 			EmulatedKernel.IOPortDispatch.Write8(address, value);
 		}
@@ -29,7 +29,7 @@ namespace Mosa.Platform.Internal.x86
 		/// </summary>
 		/// <param name="address">The address.</param>
 		/// <param name="value">The value.</param>
-		public static void Out8(byte address, byte value)
+		public static void Out8(ushort address, byte value)
 		{
 			EmulatedKernel.IOPortDispatch.Write8(address, value);
 		}
@@ -39,7 +39,7 @@ namespace Mosa.Platform.Internal.x86
 		/// </summary>
 		/// <param name="address">The address.</param>
 		/// <returns></returns>
-		public static byte In(byte address)
+		public static byte In(ushort address)
 		{
 			return EmulatedKernel.IOPortDispatch.Read8(address);
 		}
@@ -49,7 +49,7 @@ namespace Mosa.Platform.Internal.x86
 		/// </summary>
 		/// <param name="address">The address.</param>
 		/// <returns></returns>
-		public static byte In8(byte address)
+		public static byte In8(ushort address)
 		{
 			return EmulatedKernel.IOPortDispatch.Read8(address);
 		}
@@ -135,7 +135,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <summary>
 		/// Wraps the x86 CPUID instruction.
 		/// </summary>
-		public static int CpuIdEax(uint function)
+		public static uint CpuIdEax(uint function)
 		{
 			switch (function)
 			{
@@ -150,7 +150,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <summary>
 		/// Wraps the x86 CPUID instruction.
 		/// </summary>
-		public static int CpuIdEbx(uint function)
+		public static uint CpuIdEbx(uint function)
 		{
 			return 0x0;
 		}
@@ -158,7 +158,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <summary>
 		/// Wraps the x86 CPUID instruction.
 		/// </summary>
-		public static int CpuIdEcx(uint function)
+		public static uint CpuIdEcx(uint function)
 		{
 			return 0x0;
 		}
@@ -166,7 +166,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <summary>
 		/// Wraps the x86 CPUID instruction.
 		/// </summary>
-		public static int CpuIdEdx(uint function)
+		public static uint CpuIdEdx(uint function)
 		{
 			return 0x0;
 		}
@@ -256,6 +256,14 @@ namespace Mosa.Platform.Internal.x86
 		}
 
 		/// <summary>
+		/// Sets the control register.
+		/// </summary>
+		public static void SetCR4(uint status)
+		{
+			//Mosa.EmulatedKernel.MemoryDispatch.CR4 = status;
+		}
+
+		/// <summary>
 		/// Gets the control register.
 		/// </summary>
 		/// <returns></returns>
@@ -280,6 +288,15 @@ namespace Mosa.Platform.Internal.x86
 		public static uint GetCR3()
 		{
 			return Mosa.EmulatedKernel.MemoryDispatch.CR3;
+		}
+
+		/// <summary>
+		/// Gets the control register.
+		/// </summary>
+		/// <returns></returns>
+		public static uint GetCR4()
+		{
+			return 0;
 		}
 
 		/// <summary>

@@ -16,7 +16,7 @@ namespace Mosa.Kernel.x86
 	{
 		public static uint column = 0;
 		public static uint row = 0;
-		private static byte color = 0;
+		private static byte color = 23;
 
 		/// <summary>
 		///
@@ -59,16 +59,7 @@ namespace Mosa.Kernel.x86
 		}
 
 		/// <summary>
-		/// Gets the address.
-		/// </summary>
-		/// <returns></returns>
-		private static uint GetAddress()
-		{
-			return (0x0B8000 + ((Row * Columns + Column) * 2));
-		}
-
-		/// <summary>
-		/// Nexts
+		/// Next Column
 		/// </summary>
 		private static void Next()
 		{
@@ -95,9 +86,21 @@ namespace Mosa.Kernel.x86
 		/// Writes the character.
 		/// </summary>
 		/// <param name="chr">The character.</param>
+		public static void RawWrite(uint row, uint column, char chr, byte color)
+		{
+			uint address = (0x0B8000 + ((row * Columns + column) * 2));
+
+			Native.Set8(address, (byte)chr);
+			Native.Set8(address + 1, color);
+		}
+
+		/// <summary>
+		/// Writes the character.
+		/// </summary>
+		/// <param name="chr">The character.</param>
 		public static void Write(char chr)
 		{
-			uint address = GetAddress();
+			uint address = (0x0B8000 + ((Row * Columns + Column) * 2));
 
 			Native.Set8(address, (byte)chr);
 			Native.Set8(address + 1, color);
@@ -144,7 +147,7 @@ namespace Mosa.Kernel.x86
 			GotoTop();
 
 			byte c = Color;
-			Color = 0x0A;
+			Color = 0x0;
 
 			for (int i = 0; i < Columns * Rows; i++)
 				Write(' ');
@@ -179,10 +182,10 @@ namespace Mosa.Kernel.x86
 		/// <param name="val">The val.</param>
 		/// <param name="digits">The digits.</param>
 		/// <param name="size">The size.</param>
-		public static void Write(ulong val, byte digits, int size)
+		public static void Write(uint val, byte digits, int size)
 		{
 			uint count = 0;
-			ulong temp = val;
+			uint temp = val;
 
 			do
 			{

@@ -16,8 +16,6 @@ namespace Mosa.Kernel.x86
 	/// </summary>
 	public static class PageFaultHandler
 	{
-		private static uint counter = 0;
-
 		/// <summary>
 		/// Handle Page Faults
 		/// </summary>
@@ -32,13 +30,13 @@ namespace Mosa.Kernel.x86
 			}
 
 			// TODO: acquire lock
-			
-			counter++;
 
 			uint physicalpage = PageFrameAllocator.Allocate();
 
 			if (physicalpage == 0x0)
-				Panic.Now(1);	// Panic! Out of memory
+			{
+				Panic.Now (1);	// Panic! Out of memory
+			}
 
 			PageTable.MapVirtualAddressToPhysical(virtualpage, physicalpage);
 

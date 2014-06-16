@@ -772,7 +772,7 @@ Global
 		{50568E2D-5360-4F71-87E0-A6979D1D858A} = {229DB190-FE03-4BA0-A16C-2EAE7D141EEE}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Mosa.DeviceWorld.x86\Mosa.DeviceWorld.x86.csproj
+		StartupItem = Mosa.Emulator\Mosa.Emulator.csproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

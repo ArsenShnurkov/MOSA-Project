@@ -88,37 +88,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="HelloWorld\Boot.cs" />
-    <Compile Include="HelloWorld\Kernel\CMOS.cs" />
-    <Compile Include="HelloWorld\Kernel\Colors.cs" />
-    <Compile Include="HelloWorld\Kernel\CpuInfo.cs" />
-    <Compile Include="HelloWorld\Kernel\GDT.cs" />
-    <Compile Include="HelloWorld\Kernel\IdleTask.cs" />
-    <Compile Include="HelloWorld\Kernel\IDT.cs" />
-    <Compile Include="HelloWorld\Kernel\Kernel.cs" />
-    <Compile Include="HelloWorld\Kernel\Keyboard.cs" />
-    <Compile Include="HelloWorld\Kernel\Memory.cs" />
-    <Compile Include="HelloWorld\Kernel\PageFaultHandler.cs" />
-    <Compile Include="HelloWorld\Kernel\PageFrameAllocator.cs" />
-    <Compile Include="HelloWorld\Kernel\Panic.cs" />
-    <Compile Include="HelloWorld\Kernel\PIC.cs" />
-    <Compile Include="HelloWorld\Kernel\ProcessManager.cs" />
-    <Compile Include="HelloWorld\Smbios\BiosInformationStructure.cs" />
-    <Compile Include="HelloWorld\Smbios\CpuStructure.cs" />
-    <Compile Include="HelloWorld\Smbios\SmbiosManager.cs" />
-    <Compile Include="HelloWorld\Smbios\SmbiosStructure.cs" />
-    <Compile Include="HelloWorld\Kernel\TaskManager.cs" />
-    <Compile Include="HelloWorld\Tests\ExceptionTest.cs" />
-    <Compile Include="HelloWorld\Tests\Generic2Test.cs" />
-    <Compile Include="HelloWorld\Tests\GenericTest.cs" />
-    <Compile Include="HelloWorld\Tests\InterfaceTest.cs" />
-    <Compile Include="HelloWorld\Tests\IsInstTest.cs" />
-    <Compile Include="HelloWorld\Tests\KernelTest.cs" />
-    <Compile Include="HelloWorld\Tests\StringTest.cs" />
-    <Compile Include="HelloWorld\Kernel\VirtualPageAllocator.cs" />
-    <Compile Include="HelloWorld\Kernel\Multiboot.cs" />
-    <Compile Include="HelloWorld\Kernel\PageTable.cs" />
-    <Compile Include="HelloWorld\Kernel\Screen.cs" />
     <Compile Include="MemoryForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -128,6 +97,36 @@
     <Compile Include="Program.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DeviceWorld\Boot.cs" />
+    <Compile Include="DeviceWorld\Kernel\CMOS.cs" />
+    <Compile Include="DeviceWorld\Kernel\Colors.cs" />
+    <Compile Include="DeviceWorld\Kernel\ConsoleManager.cs" />
+    <Compile Include="DeviceWorld\Kernel\ConsoleSession.cs" />
+    <Compile Include="DeviceWorld\Kernel\CpuInfo.cs" />
+    <Compile Include="DeviceWorld\Kernel\Debug.cs" />
+    <Compile Include="DeviceWorld\Kernel\DebugClient.cs" />
+    <Compile Include="DeviceWorld\Kernel\GDT.cs" />
+    <Compile Include="DeviceWorld\Kernel\IdleTask.cs" />
+    <Compile Include="DeviceWorld\Kernel\IDT.cs" />
+    <Compile Include="DeviceWorld\Kernel\Kernel.cs" />
+    <Compile Include="DeviceWorld\Kernel\Keyboard.cs" />
+    <Compile Include="DeviceWorld\Kernel\Memory.cs" />
+    <Compile Include="DeviceWorld\Kernel\Multiboot.cs" />
+    <Compile Include="DeviceWorld\Kernel\PageFaultHandler.cs" />
+    <Compile Include="DeviceWorld\Kernel\PageFrameAllocator.cs" />
+    <Compile Include="DeviceWorld\Kernel\PageTable.cs" />
+    <Compile Include="DeviceWorld\Kernel\Panic.cs" />
+    <Compile Include="DeviceWorld\Kernel\PIC.cs" />
+    <Compile Include="DeviceWorld\Kernel\ProcessManager.cs" />
+    <Compile Include="DeviceWorld\Kernel\Screen.cs" />
+    <Compile Include="DeviceWorld\Kernel\Serial.cs" />
+    <Compile Include="DeviceWorld\Kernel\SSE.cs" />
+    <Compile Include="DeviceWorld\Kernel\TaskManager.cs" />
+    <Compile Include="DeviceWorld\Kernel\VirtualPageAllocator.cs" />
+    <Compile Include="DeviceWorld\Kernel\Smbios\BiosInformationStructure.cs" />
+    <Compile Include="DeviceWorld\Kernel\Smbios\CpuStructure.cs" />
+    <Compile Include="DeviceWorld\Kernel\Smbios\SmbiosManager.cs" />
+    <Compile Include="DeviceWorld\Kernel\Smbios\SmbiosStructure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -139,4 +138,8 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="DeviceWorld\" />
+    <Folder Include="DeviceWorld\Kernel\" />
+  </ItemGroup>
 </Project>

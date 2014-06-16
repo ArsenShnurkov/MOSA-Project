@@ -57,5 +57,9 @@
       <Project>{27A3C89C-1967-45FF-A77E-94F44995C42C}</Project>
       <Name>Mosa.ClassLib</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mosa.FileSystem\Mosa.FileSystem.csproj">
+      <Project>{D89972FD-A930-4D0C-B393-1895E78FAFAB}</Project>
+      <Name>Mosa.FileSystem</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

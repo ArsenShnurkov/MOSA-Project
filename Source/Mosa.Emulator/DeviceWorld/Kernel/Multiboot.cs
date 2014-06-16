@@ -16,8 +16,8 @@ namespace Mosa.Kernel.x86
 	/// </summary>
 	public static class Multiboot
 	{
-		private static uint _multibootptr = 0x200004;
-		private static uint _multibootsignature = 0x200000;
+		private static uint multibootptr = 0x200004;
+		private static uint multibootsignature = 0x200000;
 
 		/// <summary>
 		/// Location of the Multiboot Structure
@@ -32,13 +32,13 @@ namespace Mosa.Kernel.x86
 		/// <summary>
 		///
 		/// </summary>
-		private static uint _memoryMapCount = 0;
+		private static uint memoryMapCount = 0;
 
 		/// <summary>
 		/// Gets the memory map count.
 		/// </summary>
 		/// <value>The memory map count.</value>
-		public static uint MemoryMapCount { get { return _memoryMapCount; } }
+		public static uint MemoryMapCount { get { return memoryMapCount; } }
 
 		/// <summary>
 		/// Setups this multiboot.
@@ -46,53 +46,7 @@ namespace Mosa.Kernel.x86
 		public static void Setup()
 		{
 			MultibootStructure = 0x0;
-			SetMultibootLocation(Native.Get32(_multibootptr), Native.Get32(_multibootsignature));
-		}
-
-		/// <summary>
-		/// Dumps multiboot info.
-		/// </summary>
-		public static void Dump(uint row, uint col)
-		{
-			uint location = MultibootStructure;
-
-			Screen.Row = row;
-			Screen.Column = col;
-			Screen.Color = 0x0A;
-			Screen.Write(@"Memory Dump");
-			Screen.NextLine();
-			Screen.NextLine();
-
-			for (uint i = 0; i < 80; i = i + 8)
-			{
-				Screen.Column = col;
-				Screen.Color = 0x0F;
-				Screen.Write(i, 10, 2);
-				Screen.Write(':');
-				Screen.Write(' ');
-				Screen.Color = 0x07;
-				Screen.Write(Native.Get32(location + i), 16, 16);
-				Screen.NextLine();
-			}
-		}
-
-		/// <summary>
-		/// Dumps this instance.
-		/// </summary>
-		public static void Dump2(uint row, uint col)
-		{
-			uint location = MemoryMapStart;
-
-			Screen.Row = row;
-			for (uint i = 0; i < 80; i = i + 4)
-			{
-				Screen.Column = col;
-				Screen.Write(i, 10, 2);
-				Screen.Write(':');
-				Screen.Write(' ');
-				Screen.Write(Native.Get32(location + i), 16, 8);
-				Screen.NextLine();
-			}
+			SetMultibootLocation(Native.Get32(multibootptr), Native.Get32(multibootsignature));
 		}
 
 		/// <summary>
@@ -240,12 +194,12 @@ namespace Mosa.Kernel.x86
 		/// </summary>
 		private static void CountMemoryMap()
 		{
-			_memoryMapCount = 0;
+			memoryMapCount = 0;
 			uint location = MemoryMapStart;
 
 			while (location < (MemoryMapStart + MemoryMapLength))
 			{
-				_memoryMapCount++;
+				memoryMapCount++;
 				location = Native.Get32(location) + location + 4;
 			}
 		}
@@ -280,7 +234,7 @@ namespace Mosa.Kernel.x86
 		/// </summary>
 		/// <param name="index">The index.</param>
 		/// <returns></returns>
-		public static ulong GetMemoryMapLength(uint index)
+		public static uint GetMemoryMapLength(uint index)
 		{
 			return Native.Get32(GetMemoryMapIndexLocation(index) + 12);
 		}
