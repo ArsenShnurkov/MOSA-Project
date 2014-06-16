@@ -47,8 +47,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -65,8 +63,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\</OutputPath>
@@ -147,6 +143,7 @@
     <Compile Include="HAL\Memory.cs" />
     <Compile Include="HAL\IOPort.cs" />
     <Compile Include="HAL\HardwareAbstraction.cs" />
+    <Compile Include="DeviceDrivers\ScanCodeMap\RU.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.ClassLib\Mosa.ClassLib.csproj">

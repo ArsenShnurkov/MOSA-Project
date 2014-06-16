@@ -14,7 +14,7 @@ namespace Mosa.DeviceDrivers.ScanCodeMap
 	/// <summary>
 	/// Implements the US Keyboard map (scan code set 2)
 	/// </summary>
-	public class US : IScanCodeMap
+	public class RU : IScanCodeMap
 	{
 		private enum KeyState { Normal, Escaped, Espaced2, EscapeBreak };
 
@@ -23,7 +23,7 @@ namespace Mosa.DeviceDrivers.ScanCodeMap
 		/// <summary>
 		/// Initializes a new instance of the <see cref="US"/> class.
 		/// </summary>
-		public US()
+		public RU()
 		{
 			keyState = KeyState.Normal;
 		}
