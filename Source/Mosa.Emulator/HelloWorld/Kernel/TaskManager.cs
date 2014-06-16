@@ -76,7 +76,7 @@ namespace Mosa.Kernel.x86
 			// Allocate memory for the task table
 			_table = (uint)VirtualPageAllocator.Reserve((uint)(_slots * Offset.TotalSize));
 
-			uint stack = ProcessManager.AllocateMemory(0, _defaultStackSize);
+			/*uint stack = */ ProcessManager.AllocateMemory(0, _defaultStackSize);
 
 			// Create idle task
 			CreateTask(0, 0);
