@@ -74,11 +74,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Boot.cs" />
-    <Compile Include="DeviceDrivers\ISA\CMOS.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="HAL\Memory.cs" />
     <Compile Include="HAL\IOPort.cs" />
     <Compile Include="HAL\HardwareAbstraction.cs" />
+    <Compile Include="DeviceDrivers\ISA\CMOS2.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.ClassLib\Mosa.ClassLib.csproj">

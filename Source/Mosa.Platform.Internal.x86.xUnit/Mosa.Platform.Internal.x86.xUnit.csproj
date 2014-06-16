@@ -54,8 +54,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -73,8 +71,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <FileAlignment>4096</FileAlignment>
     <Optimize>true</Optimize>
     <OutputPath>..\..\bin\</OutputPath>
@@ -113,11 +109,9 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="xunit">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\3rdParty\xunit.dll</HintPath>
     </Reference>
     <Reference Include="xunit.extensions">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\3rdParty\xunit.extensions.dll</HintPath>
     </Reference>
   </ItemGroup>

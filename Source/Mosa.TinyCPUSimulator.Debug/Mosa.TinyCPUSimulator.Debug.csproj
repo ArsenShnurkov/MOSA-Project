@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -44,19 +46,19 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Test.Collection.x86.xUnit\Mosa.Test.Collection.x86.xUnit.csproj">
-      <Project>{50568e2d-5360-4f71-87e3-a6979d1d858c}</Project>
+      <Project>{50568E2D-5360-4F71-87E3-A6979D1D858C}</Project>
       <Name>Mosa.Test.Collection.x86.xUnit</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.TinyCPUSimulator.TestSystem\Mosa.TinyCPUSimulator.TestSystem.csproj">
-      <Project>{50568e2d-5360-4f71-87e0-a6979d1d858a}</Project>
+      <Project>{50568E2D-5360-4F71-87E0-A6979D1D858A}</Project>
       <Name>Mosa.TinyCPUSimulator.TestSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86\Mosa.TinyCPUSimulator.x86.csproj">
-      <Project>{50568e2d-5360-4f71-87e0-e6979d1d858a}</Project>
+      <Project>{50568E2D-5360-4F71-87E0-E6979D1D858A}</Project>
       <Name>Mosa.TinyCPUSimulator.x86</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.TinyCPUSimulator\Mosa.TinyCPUSimulator.csproj">
-      <Project>{6f7c06b2-09bf-45bd-8e6b-ae9bf7c7e250}</Project>
+      <Project>{6F7C06B2-09BF-45BD-8E6B-AE9BF7C7E250}</Project>
       <Name>Mosa.TinyCPUSimulator</Name>
     </ProjectReference>
   </ItemGroup>

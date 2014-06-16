@@ -45,7 +45,7 @@ namespace Mosa.CoolWorld.x86
 		static public PIC PIC = null;
 		static public PIT PIT = null;
 		static public VGAText VGAText = null;
-		static public CMOS CMOS = null;
+		static public CMOS2 CMOS = null;
 
 		/// <summary>
 		/// Initializes the Device Driver System.
@@ -159,7 +159,7 @@ namespace Mosa.CoolWorld.x86
 			PIC = new PIC();
 			PIT = new PIT();
 			VGAText = new VGAText();
-			CMOS = new CMOS();
+			CMOS = new CMOS2();
 
 			//StartDevice(picAttributes, PIC);
 			StartDevice(pitAttributes, PIT);

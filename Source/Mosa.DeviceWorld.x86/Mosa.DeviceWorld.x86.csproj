@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{4D901623-1A0C-4F9A-8CE0-018A56010C83}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>Mosa.DeviceWorld.x86</RootNamespace>
+    <AssemblyName>Mosa.DeviceWorld.x86</AssemblyName>
+    <StartupObject>Mosa.HelloWorld.x86.Boot</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\bin\</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Boot.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\Mosa.DeviceDrivers\Mosa.DeviceDrivers.csproj">
+      <Project>{4DBD4C50-BEC5-48D9-B471-9FB0A7F69999}</Project>
+      <Name>Mosa.DeviceDrivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.DeviceSystem\Mosa.DeviceSystem.csproj">
+      <Project>{6509477A-7360-4937-A1B9-26FED0A75CDA}</Project>
+      <Name>Mosa.DeviceSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Kernel.x86\Mosa.Kernel.x86.csproj">
+      <Project>{FF099D48-3FA5-4ED6-BBA0-1497D734962A}</Project>
+      <Name>Mosa.Kernel.x86</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Platform.Internal.x86\Mosa.Platform.Internal.x86.csproj">
+      <Project>{A47B7998-4EE8-4AF8-9373-C664FDEDDC65}</Project>
+      <Name>Mosa.Platform.Internal.x86</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.ClassLib\Mosa.ClassLib.csproj">
+      <Project>{27A3C89C-1967-45FF-A77E-94F44995C42C}</Project>
+      <Name>Mosa.ClassLib</Name>
+    </ProjectReference>
+  </ItemGroup>
+</Project>

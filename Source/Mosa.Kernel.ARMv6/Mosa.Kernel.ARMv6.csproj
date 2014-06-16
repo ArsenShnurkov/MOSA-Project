@@ -31,8 +31,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -70,7 +68,7 @@
       <Name>Mosa.Internal.Plug</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.Platform.Internal.ARMv6\Mosa.Platform.Internal.ARMv6.csproj">
-      <Project>{599d1c00-7c78-4211-a958-1285c4cb76c9}</Project>
+      <Project>{599D1C00-7C78-4211-A958-1285C4CB76C9}</Project>
       <Name>Mosa.Platform.Internal.ARMv6</Name>
     </ProjectReference>
   </ItemGroup>

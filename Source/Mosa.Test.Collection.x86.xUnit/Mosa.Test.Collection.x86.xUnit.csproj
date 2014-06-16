@@ -12,6 +12,8 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,26 +38,24 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="xunit, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="xunit">
       <HintPath>..\..\3rdParty\xunit.dll</HintPath>
     </Reference>
-    <Reference Include="xunit.extensions, Version=1.9.2.1705, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="xunit.extensions">
       <HintPath>..\..\3rdParty\xunit.extensions.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Test.Collection\Mosa.Test.Collection.csproj">
-      <Project>{067aab6b-447a-45ba-9e0d-dfea886b4f69}</Project>
+      <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
       <Name>Mosa.Test.Collection</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.TinyCPUSimulator.TestSystem\Mosa.TinyCPUSimulator.TestSystem.csproj">
-      <Project>{50568e2d-5360-4f71-87e0-a6979d1d858a}</Project>
+      <Project>{50568E2D-5360-4F71-87E0-A6979D1D858A}</Project>
       <Name>Mosa.TinyCPUSimulator.TestSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86.Adaptor\Mosa.TinyCPUSimulator.x86.Adaptor.csproj">
-      <Project>{50568e2d-5360-4f71-87e0-f6979d1d858a}</Project>
+      <Project>{50568E2D-5360-4F71-87E0-F6979D1D858A}</Project>
       <Name>Mosa.TinyCPUSimulator.x86.Adaptor</Name>
     </ProjectReference>
   </ItemGroup>

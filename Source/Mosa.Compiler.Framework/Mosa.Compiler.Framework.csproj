@@ -44,8 +44,6 @@
     <ConfigurationOverrideFile>
     </ConfigurationOverrideFile>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DocumentationFile>
-    </DocumentationFile>
     <DebugSymbols>true</DebugSymbols>
     <FileAlignment>4096</FileAlignment>
     <Optimize>false</Optimize>
@@ -369,11 +367,11 @@
       <Name>Mosa.Compiler.InternalTrace</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
-      <Project>{5f30a68e-05bf-40ea-b576-5ebcde520559}</Project>
+      <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
       <Name>Mosa.Compiler.MosaTypeSystem</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.Compiler.Linker\Mosa.Compiler.Linker.csproj">
-      <Project>{65866a51-b229-44c5-ac81-87a90fa1741c}</Project>
+      <Project>{65866A51-B229-44C5-AC81-87A90FA1741C}</Project>
       <Name>Mosa.Compiler.Linker</Name>
     </ProjectReference>
   </ItemGroup>
