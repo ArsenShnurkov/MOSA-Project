@@ -36,11 +36,11 @@ namespace Mosa.HelloWorld.x86
 			Console.Color = Colors.Yellow;
 			Console.BackgroundColor = Colors.Black;
 
-			Console.Write("Mosa.DeviceWorld.x86 v0.1 ");
+			Console.Write("Mosa.DeviceWorld.x86 0.1 ");
 			Console.Color = Colors.Red;
 			Console.Write("Buran");
 			Console.Color = Colors.Yellow;
-			Console.Write("                                Copyright 2014-2014");
+			Console.Write("                               Copyright 2014-2014");
 			//Console.WriteLine();
 
 			Console.Color = 0x0F;
