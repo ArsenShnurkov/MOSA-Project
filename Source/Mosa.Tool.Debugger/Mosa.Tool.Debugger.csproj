@@ -12,6 +12,8 @@
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectGuid>{DFD831EA-79D8-49FC-8923-3AFFDA1283B6}</ProjectGuid>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

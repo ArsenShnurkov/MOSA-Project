@@ -7,6 +7,8 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Mosa.PashWorld.x86</RootNamespace>
     <AssemblyName>Mosa.PashWorld.x86</AssemblyName>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -59,6 +61,26 @@
     <ProjectReference Include="..\Mosa.ClassLib\Mosa.ClassLib.csproj">
       <Project>{27A3C89C-1967-45FF-A77E-94F44995C42C}</Project>
       <Name>Mosa.ClassLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Pash\Source\PashConsole\PashConsole.csproj">
+      <Project>{BB348EAD-1713-4760-9953-BC721A203885}</Project>
+      <Name>PashConsole</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Pash\Source\System.Management\System.Management.csproj">
+      <Project>{C5E303EC-5684-4C95-B0EC-2593E6662403}</Project>
+      <Name>System.Management</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Pash\Source\Microsoft.PowerShell.Commands.Utility\Microsoft.PowerShell.Commands.Utility.csproj">
+      <Project>{0E1D573C-C57D-4A83-A739-3A38E719D87E}</Project>
+      <Name>Microsoft.PowerShell.Commands.Utility</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Pash\Source\Microsoft.PowerShell.Commands.Management\Microsoft.Commands.Management.csproj">
+      <Project>{91225A72-A021-4B7D-BA56-5E1B7AC02F03}</Project>
+      <Name>Microsoft.Commands.Management</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Pash\Libraries\Irony\Irony\010.Irony.2010.csproj">
+      <Project>{D81F5C91-D7DB-46E5-BC99-49488FB6814C}</Project>
+      <Name>010.Irony.2010</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

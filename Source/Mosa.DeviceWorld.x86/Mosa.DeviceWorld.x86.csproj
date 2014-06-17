@@ -8,6 +8,8 @@
     <RootNamespace>Mosa.DeviceWorld.x86</RootNamespace>
     <AssemblyName>Mosa.DeviceWorld.x86</AssemblyName>
     <StartupObject>Mosa.HelloWorld.x86.Boot</StartupObject>
+    <ProductVersion>12.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
