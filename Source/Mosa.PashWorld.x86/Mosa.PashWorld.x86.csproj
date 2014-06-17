@@ -28,9 +28,6 @@
   </PropertyGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="Boot.cs" />
     <Compile Include="Setup.cs" />
     <Compile Include="DeviceDrivers\ISA\CMOS2.cs" />
