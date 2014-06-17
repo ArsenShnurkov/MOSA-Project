@@ -128,9 +128,6 @@
     <Compile Include="DeviceWorld\Kernel\Smbios\SmbiosManager.cs" />
     <Compile Include="DeviceWorld\Kernel\Smbios\SmbiosStructure.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="app.config" />
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
