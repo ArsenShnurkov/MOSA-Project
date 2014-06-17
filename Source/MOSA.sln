@@ -51,7 +51,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mosa.Tool.TinySimulator", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "OS", "OS", "{1AB7FA6A-829C-4DCF-BCA6-A27156D8DA26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mosa.CoolWorld.x86", "Mosa.CoolWorld.x86\Mosa.CoolWorld.x86.csproj", "{B21130AE-311F-4F15-B763-0E91EE4C9646}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mosa.PashWorld.x86", "Mosa.CoolWorld.x86\Mosa.PashWorld.x86.csproj", "{B21130AE-311F-4F15-B763-0E91EE4C9646}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mosa.HelloWorld.x86", "Mosa.HelloWorld.x86\Mosa.HelloWorld.x86.csproj", "{F1776FF2-A727-4FAF-B6BE-D37D6B019038}"
 EndProject
