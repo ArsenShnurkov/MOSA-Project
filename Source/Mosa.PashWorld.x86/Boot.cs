@@ -9,6 +9,8 @@ using Mosa.DeviceSystem;
 using Mosa.Kernel.x86;
 using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
+using System.Text;
+using Pash;
 
 namespace Mosa.CoolWorld.x86
 {
@@ -74,7 +76,37 @@ namespace Mosa.CoolWorld.x86
 			FillLine();
 
 
-			Process();
+			//Process();
+			Pash (new string[]{});
+		}
+
+		static int Pash(string[] args)
+		{
+			var interactive = true; // interactive by default
+			StringBuilder commands = new StringBuilder();
+			int startCommandAt = 0;
+
+			// check first arg for "-noexit"
+			if (args.Length > 0)
+			{
+				// no interactive shell if we have commands given but not this parameter
+				interactive = args[0].Equals("-noexit");
+				if (interactive)
+				{
+					// ignore first arg as it is no command
+					startCommandAt = 1;
+				}
+			}
+
+			// other args are interpreted as commands to be executed
+			for (int i = startCommandAt; i < args.Length; i++)
+			{
+				commands.Append(args[i]);
+				commands.Append("; ");
+			}
+
+			FullHost p = new FullHost(interactive);
+			return p.Run(commands.ToString());
 		}
 
 		public static void Process()
