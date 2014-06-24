@@ -8,6 +8,7 @@
  */
 
 using Mosa.Kernel.x86.Smbios;
+using Mosa.Platform.Internal.x86;
 
 namespace Mosa.Kernel.x86
 {
@@ -28,6 +29,7 @@ namespace Mosa.Kernel.x86
 			PageTable.Setup();
 			VirtualPageAllocator.Setup();
 			ProcessManager.Setup();
+			Runtime.Metadata_InitializeLookup();
 			TaskManager.Setup();
 			SmbiosManager.Setup();
 			ConsoleManager.Setup();

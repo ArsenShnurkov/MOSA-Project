@@ -22,6 +22,7 @@ namespace System
 		private Type(RuntimeTypeHandle handle)
 		{
 			this.m_handle = handle;
+			this.FullName = InternalGetFullName(handle);
 		}
 
 		RuntimeTypeHandle m_handle;
@@ -33,39 +34,10 @@ namespace System
 			}
 		}
 
-		string m_fullName;
 		public string FullName
 		{
-			get
-			{
-				//if (m_fullName == null)
-				{
-					m_fullName = InternalGetFullName(m_handle.Value);
-				}
-				return m_fullName;
-			}
-		}
-
-		unsafe string InternalGetFullName(IntPtr handle)
-		{
-			int* namePtr = *(int**)(handle.ToInt32() + 8);
-			int length = *namePtr;
-			namePtr++;
-
-			return new string((sbyte*)namePtr, 0, length);
-		}
-
-		public static Type GetTypeFromHandle(RuntimeTypeHandle handle)
-		{
-			return new Type(handle);
-		}
-
-		[MethodImplAttribute(MethodImplOptions.InternalCall)]
-		public static extern RuntimeTypeHandle GetTypeHandle(object obj);
-
-		public override string ToString()
-		{
-			return FullName;
+			get;
+			private set;
 		}
 
 		public TypeAttributes Attributes
@@ -78,6 +50,41 @@ namespace System
 		{
 			get;
 			private set;
+		}
+
+		public Type GetType(string typeName)
+		{
+			return GetType(typeName, false, false);
+		}
+
+		public Type GetType(string typeName, bool throwOnError)
+		{
+			return GetType(typeName, throwOnError, false);
+		}
+
+		public Type GetType(string typeName, bool throwOnError, bool ignoreCase)
+		{
+			RuntimeTypeHandle handle = InternalGetTypeHandleByName(typeName, throwOnError, ignoreCase);
+			return new Type(handle);
+		}
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		private static extern RuntimeTypeHandle InternalGetTypeHandleByName(string typeName, bool throwOnError, bool ignoreCase);
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		private static extern string InternalGetFullName(RuntimeTypeHandle handle);
+
+		public static Type GetTypeFromHandle(RuntimeTypeHandle handle)
+		{
+			return new Type(handle);
+		}
+
+		[MethodImplAttribute(MethodImplOptions.InternalCall)]
+		public static extern RuntimeTypeHandle GetTypeHandle(object obj);
+
+		public override string ToString()
+		{
+			return FullName;
 		}
 	}
 }
