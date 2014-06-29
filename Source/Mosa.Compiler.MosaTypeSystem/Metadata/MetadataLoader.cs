@@ -155,6 +155,7 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 			method.DeclaringType = declType;
 			method.Name = methodDef.Name;
 
+			method.MethodAttributes = (MosaMethodAttributes)methodDef.Attributes;
 			method.IsAbstract = methodDef.IsAbstract;
 			method.IsStatic = methodDef.IsStatic;
 			method.HasThis = methodDef.HasThis;
