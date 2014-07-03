@@ -77,8 +77,11 @@
     <Compile Include="ExceptionHandlerType.cs" />
     <Compile Include="Metadata\CLRMetadata.cs" />
     <Compile Include="Metadata\UnitDescs.cs" />
+    <Compile Include="MosaMethodAttributes.cs" />
+    <Compile Include="MosaParameterAttributes.cs" />
     <Compile Include="MosaTypeExtension.cs" />
     <Compile Include="SignatureName.cs" />
+    <Compile Include="MosaTypeAttributes.cs" />
     <Compile Include="TypeSystemExtensions.cs" />
     <Compile Include="Units\MosaArrayInfo.cs" />
     <Compile Include="Units\MosaCustomAttribute.cs" />

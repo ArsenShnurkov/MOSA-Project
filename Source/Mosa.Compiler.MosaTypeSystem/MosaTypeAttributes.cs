@@ -7,13 +7,15 @@
  *  Stefan Andres Charsley (charsleysa) <charsleysa@gmail.com>
  */
 
-namespace System.Reflection
+using System;
+
+namespace Mosa.Compiler.MosaTypeSystem
 {
 	/// <summary>
 	/// TypeDef and ExportedType flags.
 	/// </summary>
 	[Flags]
-	public enum TypeAttributes : uint
+	public enum MosaTypeAttributes : uint
 	{
 		/// <summary>
 		/// Use this mask to retrieve the type visibility information.

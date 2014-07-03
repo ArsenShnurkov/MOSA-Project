@@ -64,12 +64,14 @@ namespace Mosa.TestWorld.x86
 			Screen.Write('A');
 			ConsoleManager.Setup();
 			Screen.Write('B');
-			CMOS cmos = new CMOS();
+			Runtime.Metadata_InitializeLookup();
 			Screen.Write('C');
-			int second = cmos.Second;
+			CMOS cmos = new CMOS();
 			Screen.Write('D');
-			Console = ConsoleManager.Controller.Boot;
+			int second = cmos.Second;
 			Screen.Write('E');
+			Console = ConsoleManager.Controller.Boot;
+			Screen.Write('F');
 
 			Console.Color = 0x0E;
 			Console.BackgroundColor = 1;

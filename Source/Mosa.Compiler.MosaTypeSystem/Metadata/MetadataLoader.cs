@@ -95,6 +95,7 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 					type.ClassSize = (int)typeDef.ClassSize;
 					type.PackingSize = typeDef.PackingSize;
 				}
+				type.TypeAttributes = (MosaTypeAttributes)typeDef.Attributes;
 				type.TypeCode = (MosaTypeCode)typeSig.ElementType;
 
 				// Load members
@@ -154,6 +155,7 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 			method.DeclaringType = declType;
 			method.Name = methodDef.Name;
 
+			method.MethodAttributes = (MosaMethodAttributes)methodDef.Attributes;
 			method.IsAbstract = methodDef.IsAbstract;
 			method.IsStatic = methodDef.IsStatic;
 			method.HasThis = methodDef.HasThis;
@@ -212,7 +214,18 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 					MosaType returnType = GetType(fnPtr.RetType);
 					List<MosaParameter> pars = new List<MosaParameter>();
 					for (int i = 0; i < fnPtr.Params.Count; i++)
-						pars.Add(new MosaParameter("A_" + i, GetType(fnPtr.Params[i])));
+					{
+						var parameter = metadata.Controller.CreateParameter();
+
+						using (var mosaParameter = metadata.Controller.MutateParameter(parameter))
+						{
+							mosaParameter.Name = "A_" + i;
+							mosaParameter.ParameterAttributes = MosaParameterAttributes.In;
+							mosaParameter.ParameterType = GetType(fnPtr.Params[i]);
+						}
+
+						pars.Add(parameter);
+					}
 					return metadata.TypeSystem.ToFnPtr(new MosaMethodSignature(returnType, pars));
 				}
 				else
