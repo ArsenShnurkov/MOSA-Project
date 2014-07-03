@@ -13,11 +13,15 @@ using System.Collections.Generic;
 
 namespace System.Reflection
 {
+	public class CustomAttributeTypedArgument {}
+
+	public class CustomAttributeNamedArgument {}
+
 	/// <summary>
 	/// Provides access to custom attribute data for assemblies, modules, types, members and parameters that are loaded into the reflection-only context.
 	/// </summary>
 	[Serializable]
-	public class CustomAttributeData
+	abstract public class CustomAttributeData
 	{
 		/// <summary>
 		/// Initializes a new instance of the <see cref="CustomAttributeData">CustomAttributeData</see> class.
@@ -27,22 +31,22 @@ namespace System.Reflection
 		/// <summary>
 		/// The type of the attribute.
 		/// </summary>
-		public Type AttributeType { get; }
+		abstract public Type AttributeType { get; }
 
 		/// <summary>
 		/// An object that represents the constructor that would have initialized the custom attribute represented by the current instance of the CustomAttributeData class.
 		/// </summary>
-		public virtual ConstructorInfo Constructor { get; }
+		abstract public ConstructorInfo Constructor { get; }
 
 		/// <summary>
 		/// A collection of structures that represent the positional arguments specified for the custom attribute instance.
 		/// </summary>
-		public virtual IList<CustomAttributeTypedArgument> ConstructorArguments { get; }
+		abstract public IList<CustomAttributeTypedArgument> ConstructorArguments { get; }
 
 		/// <summary>
 		/// A collection of structures that represent the named arguments specified for the custom attribute instance.
 		/// </summary>
-		public virtual IList<CustomAttributeNamedArgument> NamedArguments { get; }
+		abstract public IList<CustomAttributeNamedArgument> NamedArguments { get; }
 
 		/// <summary>
 		/// Returns a list of <see cref="CustomAttributeData">CustomAttributeData</see> objects representing data about the attributes that have been applied to the target assembly.

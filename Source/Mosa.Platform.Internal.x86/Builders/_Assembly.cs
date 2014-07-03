@@ -15,11 +15,11 @@ namespace System
 {
 	public sealed unsafe class _Assembly : Assembly
 	{
-		private uint* m_pointer;
+		//private uint* m_pointer;
 
 		internal _Assembly(uint* pointer)
 		{
-			this.m_pointer = pointer;
+			//this.m_pointer = pointer;
 		}
 	}
 }

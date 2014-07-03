@@ -24,13 +24,12 @@ namespace Mosa.Compiler.MosaTypeSystem
 				{
 					if (i != 0)
 						result.Append(", ");
-					result.Append(sig.Parameters[i].ParameterType.Name);
+					result.Append(sig.Parameters[i].Type.Name);
 				}
 				result.Append(") : ");
 				result.Append(sig.ReturnType.Name);
 				return result.ToString();
-			}
-			else
+			} else
 			{
 				result.Append(sig.ReturnType.FullName);
 				result.Append(" ");
@@ -40,7 +39,7 @@ namespace Mosa.Compiler.MosaTypeSystem
 				{
 					if (i != 0)
 						result.Append(", ");
-					result.Append(sig.Parameters[i].ParameterType.FullName);
+					result.Append(sig.Parameters[i].Type.FullName);
 				}
 				result.Append(")");
 				return result.ToString();

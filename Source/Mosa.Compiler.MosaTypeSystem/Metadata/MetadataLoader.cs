@@ -217,12 +217,12 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 					{
 						var parameter = metadata.Controller.CreateParameter();
 
-						using (var mosaParameter = metadata.Controller.MutateParameter(parameter))
+						/*using (var mosaParameter = metadata.Controller.MutateParameter(parameter))
 						{
 							mosaParameter.Name = "A_" + i;
 							mosaParameter.ParameterAttributes = MosaParameterAttributes.In;
 							mosaParameter.ParameterType = GetType(fnPtr.Params[i]);
-						}
+						}*/
 
 						pars.Add(parameter);
 					}

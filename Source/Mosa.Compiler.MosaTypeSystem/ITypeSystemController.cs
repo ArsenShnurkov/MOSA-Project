@@ -29,7 +29,7 @@ namespace Mosa.Compiler.MosaTypeSystem
 
 		MosaField.Mutator MutateField(MosaField field);
 
-		MosaParameter.Mutator MutateParameter(MosaParameter field);
+		// MosaParameter.Mutator MutateParameter(MosaParameter field);
 
 		void AddModule(MosaModule module);
 

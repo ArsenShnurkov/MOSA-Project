@@ -11,59 +11,31 @@ using System;
 
 namespace Mosa.Compiler.MosaTypeSystem
 {
-	public class MosaParameter : MosaUnit, IEquatable<MosaParameter>, IEquatable<MosaType>
+	public class MosaParameter : IEquatable<MosaParameter>, IEquatable<MosaType>
 	{
-		public MosaParameterAttributes ParameterAttributes { get; private set; }
-
-		public MosaMethod DeclaringMethod { get; private set; }
-
-		public MosaType ParameterType { get; private set; }
-
-		internal MosaParameter()
+		public MosaParameter(string name, MosaType type)
 		{
+			this.Name = name;
+			this.Type = type;
 		}
 
-		internal MosaParameter Clone()
+		public string Name { get; private set; }
+
+		public MosaType Type { get; private set; }
+
+		public override string ToString()
 		{
-			return (MosaParameter)base.MemberwiseClone();
+			return Type + " " + Name;
 		}
 
 		public bool Equals(MosaParameter parameter)
 		{
-			return ParameterType.Equals(parameter.ParameterType) 
-				&& ParameterAttributes.Equals(parameter.ParameterAttributes)
-				&& CustomAttributes.Equals(parameter.CustomAttributes);
+			return Type.Equals(parameter.Type);
 		}
 
 		public bool Equals(MosaType type)
 		{
-			return ParameterType.Equals(type);
-		}
-
-		public class Mutator : MosaUnit.MutatorBase
-		{
-			private MosaParameter parameter;
-
-			internal Mutator(MosaParameter parameter)
-				: base(parameter)
-			{
-				this.parameter = parameter;
-			}
-
-			public MosaParameterAttributes ParameterAttributes { set { parameter.ParameterAttributes = value; } }
-
-			public MosaMethod DeclaringMethod { set { parameter.DeclaringMethod = value; } }
-
-			public MosaType ParameterType { set { parameter.ParameterType = value; } }
-
-			public override void Dispose()
-			{
-				if (parameter.ParameterType != null)
-				{
-					parameter.FullName = string.Concat(parameter.ParameterType.FullName, " ", parameter.DeclaringMethod.FullName, "::", parameter.Name);
-					parameter.ShortName = string.Concat(parameter.Name, " : ", parameter.ParameterType.ShortName);
-				}
-			}
+			return Type.Equals(type);
 		}
 	}
 }
