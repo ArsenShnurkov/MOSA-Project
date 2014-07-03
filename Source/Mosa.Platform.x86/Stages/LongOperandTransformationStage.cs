@@ -38,7 +38,7 @@ namespace Mosa.Platform.x86.Stages
 			base.Run();
 		}
 
-		#region Utility Methods
+#region Utility Methods
 
 		public static void SplitLongOperand(BaseMethodCompiler methodCompiler, Operand operand, out Operand operandLow, out Operand operandHigh, Operand constantZero)
 		{
@@ -1031,19 +1031,19 @@ namespace Mosa.Platform.x86.Stages
 				context.AppendInstruction(X86.Mov, op0H, constantZero);
 			}
 			else if (op1.IsBoolean || op1.IsChar || op1.IsU1 || op1.IsU2)
-			{
-				context.SetInstruction(X86.Movzx, op0L, op1L);
-				context.AppendInstruction(X86.Mov, op0H, constantZero);
-			}
-			else if (op1.IsU8)
-			{
-				context.SetInstruction(X86.Mov, op0L, op1L);
-				context.AppendInstruction(X86.Mov, op0H, op1H);
-			}
-			else
-			{
-				throw new NotSupportedException();
-			}
+				{
+					context.SetInstruction(X86.Movzx, op0L, op1L);
+					context.AppendInstruction(X86.Mov, op0H, constantZero);
+				}
+				else if (op1.IsU8)
+					{
+						context.SetInstruction(X86.Mov, op0L, op1L);
+						context.AppendInstruction(X86.Mov, op0H, op1H);
+					}
+					else
+					{
+						throw new NotSupportedException();
+					}
 		}
 
 		/// <summary>
@@ -1065,46 +1065,46 @@ namespace Mosa.Platform.x86.Stages
 				context.AppendInstruction(X86.Mov, op0H, constantZero);
 			}
 			else if (op1.IsI1 || op1.IsI2)
-			{
-				Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.I4);
-				Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
-				Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+				{
+					Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.I4);
+					Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+					Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
 
-				context.SetInstruction(X86.Movsx, v1, op1);
-				context.AppendInstruction2(X86.Cdq, v3, v2, v1);
-				context.AppendInstruction(X86.Mov, op0L, v2);
-				context.AppendInstruction(X86.Mov, op0H, v3);
-			}
-			else if (op1.IsI4 || op1.IsPointer || op1.IsI || op1.IsU)
-			{
-				Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.I4);
-				Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
-				Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+					context.SetInstruction(X86.Movsx, v1, op1);
+					context.AppendInstruction2(X86.Cdq, v3, v2, v1);
+					context.AppendInstruction(X86.Mov, op0L, v2);
+					context.AppendInstruction(X86.Mov, op0H, v3);
+				}
+				else if (op1.IsI4 || op1.IsPointer || op1.IsI || op1.IsU)
+					{
+						Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.I4);
+						Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+						Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
 
-				context.SetInstruction(X86.Mov, v1, op1);
-				context.AppendInstruction2(X86.Cdq, v3, v2, v1);
-				context.AppendInstruction(X86.Mov, op0L, v2);
-				context.AppendInstruction(X86.Mov, op0H, v3);
-			}
-			else if (op1.IsI8)
-			{
-				context.SetInstruction(X86.Mov, op0, op1);
-			}
-			else if (op1.IsU1 || op1.IsU2)
-			{
-				Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
-				Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
-				Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+						context.SetInstruction(X86.Mov, v1, op1);
+						context.AppendInstruction2(X86.Cdq, v3, v2, v1);
+						context.AppendInstruction(X86.Mov, op0L, v2);
+						context.AppendInstruction(X86.Mov, op0H, v3);
+					}
+					else if (op1.IsI8)
+						{
+							context.SetInstruction(X86.Mov, op0, op1);
+						}
+						else if (op1.IsU1 || op1.IsU2)
+							{
+								Operand v1 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+								Operand v2 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
+								Operand v3 = AllocateVirtualRegister(TypeSystem.BuiltIn.U4);
 
-				context.SetInstruction(X86.Movzx, v1, op1);
-				context.AppendInstruction2(X86.Cdq, v3, v2, v1);
-				context.AppendInstruction(X86.Mov, op0L, v2);
-				context.AppendInstruction(X86.Mov, op0H, constantZero);
-			}
-			else
-			{
-				throw new InvalidCompilerException();
-			}
+								context.SetInstruction(X86.Movzx, v1, op1);
+								context.AppendInstruction2(X86.Cdq, v3, v2, v1);
+								context.AppendInstruction(X86.Mov, op0L, v2);
+								context.AppendInstruction(X86.Mov, op0H, constantZero);
+							}
+							else
+							{
+								throw new InvalidCompilerException();
+							}
 		}
 
 		/// <summary>
@@ -1274,9 +1274,9 @@ namespace Mosa.Platform.x86.Stages
 			return false;
 		}
 
-		#endregion Utility Methods
+#endregion Utility Methods
 
-		#region IIRVisitor
+#region IIRVisitor
 
 		/// <summary>
 		/// Visitation function for ArithmeticShiftRightInstruction.
@@ -1605,19 +1605,28 @@ namespace Mosa.Platform.x86.Stages
 		/// <param name="context">The context.</param>
 		void IIRVisitor.Call(Context context)
 		{
-			Operand op0L, op0H;
-
-			if (context.Result != null && context.Result.Is64BitInteger)
+			try
 			{
-				SplitLongOperand(context.Result, out op0L, out op0H);
-			}
+				Operand op0L, op0H;
 
-			foreach (var operand in context.Operands)
-			{
-				if (operand.Is64BitInteger)
+				if (context.Result != null && context.Result.Is64BitInteger)
 				{
-					SplitLongOperand(operand, out op0L, out op0H);
+					SplitLongOperand(context.Result, out op0L, out op0H);
 				}
+
+				foreach (var operand in context.Operands)
+				{
+					if (operand.Is64BitInteger)
+					{
+						SplitLongOperand(operand, out op0L, out op0H);
+					}
+				}
+			}
+			catch (Exception ex)
+			{
+				ex.Data.Add("Context context", context);
+				ex.Data.Add("context.OperandCount", context.OperandCount);
+				throw;
 			}
 		}
 
@@ -1643,9 +1652,9 @@ namespace Mosa.Platform.x86.Stages
 			}
 		}
 
-		#endregion IIRVisitor
+#endregion IIRVisitor
 
-		#region IIRVisitor - Unused
+#region IIRVisitor - Unused
 
 		/// <summary>
 		/// Visitation function for InternalReturn.
@@ -1807,6 +1816,6 @@ namespace Mosa.Platform.x86.Stages
 		{
 		}
 
-		#endregion IIRVisitor - Unused
+#endregion IIRVisitor - Unused
 	}
 }
