@@ -236,14 +236,14 @@ namespace Mosa.Compiler.MosaTypeSystem.Metadata
 					var paramType = metadata.Loader.GetType(resolver.Resolve(desc.Signature.Params[param.MethodSigIndex]));
 					var parameter = metadata.Controller.CreateParameter();
 
-					/*using (var mosaParameter = metadata.Controller.MutateParameter(parameter))
+					using (var mosaParameter = metadata.Controller.MutateParameter(parameter))
 					{
 						mosaParameter.Name = param.Name;
 						mosaParameter.ParameterAttributes = (MosaParameterAttributes)param.ParamDef.Attributes;
 						mosaParameter.ParameterType = paramType;
 						mosaParameter.DeclaringMethod = method;
 						ResolveCustomAttributes(mosaParameter, param.ParamDef);
-					}*/
+					}
 
 					pars.Add(parameter);
 					hasOpening |= paramType.HasOpenGenericParams;
