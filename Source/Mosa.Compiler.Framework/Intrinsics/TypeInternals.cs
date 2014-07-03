@@ -56,7 +56,10 @@ namespace Mosa.Compiler.Framework.Intrinsics
 			Debug.Assert(type != null, "Cannot find " + arch + ".Runtime");
 
 			var method = type.FindMethodByName(internalMethod);
-
+			if (method == null)
+			{
+					throw new ApplicationException(string.Format("'{0}' internal method not found", internalMethod));
+			}
 			Operand callTargetOperand = Operand.CreateSymbolFromMethod(methodCompiler.TypeSystem, method);
 
 			Operand[] operands = new Operand[context.OperandCount];
