@@ -28,7 +28,7 @@ namespace Mosa.Compiler.Framework.Stages
 			CreateDefinitionTables();
 		}
 
-		#region Helper Functions
+#region Helper Functions
 
 		private LinkerSymbol EmitStringWithLength(string name, string value)
 		{
@@ -39,9 +39,9 @@ namespace Mosa.Compiler.Framework.Stages
 			return symbol;
 		}
 
-		#endregion
+#endregion
 
-		#region Assembly Tables
+#region Assembly Tables
 
 		private void CreateDefinitionTables()
 		{
@@ -55,13 +55,13 @@ namespace Mosa.Compiler.Framework.Stages
 			// 2. Pointers to Assemblies
 			// Create the definitions along the way
 			foreach (var module in TypeSystem.Modules)
-				{
-					var assemblyTableSymbol = CreateAssemblyDefinitionTable(module);
+			{
+				var assemblyTableSymbol = CreateAssemblyDefinitionTable(module);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyListSymbol, (int)writer1.Position, 0, assemblyTableSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyListSymbol, (int)writer1.Position, 0, assemblyTableSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 		}
 
 		private LinkerSymbol CreateAssemblyDefinitionTable(MosaModule module)
@@ -79,52 +79,53 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 2. Pointer to Custom Attributes
 			if (module.CustomAttributes.Count > 0)
-				{
-					var customAttributeListSymbol = CreateCustomAttributeListTable(module);
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
-				}
+			{
+				var customAttributeListSymbol = CreateCustomAttributeListTable(module);
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// 3. Flags: IsReflectionOnly (32bit length)
 			uint flags = 0x0;
-			if (module.IsReflectionOnly) flags |= 0x1;
+			if (module.IsReflectionOnly)
+				flags |= 0x1;
 			writer1.Write(flags);
 
 			// 4. Number of Types
 			uint count = 0;
 			foreach (var type in module.Types.Values)
-				{
-					if (type.IsModule)
-						continue;
+			{
+				if (type.IsModule)
+					continue;
 
-					count++;
-				}
+				count++;
+			}
 			writer1.Write(count);
 
 			// 5. Pointers to Types
 			// Create the definitions along the way
 			foreach (var type in module.Types.Values)
-				{
-					if (type.IsModule)
-						continue;
+			{
+				if (type.IsModule)
+					continue;
 
-					// Run the type through the TypeLayout system
-					TypeLayout.ResolveType(type);
+				// Run the type through the TypeLayout system
+				TypeLayout.ResolveType(type);
 
-					var typeTableSymbol = CreateTypeDefinitionTable(type, assemblyTableSymbol);
+				var typeTableSymbol = CreateTypeDefinitionTable(type, assemblyTableSymbol);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyTableSymbol, (int)writer1.Position, 0, typeTableSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, assemblyTableSymbol, (int)writer1.Position, 0, typeTableSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			// Return assemblyTableSymbol
 			return assemblyTableSymbol;
 		}
 
-		#endregion
+#endregion
 
-		#region TypeDefinition
+#region TypeDefinition
 
 		private LinkerSymbol CreateTypeDefinitionTable(MosaType type, LinkerSymbol assemblyTableSymbol)
 		{
@@ -141,16 +142,18 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 2. Pointer to Custom Attributes
 			if (type.CustomAttributes.Count > 0)
-				{
-					var customAttributeListSymbol = CreateCustomAttributeListTable(type);
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
-				}
+			{
+				var customAttributeListSymbol = CreateCustomAttributeListTable(type);
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// 3. Flags: IsInterface, HasGenericParams (32bit length)
 			uint flags = 0x0;
-			if (type.IsInterface) flags |= 0x1;
-			if (type.HasOpenGenericParams) flags |= 0x2;
+			if (type.IsInterface)
+				flags |= 0x1;
+			if (type.HasOpenGenericParams)
+				flags |= 0x2;
 			writer1.Write(flags);
 
 			// 4. Size
@@ -162,66 +165,64 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 6. Pointer to Parent Type
 			if (type.BaseType != null)
-				{
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, type.BaseType.FullName + Metadata.TypeDefinition, SectionKind.ROData, 0);
-				}
+			{
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, type.BaseType.FullName + Metadata.TypeDefinition, SectionKind.ROData, 0);
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// 7. Constructor that accepts no parameters, if any, for this type
 			foreach (var method in type.Methods)
-				{
-					if (!method.Name.Equals(".ctor") || !(method.Signature.Parameters.Count == 0) || method.HasOpenGenericParams)
-						continue;
+			{
+				if (!method.Name.Equals(".ctor") || !(method.Signature.Parameters.Count == 0) || method.HasOpenGenericParams)
+					continue;
 
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, method.FullName + Metadata.MethodDefinition, SectionKind.ROData, 0);
-					break;
-				}
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, method.FullName + Metadata.MethodDefinition, SectionKind.ROData, 0);
+				break;
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// If the type is not an interface continue, otherwise just pad until the end
 			if (!type.IsInterface)
+			{
+				// If the type doesn't use interfaces then skip 8 and 9
+				if (type.Interfaces.Count > 0)
 				{
-					// If the type doesn't use interfaces then skip 8 and 9
-					if (type.Interfaces.Count > 0)
-						{
-							// 8. Pointer to Interface Slots
-							var interfaceSlotTableSymbol = CreateInterfaceSlotTable(type);
-							Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, interfaceSlotTableSymbol, 0);
-							writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+					// 8. Pointer to Interface Slots
+					var interfaceSlotTableSymbol = CreateInterfaceSlotTable(type);
+					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, interfaceSlotTableSymbol, 0);
+					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
-							// 9. Pointer to Interface Bitmap
-							var interfaceBitmapSymbol = CreateInterfaceBitmap(type);
-							Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, interfaceBitmapSymbol, 0);
-							writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-						}
-					else
-						{
-							// Fill 8 and 9 with zeros
-							writer1.WriteZeroBytes(TypeLayout.NativePointerSize * 2);
-						}
-
-					// For the next part we'll need to get the list of methods from the MosaTypeLayout
-					var methodList = TypeLayout.GetMethodTable(type) ?? new List<MosaMethod>();
-
-					// 10. Number of Methods
-					writer1.Write(methodList.Count);
-
-					// 11. Pointer to Method Definitions
-					foreach (MosaMethod method in methodList)
-						{
-							// Create definition and get the symbol
-							var methodDefinitionSymbol = CreateMethodDefinitionTable(method);
-
-							// Link
-							Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, methodDefinitionSymbol, 0);
-							writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-						}
-				}
-			else
+					// 9. Pointer to Interface Bitmap
+					var interfaceBitmapSymbol = CreateInterfaceBitmap(type);
+					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, interfaceBitmapSymbol, 0);
+					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+				} else
 				{
-					// Fill 8, 9, 10 with zeros, 11 can be left out.
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize * 3);
+					// Fill 8 and 9 with zeros
+					writer1.WriteZeroBytes(TypeLayout.NativePointerSize * 2);
 				}
+
+				// For the next part we'll need to get the list of methods from the MosaTypeLayout
+				var methodList = TypeLayout.GetMethodTable(type) ?? new List<MosaMethod>();
+
+				// 10. Number of Methods
+				writer1.Write(methodList.Count);
+
+				// 11. Pointer to Method Definitions
+				foreach (MosaMethod method in methodList)
+				{
+					// Create definition and get the symbol
+					var methodDefinitionSymbol = CreateMethodDefinitionTable(method);
+
+					// Link
+					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, typeTableSymbol, (int)writer1.Position, 0, methodDefinitionSymbol, 0);
+					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+				}
+			} else
+			{
+				// Fill 8, 9, 10 with zeros, 11 can be left out.
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize * 3);
+			}
 
 			CreateFieldDefinitions(type);
 
@@ -229,9 +230,9 @@ namespace Mosa.Compiler.Framework.Stages
 			return typeTableSymbol;
 		}
 
-		#endregion
+#endregion
 
-		#region Interface Bitmap and Tables
+#region Interface Bitmap and Tables
 
 		private LinkerSymbol CreateInterfaceBitmap(MosaType type)
 		{
@@ -240,19 +241,19 @@ namespace Mosa.Compiler.Framework.Stages
 			int at = 0;
 			byte bit = 0;
 			foreach (var interfaceType in TypeLayout.Interfaces)
+			{
+				if (type.Interfaces.Contains(interfaceType))
 				{
-					if (type.Interfaces.Contains(interfaceType))
-						{
-							bitmap[at] = (byte)(bitmap[at] | (byte)(1 << bit));
-						}
-
-					bit++;
-					if (bit == 8)
-						{
-							bit = 0;
-							at++;
-						}
+					bitmap[at] = (byte)(bitmap[at] | (byte)(1 << bit));
 				}
+
+				bit++;
+				if (bit == 8)
+				{
+					bit = 0;
+					at++;
+				}
+			}
 
 			var symbol = Linker.CreateSymbol(type.FullName + Metadata.InterfaceBitmap, SectionKind.ROData, TypeLayout.NativePointerAlignment, bitmap.Length);
 			symbol.Stream.Write(bitmap);
@@ -270,28 +271,28 @@ namespace Mosa.Compiler.Framework.Stages
 			var slots = new List<MosaType>(TypeLayout.Interfaces.Count);
 
 			foreach (MosaType interfaceType in TypeLayout.Interfaces)
-				{
-					if (type.Interfaces.Contains(interfaceType))
-						slots.Add(interfaceType);
-					else
-						slots.Add(null);
-				}
+			{
+				if (type.Interfaces.Contains(interfaceType))
+					slots.Add(interfaceType);
+				else
+					slots.Add(null);
+			}
 
 			// 1. Number of Interface slots
 			writer1.Write((uint)slots.Count);
 
 			// 2. Pointers to Interface Method Tables
 			foreach (MosaType interfaceType in slots)
+			{
+				if (interfaceType != null)
 				{
-					if (interfaceType != null)
-						{
-							var interfaceMethodTableSymbol = CreateInterfaceMethodTable(type, interfaceType);
+					var interfaceMethodTableSymbol = CreateInterfaceMethodTable(type, interfaceType);
 
-							// Link
-							Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, interfaceSlotTableSymbol, (int)writer1.Position, 0, interfaceMethodTableSymbol, 0);
-						}
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+					// Link
+					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, interfaceSlotTableSymbol, (int)writer1.Position, 0, interfaceMethodTableSymbol, 0);
 				}
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			// Return interfaceSlotTableSymbol for linker usage
 			return interfaceSlotTableSymbol;
@@ -310,22 +311,22 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 2. Pointers to Method Definitions
 			foreach (MosaMethod method in interfaceMethodTable)
-				{
-					// Create definition and get the symbol
-					var methodDefinitionSymbol = CreateMethodDefinitionTable(method);
+			{
+				// Create definition and get the symbol
+				var methodDefinitionSymbol = CreateMethodDefinitionTable(method);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, interfaceMethodTableSymbol, (int)writer1.Position, 0, methodDefinitionSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, interfaceMethodTableSymbol, (int)writer1.Position, 0, methodDefinitionSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			// Return interfaceMethodTableSymbol for linker usage
 			return interfaceMethodTableSymbol;
 		}
 
-		#endregion
+#endregion
 
-		#region MethodDefinition
+#region MethodDefinition
 
 		private LinkerSymbol CreateMethodDefinitionTable(MosaMethod method)
 		{
@@ -342,25 +343,28 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 2. Pointer to Custom Attributes
 			if (method.CustomAttributes.Count > 0)
-				{
-					var customAttributeListSymbol = CreateCustomAttributeListTable(method);
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, methodTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
-				}
+			{
+				var customAttributeListSymbol = CreateCustomAttributeListTable(method);
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, methodTableSymbol, (int)writer1.Position, 0, customAttributeListSymbol, 0);
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// 3. Flags: IsStatic, IsAbstract, HasGenericParams (32bit length)
 			uint flags = 0x0;
-			if (method.IsStatic) flags |= 0x1;
-			if (method.IsAbstract) flags |= 0x2;
-			if (method.HasOpenGenericParams) flags |= 0x4;
+			if (method.IsStatic)
+				flags |= 0x1;
+			if (method.IsAbstract)
+				flags |= 0x2;
+			if (method.HasOpenGenericParams)
+				flags |= 0x4;
 			writer1.Write(flags);
 
 			// 4. Local Stack Size (High 16bits) and Parameter Stack Size (Low 16bits)
 			uint paramStackSize = method.MaxStack << 16;
 			foreach (MosaParameter param in method.Signature.Parameters)
-				{
-					paramStackSize += (uint)TypeLayout.GetTypeSize(param.Type);
-				}
+			{
+				paramStackSize += (uint)TypeLayout.GetTypeSize(param.Type);
+			}
 			writer1.Write(paramStackSize);
 
 
@@ -386,64 +390,63 @@ namespace Mosa.Compiler.Framework.Stages
 			return methodTableSymbol;
 		}
 
-		#endregion
+#endregion
 
-		#region FieldDefinition
+#region FieldDefinition
 
 		private void CreateFieldDefinitions(MosaType type)
 		{
 			foreach (MosaField field in type.Fields)
+			{
+				// Emit field name
+				var fieldNameSymbol = EmitStringWithLength(field.FullName + Metadata.NameString, field.Name);
+
+				// Emit field definition
+				var fieldDefSymbol = Linker.CreateSymbol(field.FullName + Metadata.FieldDefinition, SectionKind.ROData, TypeLayout.NativePointerAlignment, 0);
+				var writer1 = new EndianAwareBinaryWriter(fieldDefSymbol.Stream, Architecture.Endianness);
+
+				// 1. Name
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, fieldDefSymbol, (int)writer1.Position, 0, fieldNameSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+
+				// 2 & 3. Offset / Address + Size
+				if (field.IsStatic && !field.IsLiteral)
 				{
-					// Emit field name
-					var fieldNameSymbol = EmitStringWithLength(field.FullName + Metadata.NameString, field.Name);
-
-					// Emit field definition
-					var fieldDefSymbol = Linker.CreateSymbol(field.FullName + Metadata.FieldDefinition, SectionKind.ROData, TypeLayout.NativePointerAlignment, 0);
-					var writer1 = new EndianAwareBinaryWriter(fieldDefSymbol.Stream, Architecture.Endianness);
-
-					// 1. Name
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, fieldDefSymbol, (int)writer1.Position, 0, fieldNameSymbol, 0);
+					var section = (field.Data != null) ? SectionKind.ROData : SectionKind.BSS;
+					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, fieldDefSymbol, (int)writer1.Position, 0, field.FullName, section, 0);
 					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-
-					// 2 & 3. Offset / Address + Size
-					if (field.IsStatic && !field.IsLiteral)
-						{
-							var section = (field.Data != null) ? SectionKind.ROData : SectionKind.BSS;
-							Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, fieldDefSymbol, (int)writer1.Position, 0, field.FullName, section, 0);
-							writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-							writer1.Write((field.Data != null) ? field.Data.Length : 0);
-						}
-					else
-						{
-							writer1.Write(TypeLayout.GetFieldOffset(field));
-						}
-
-					// Create another symbol with field data if any
-					if (field.IsStatic)
-						{
-							// Assign a memory slot to the static & initialize it, if there's initial data set
-							// Determine the size of the type & alignment requirements
-							int size, alignment;
-							Architecture.GetTypeRequirements(TypeLayout, field.FieldType, out size, out alignment);
-
-							size = (int)TypeLayout.GetFieldSize(field);
-
-							// The linker section to move this field into
-							SectionKind section = field.Data != null ? section = SectionKind.ROData : section = SectionKind.BSS;
-
-							var symbol = Compiler.Linker.CreateSymbol(field.FullName, section, alignment, size);
-
-							if (field.Data != null)
-								{
-									symbol.Stream.Write(field.Data, 0, size);
-								}
-						}
+					writer1.Write((field.Data != null) ? field.Data.Length : 0);
+				} else
+				{
+					writer1.Write(TypeLayout.GetFieldOffset(field));
 				}
+
+				// Create another symbol with field data if any
+				if (field.IsStatic)
+				{
+					// Assign a memory slot to the static & initialize it, if there's initial data set
+					// Determine the size of the type & alignment requirements
+					int size, alignment;
+					Architecture.GetTypeRequirements(TypeLayout, field.FieldType, out size, out alignment);
+
+					size = (int)TypeLayout.GetFieldSize(field);
+
+					// The linker section to move this field into
+					SectionKind section = field.Data != null ? section = SectionKind.ROData : section = SectionKind.BSS;
+
+					var symbol = Compiler.Linker.CreateSymbol(field.FullName, section, alignment, size);
+
+					if (field.Data != null)
+					{
+						symbol.Stream.Write(field.Data, 0, size);
+					}
+				}
+			}
 		}
 
-		#endregion
+#endregion
 
-		#region Custom Attributes
+#region Custom Attributes
 
 		private LinkerSymbol CreateCustomAttributeListTable(MosaUnit unit)
 		{
@@ -457,17 +460,17 @@ namespace Mosa.Compiler.Framework.Stages
 			// 2. Pointers to Custom Attributes
 			// Create the definitions along the way
 			for (int i = 0; i < unit.CustomAttributes.Count; i++)
-				{
-					// Get custom attribute
-					var ca = unit.CustomAttributes[i];
+			{
+				// Get custom attribute
+				var ca = unit.CustomAttributes[i];
 
-					// Build definition
-					var customAttributeTableSymbol = CreateCustomAttributeTable(unit, ca, i);
+				// Build definition
+				var customAttributeTableSymbol = CreateCustomAttributeTable(unit, ca, i);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeListTableSymbol, (int)writer1.Position, 0, customAttributeTableSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeListTableSymbol, (int)writer1.Position, 0, customAttributeTableSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			// Return customAttributeListTableSymbol for linker usage
 			return customAttributeListTableSymbol;
@@ -493,24 +496,24 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 4. Pointers to Custom Attribute Arguments (Both unnamed and named)
 			for (int i = 0; i < ca.Arguments.Length; i++)
-				{
-					// Build definition
-					var customAttributeArgumentSymbol = CreateCustomAttributeArgument(name, i, null, ca.Arguments[i]);
+			{
+				// Build definition
+				var customAttributeArgumentSymbol = CreateCustomAttributeArgument(name, i, null, ca.Arguments[i]);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeTableSymbol, (int)writer1.Position, 0, customAttributeArgumentSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeTableSymbol, (int)writer1.Position, 0, customAttributeArgumentSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			foreach (var namedArg in ca.NamedArguments)
-				{
-					// Build definition
-					var customAttributeArgumentSymbol = CreateCustomAttributeArgument(name, 0, namedArg.Name, namedArg.Argument);
+			{
+				// Build definition
+				var customAttributeArgumentSymbol = CreateCustomAttributeArgument(name, 0, namedArg.Name, namedArg.Argument);
 
-					// Link
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeTableSymbol, (int)writer1.Position, 0, customAttributeArgumentSymbol, 0);
-					writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
-				}
+				// Link
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, customAttributeTableSymbol, (int)writer1.Position, 0, customAttributeArgumentSymbol, 0);
+				writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
+			}
 
 			// Return customAttributeTableSymbol for linker usage
 			return customAttributeTableSymbol;
@@ -522,25 +525,25 @@ namespace Mosa.Compiler.Framework.Stages
 				type = type.GetEnumUnderlyingType();
 			switch (type.TypeCode)
 			{
-				// 1 byte
+			// 1 byte
 				case MosaTypeCode.Boolean:
 				case MosaTypeCode.U1:
 				case MosaTypeCode.I1:
 					return 1;
 
-					// 2 bytes
+			// 2 bytes
 				case MosaTypeCode.Char:
 				case MosaTypeCode.U2:
 				case MosaTypeCode.I2:
 					return 2;
 
-					// 4 bytes
+			// 4 bytes
 				case MosaTypeCode.U4:
 				case MosaTypeCode.I4:
 				case MosaTypeCode.R4:
 					return 4;
 
-					// 8 bytes
+			// 8 bytes
 				case MosaTypeCode.U8:
 				case MosaTypeCode.I8:
 				case MosaTypeCode.R8:
@@ -548,20 +551,18 @@ namespace Mosa.Compiler.Framework.Stages
 
 				default:
 					if (type.IsArray)
-						{
-							Debug.Assert(value is MosaCustomAttribute.Argument[]);
-							var arr = (MosaCustomAttribute.Argument[])value;
-							int size = 0;
-							foreach (var elem in arr)
-								size += ComputeArgumentSize(elem.Type, elem.Value);
-							return size;
-						}
-					else if (type.IsReferenceType) // System.String or System.Type
+					{
+						Debug.Assert(value is MosaCustomAttribute.Argument[]);
+						var arr = (MosaCustomAttribute.Argument[])value;
+						int size = 0;
+						foreach (var elem in arr)
+							size += ComputeArgumentSize(elem.Type, elem.Value);
+						return size;
+					} else if (type.IsReferenceType) // System.String or System.Type
 						{
 							return TypeLayout.NativePointerSize;
-						}
-					else
-						throw new NotSupportedException();
+						} else
+							throw new NotSupportedException();
 			}
 		}
 
@@ -571,7 +572,7 @@ namespace Mosa.Compiler.Framework.Stages
 				type = type.GetEnumUnderlyingType();
 			switch (type.TypeCode)
 			{
-				// 1 byte
+			// 1 byte
 				case MosaTypeCode.Boolean:
 					writer.Write((bool)value);
 					break;
@@ -582,7 +583,7 @@ namespace Mosa.Compiler.Framework.Stages
 					writer.Write((sbyte)value);
 					break;
 
-					// 2 bytes
+			// 2 bytes
 				case MosaTypeCode.Char:
 					writer.Write((char)value);
 					break;
@@ -593,7 +594,7 @@ namespace Mosa.Compiler.Framework.Stages
 					writer.Write((short)value);
 					break;
 
-					// 4 bytes
+			// 4 bytes
 				case MosaTypeCode.U4:
 					writer.Write((uint)value);
 					break;
@@ -604,7 +605,7 @@ namespace Mosa.Compiler.Framework.Stages
 					writer.Write((float)value);
 					break;
 
-					// 8 bytes
+			// 8 bytes
 				case MosaTypeCode.U8:
 					writer.Write((ulong)value);
 					break;
@@ -617,32 +618,28 @@ namespace Mosa.Compiler.Framework.Stages
 
 				default:
 					if (type.IsArray)
-						{
-							Debug.Assert(value is MosaCustomAttribute.Argument[]);
-							var arr = (MosaCustomAttribute.Argument[])value;
-							writer.Write(arr.Length);
-							foreach (var elem in arr)
-								WriteArgument(writer, symbol, elem.Type, elem.Value);
-						}
-					else if (type.IsReferenceType) // System.String or System.Type
+					{
+						Debug.Assert(value is MosaCustomAttribute.Argument[]);
+						var arr = (MosaCustomAttribute.Argument[])value;
+						writer.Write(arr.Length);
+						foreach (var elem in arr)
+							WriteArgument(writer, symbol, elem.Type, elem.Value);
+					} else if (type.IsReferenceType) // System.String or System.Type
 						{
 							if (type.TypeCode == MosaTypeCode.String)
-								{
-									var str = (string)value;
-									writer.Write(str.Length);
-									writer.Write(System.Text.Encoding.Unicode.GetBytes(str));
-								}
-							else if (type.FullName == "System.Type")
+							{
+								var str = (string)value;
+								writer.Write(str.Length);
+								writer.Write(System.Text.Encoding.Unicode.GetBytes(str));
+							} else if (type.FullName == "System.Type")
 								{
 									var valueType = (MosaType)value;
 									Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, symbol, (int)writer.Position, 0, valueType.FullName + Metadata.TypeDefinition, SectionKind.ROData, 0);
 									writer.WriteZeroBytes(TypeLayout.NativePointerSize);
-								}
-							else
-								throw new NotSupportedException();
-						}
-					else
-						throw new NotSupportedException();
+								} else
+									throw new NotSupportedException();
+						} else
+							throw new NotSupportedException();
 					break;
 			}
 		}
@@ -656,10 +653,10 @@ namespace Mosa.Compiler.Framework.Stages
 
 			// 1. Pointer to name (if named)
 			if (name != null)
-				{
-					var nameSymbol = EmitStringWithLength(nameForSymbol + Metadata.NameString, name);
-					Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, symbol, (int)writer1.Position, 0, nameSymbol, 0);
-				}
+			{
+				var nameSymbol = EmitStringWithLength(nameForSymbol + Metadata.NameString, name);
+				Linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, symbol, (int)writer1.Position, 0, nameSymbol, 0);
+			}
 			writer1.WriteZeroBytes(TypeLayout.NativePointerSize);
 
 			// 2. Argument Type Pointer
@@ -676,6 +673,6 @@ namespace Mosa.Compiler.Framework.Stages
 			return symbol;
 		}
 
-		#endregion
+#endregion
 	}
 }
