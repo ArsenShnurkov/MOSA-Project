@@ -14,7 +14,6 @@ namespace Mosa.DebugWorld.x86
 	/// </summary>
 	public static class Boot
 	{
-
 		/// <summary>
 		/// Mains this instance.
 		/// </summary>
