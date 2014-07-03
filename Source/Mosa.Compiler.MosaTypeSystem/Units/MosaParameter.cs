@@ -46,7 +46,8 @@ namespace Mosa.Compiler.MosaTypeSystem
 		{
 			return Type.Equals(parameter.Type) 
 				&& ParameterAttributes.Equals(parameter.ParameterAttributes)
-				&& CustomAttributes.Equals(parameter.CustomAttributes);
+				/*&& CustomAttributes.Equals(parameter.CustomAttributes)*/
+				;
 		}
 
 		public bool Equals(MosaType type)
