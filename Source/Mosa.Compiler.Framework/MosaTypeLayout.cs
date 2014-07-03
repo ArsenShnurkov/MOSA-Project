@@ -19,7 +19,7 @@ namespace Mosa.Compiler.Framework
 	/// </summary>
 	public class MosaTypeLayout
 	{
-		#region Data members
+#region Data members
 
 		/// <summary>
 		/// Holds the type system
@@ -76,7 +76,7 @@ namespace Mosa.Compiler.Framework
 		/// </summary>
 		private Dictionary<MosaType, List<MosaMethod>> typeMethodTables = new Dictionary<MosaType, List<MosaMethod>>();
 
-		#endregion Data members
+#endregion Data members
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="MosaTypeLayout" /> class.
@@ -266,7 +266,7 @@ namespace Mosa.Compiler.Framework
 			return false;
 		}
 
-		#region Internal - Layout
+#region Internal - Layout
 
 		private void ResolveLayouts()
 		{
@@ -313,13 +313,13 @@ namespace Mosa.Compiler.Framework
 				typeSizes[type] = size.Value;
 			}
 			else if (type.IsExplicitLayout)
-			{
-				ComputeExplicitLayout(type);
-			}
-			else
-			{
-				ComputeSequentialLayout(type);
-			}
+				{
+					ComputeExplicitLayout(type);
+				}
+				else
+				{
+					ComputeSequentialLayout(type);
+				}
 
 			CreateMethodTable(type);
 		}
@@ -409,9 +409,9 @@ namespace Mosa.Compiler.Framework
 			typeSizes.Add(type, type.ClassSize ?? size);
 		}
 
-		#endregion Internal - Layout
+#endregion Internal - Layout
 
-		#region Internal - Interface
+#region Internal - Interface
 
 		private void ScanExplicitInterfaceImplementations(MosaType type, MosaType interfaceType, MosaMethod[] methodTable)
 		{
@@ -522,9 +522,9 @@ namespace Mosa.Compiler.Framework
 			return fullname.Contains(".");
 		}
 
-		#endregion Internal - Interface
+#endregion Internal - Interface
 
-		#region Internal
+#region Internal
 
 		private List<MosaMethod> CreateMethodTable(MosaType type)
 		{
@@ -537,8 +537,11 @@ namespace Mosa.Compiler.Framework
 
 			methodTable = GetMethodTableFromBaseType(type);
 
+			Console.WriteLine("CreateMethodTable('{0}')", type.ToString());
+
 			foreach (var method in type.Methods)
 			{
+				Console.WriteLine("method('{0}')", method.ToString());
 				if (method.IsVirtual)
 				{
 					if (method.IsNewSlot)
@@ -563,11 +566,11 @@ namespace Mosa.Compiler.Framework
 						methodTableOffsets.Add(method, slot);
 					}
 					else if (!method.IsInternal && method.ExternMethod == null)
-					{
-						int slot = methodTable.Count;
-						methodTable.Add(method);
-						methodTableOffsets.Add(method, slot);
-					}
+						{
+							int slot = methodTable.Count;
+							methodTable.Add(method);
+							methodTableOffsets.Add(method, slot);
+						}
 				}
 			}
 
@@ -614,7 +617,10 @@ namespace Mosa.Compiler.Framework
 			if (slot >= 0) // non generic methods are more exact
 				return slot;
 
-			throw new InvalidOperationException(@"Failed to find override method slot.");
+			var ex = new InvalidOperationException(@"Failed to find override method slot.");
+			ex.Data.Add("methodTable", methodTable);
+			ex.Data.Add("method", method);
+			throw ex;
 		}
 
 		/// <summary>
@@ -628,6 +634,6 @@ namespace Mosa.Compiler.Framework
 			return nativePointerSize;
 		}
 
-		#endregion Internal
+#endregion Internal
 	}
 }

@@ -58,7 +58,11 @@ namespace Mosa.Compiler.Framework.Intrinsics
 			var method = type.FindMethodByName(internalMethod);
 			if (method == null)
 			{
-					throw new ApplicationException(string.Format("'{0}' internal method not found", internalMethod));
+				var ex = new CompilerException(string.Format("Internal method '{0}' of type '{1}' not found", internalMethod, type));
+				ex.Data.Add("Context context", context);
+				ex.Data.Add("BaseMethodCompiler methodCompile", methodCompiler);
+				ex.Data.Add("string internalMethod", internalMethod);
+				throw ex;
 			}
 			Operand callTargetOperand = Operand.CreateSymbolFromMethod(methodCompiler.TypeSystem, method);
 

@@ -360,7 +360,20 @@ namespace Mosa.Tool.Compiler
 
 			try
 			{
-				Compile();
+				try
+				{
+					Compile();
+				}
+				catch (Exception ex)
+				{
+					Console.WriteLine(string.Format("Exception of type {0}", ex.GetType().ToString()));
+					foreach (var v in ex.Data.Keys)
+					{
+						Console.WriteLine("{0} -> {1}", v, ex.Data[v]);
+					}
+					Console.WriteLine("{0}", ex.ToString());
+				}
+
 			}
 			catch (CompilerException ce)
 			{

@@ -205,6 +205,25 @@ namespace Mosa.Platform.Internal.x86
 			}
 		}
 
+		public static string Metadata_Type_GetFullName(RuntimeTypeHandle* typeDefinition)
+		{
+			return Runtime.Type.GetFullName(typeDefinition);
+		}
+
+		public static TypeAttributes Metadata_Type_GetAttributes(RuntimeTypeHandle* typeDefinition)
+		{
+			return Runtime.Type.GetAttributes(typeDefinition);
+		}
+
+		public static RuntimeTypeHandle* Metadata_Type_GetHandleByName(string typeName, bool ignoreCase)
+		{
+			return Runtime.Type.GetHandleByName(typeName, ignoreCase);
+		}
+
+		public static RuntimeTypeHandle* Metadata_Type_GetHandleFromObject(void* obj)
+		{
+			return Runtime.Type.GetHandleFromObject(obj);
+		}
 		#endregion Metadata - Type
 
 		public static void InitializeArray(uint* array, RuntimeFieldHandle* fieldHandle)
