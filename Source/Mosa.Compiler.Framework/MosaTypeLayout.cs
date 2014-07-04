@@ -7,10 +7,11 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
-using Mosa.Compiler.MosaTypeSystem;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Mosa.Compiler.MosaTypeSystem;
+using System.Text;
 
 namespace Mosa.Compiler.Framework
 {
@@ -617,7 +618,7 @@ namespace Mosa.Compiler.Framework
 				return slot;
 
 			var ex = new InvalidOperationException(@"Failed to find override method slot.");
-			ex.Data.Add("methodTable", methodTable);
+			ex.Data.Add(new ListFormatProvider("methodTable"), methodTable);
 			ex.Data.Add("method", method);
 			throw ex;
 		}

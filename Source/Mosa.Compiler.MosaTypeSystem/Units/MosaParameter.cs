@@ -8,6 +8,7 @@
  */
 
 using System;
+using System.Text;
 
 namespace Mosa.Compiler.MosaTypeSystem
 {
@@ -39,15 +40,19 @@ namespace Mosa.Compiler.MosaTypeSystem
 
 		public override string ToString()
 		{
-			return Type + " " + Name;
+			var res = new StringBuilder();
+			res.AppendFormat("{0} {1} {2}", Type, Name, this.CustomAttributes.Count);
+			res.AppendLine();
+			var str = string.Format(new ListFormatProvider("CustomAttributes"), "[{0}]", this.CustomAttributes);
+			res.AppendFormat(str);
+			var str2 = this.ParameterAttributes.ToString();
+			res.AppendFormat(str2);
+			return res.ToString();
 		}
 
 		public bool Equals(MosaParameter parameter)
 		{
-			return Type.Equals(parameter.Type) 
-				&& ParameterAttributes.Equals(parameter.ParameterAttributes)
-				/*&& CustomAttributes.Equals(parameter.CustomAttributes)*/
-				;
+			return Type.Equals(parameter.Type) && ParameterAttributes.Equals(parameter.ParameterAttributes);
 		}
 
 		public bool Equals(MosaType type)

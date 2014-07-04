@@ -9,6 +9,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Mosa.Compiler.MosaTypeSystem
 {
@@ -76,6 +77,52 @@ namespace Mosa.Compiler.MosaTypeSystem
 			public IList<MosaCustomAttribute> CustomAttributes { get { return unit.customAttributes; } }
 
 			public abstract void Dispose();
+		}
+	}
+
+	public class ListFormatProvider : IFormatProvider, ICustomFormatter
+	{
+#region IFormatProvider implementation
+
+		public object GetFormat(Type formatType)
+		{
+			if (formatType.Equals(typeof(ICustomFormatter)))
+			{
+				return this;
+			}
+			throw new NotSupportedException();
+		}
+
+#endregion
+
+#region ICustomFormatter implementation
+
+		public string Format(string format, object o, IFormatProvider formatProvider)
+		{
+			var res = new StringBuilder();
+			res.AppendLine(string.Format("{0} ->", name));
+			if (o is IEnumerable<object>)
+			{
+				var list = (IEnumerable<object>)o;
+				foreach (var m in list)
+				{
+					if (format == null)
+					{
+						format = "<{0}>";
+					}
+					res.AppendLine(string.Format(format, m.ToString()));
+				}
+			}
+			return res.ToString();
+		}
+
+#endregion
+
+		protected string name;
+
+		public ListFormatProvider(string name)
+		{
+			this.name = name;
 		}
 	}
 }
