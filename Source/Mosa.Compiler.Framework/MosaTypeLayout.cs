@@ -537,11 +537,10 @@ namespace Mosa.Compiler.Framework
 
 			methodTable = GetMethodTableFromBaseType(type);
 
-			Console.WriteLine("CreateMethodTable('{0}')", type.ToString());
-
+			//Console.WriteLine("CreateMethodTable('{0}')", type.ToString());
 			foreach (var method in type.Methods)
 			{
-				Console.WriteLine("method('{0}')", method.ToString());
+				//Console.WriteLine("method('{0}')", method.ToString());
 				if (method.IsVirtual)
 				{
 					if (method.IsNewSlot)
