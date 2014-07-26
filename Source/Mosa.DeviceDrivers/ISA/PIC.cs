@@ -81,7 +81,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PIC"/> class.
 		/// </summary>
-		public PIC()
+		public PIC(IHardwareAbstraction board):base(board)
 		{
 		}
 
@@ -276,6 +276,74 @@ namespace Mosa.DeviceDrivers.ISA
 				else
 					DisableSlaveIRQ((byte)(irq - SlaveIRQBase));
 			}
+		}
+
+		private const byte ICW1_ICW4 = 0x01;
+		private const byte ICW1_SingleCascadeMode = 0x02;
+		private const byte ICW1_Interval4 = 0x04;
+		private const byte ICW1_LevelTriggeredEdgeMode = 0x08;
+		private const byte ICW1_Initialization = 0x10;
+		private const byte ICW2_MasterOffset = 0x20;
+		private const byte ICW2_SlaveOffset = 0x28;
+		private const byte ICW4_8086 = 0x01;
+		private const byte ICW4_AutoEndOfInterrupt = 0x02;
+		private const byte ICW4_BufferedSlaveMode = 0x08;
+		private const byte ICW4_BufferedMasterMode = 0x0C;
+		private const byte ICW4_SpecialFullyNested = 0x10;
+
+		private const byte PIC1_Command = 0x20;
+		private const byte PIC2_Command = 0xA0;
+		private const byte PIC1_Data = 0x21;
+		private const byte PIC2_Data = 0xA1;
+
+		public void Setup()
+		{
+			byte masterMask = base.system.PortIn8(PIC1_Data);
+			byte slaveMask = base.system.PortIn8(PIC2_Data);
+
+			// ICW1 - Set Initialize Controller & Expect ICW4
+			base.system.PortOut8(PIC1_Command, ICW1_Initialization + ICW1_ICW4);
+
+			// ICW2 - interrupt offset
+			base.system.PortOut8(PIC1_Data, ICW2_MasterOffset);
+
+			// ICW3
+			base.system.PortOut8(PIC1_Data, 4);
+
+			// ICW4 - Set 8086 Mode
+			base.system.PortOut8(PIC1_Data, ICW4_8086);
+
+			// OCW1
+			base.system.PortOut8(PIC1_Data, masterMask);
+
+			// ICW1 - Set Initialize Controller & Expect ICW4
+			base.system.PortOut8(PIC2_Command, ICW1_Initialization + ICW1_ICW4);
+
+			// ICW2 - interrupt offset
+			base.system.PortOut8(PIC2_Data, ICW2_SlaveOffset);
+
+			// ICW3
+			base.system.PortOut8(PIC2_Data, 2);
+
+			// ICW4 - Set 8086 Mode
+			base.system.PortOut8(PIC2_Data, ICW4_8086);
+
+			// OCW1
+			base.system.PortOut8(PIC2_Data, slaveMask);
+		}
+
+		/// <summary>
+		/// Sends the end of interrupt.
+		/// </summary>
+		/// <param name="irq">The irq.</param>
+		public void SendEndOfInterrupt(uint irq)
+		{
+			if (irq >= 40) // or untranslated IRQ >= 8
+			{
+				base.system.PortOut8(PIC2_Command, EOI);
+			}
+
+			base.system.PortOut8(PIC1_Command, EOI);
 		}
 	}
 }

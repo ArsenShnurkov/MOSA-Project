@@ -273,7 +273,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="FloppyDiskController"/> class.
 		/// </summary>
-		public FloppyDiskController()
+		public FloppyDiskController(IHardwareAbstraction board):base(board)
 		{
 			floppyDrives = new FloppyDriveInfo[DrivesPerController];
 			floppyMedia = new FloppyMediaInfo[DrivesPerController];

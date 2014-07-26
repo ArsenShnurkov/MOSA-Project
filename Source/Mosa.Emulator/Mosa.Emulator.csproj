@@ -23,8 +23,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -98,7 +96,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DeviceWorld\Boot.cs" />
-    <Compile Include="DeviceWorld\Kernel\CMOS.cs" />
     <Compile Include="DeviceWorld\Kernel\Colors.cs" />
     <Compile Include="DeviceWorld\Kernel\ConsoleManager.cs" />
     <Compile Include="DeviceWorld\Kernel\ConsoleSession.cs" />
@@ -119,7 +116,6 @@
     <Compile Include="DeviceWorld\Kernel\PIC.cs" />
     <Compile Include="DeviceWorld\Kernel\ProcessManager.cs" />
     <Compile Include="DeviceWorld\Kernel\Screen.cs" />
-    <Compile Include="DeviceWorld\Kernel\Serial.cs" />
     <Compile Include="DeviceWorld\Kernel\SSE.cs" />
     <Compile Include="DeviceWorld\Kernel\TaskManager.cs" />
     <Compile Include="DeviceWorld\Kernel\VirtualPageAllocator.cs" />

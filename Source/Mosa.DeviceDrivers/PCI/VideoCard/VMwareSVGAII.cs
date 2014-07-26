@@ -235,7 +235,7 @@ namespace Mosa.DeviceDrivers.PCI.VideoCard
 		/// <summary>
 		/// Initializes a new instance of the <see cref="VMwareSVGAII"/> class.
 		/// </summary>
-		public VMwareSVGAII()
+		public VMwareSVGAII(IHardwareAbstraction board):base(board)
 		{
 		}
 

@@ -8,6 +8,7 @@
 using Mosa.Kernel.x86;
 using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
+using Mosa.DeviceDrivers.ISA;
 using System;
 
 namespace Mosa.HelloWorld.x86
@@ -15,18 +16,16 @@ namespace Mosa.HelloWorld.x86
 	/// <summary>
 	///
 	/// </summary>
-	public static class Boot
+	public class Boot : Kernel_x86
 	{
-		public static ConsoleSession Console;
+		static ConsoleSession Console;
 
 		/// <summary>
 		/// Main
 		/// </summary>
 		public static void Main()
 		{
-			Mosa.Kernel.x86.Kernel.Setup();
-			//DebugClient.Setup(Serial.COM1);
-
+			Mosa.Kernel.x86.Kernel_x86.Setup();
 			Console = ConsoleManager.Controller.Boot;
 
 			Console.Clear();
@@ -39,7 +38,6 @@ namespace Mosa.HelloWorld.x86
 			System.Threading.SpinLock splk = new System.Threading.SpinLock();
 			bool @lock = false;
 
-			if (@lock) Console.Write("This won't output!");
 			splk.Enter(ref @lock);
 			if (@lock) Console.Write("Entered!");
 			splk.Enter(ref @lock);
@@ -55,7 +53,6 @@ namespace Mosa.HelloWorld.x86
 			Console.Write("Neptune");
 			Console.Color = Colors.Yellow;
 			Console.Write("'                                Copyright 2008-2014");
-			//Console.WriteLine();
 
 			Console.Color = 0x0F;
 			Console.Write(new String((char)205, 60));
@@ -303,22 +300,21 @@ namespace Mosa.HelloWorld.x86
 
 			Console.Goto(12, 0);
 
-			CMOS cmos = new CMOS();
-
 			byte last = 0;
 
 			while (true)
 			{
-				DisplayCMOS(cmos);
-				DisplayTime(cmos);
+				DisplayCMOS();
+				DisplayTime();
 
-				if (cmos.Second != last)
+					byte second = cmos.Second;
+
+				if (second % 10 != 5 & last != second)
 				{
-					last = cmos.Second;
-					//DebugClient.SendAlive();
+							last = cmos.Second;
+					DebugClient.SendAlive();
 				}
 
-				//DebugClient.Process();
 				Native.Hlt();
 			}
 		}
@@ -326,7 +322,7 @@ namespace Mosa.HelloWorld.x86
 		/// <summary>
 		/// Displays the seconds.
 		/// </summary>
-		private static void DisplayCMOS(CMOS cmos)
+		private static void DisplayCMOS()
 		{
 			Console.Row = 2;
 			Console.Column = 65;
@@ -341,7 +337,7 @@ namespace Mosa.HelloWorld.x86
 				Console.Column = 65;
 				for (byte y = 0; y < 4; y++)
 				{
-					Console.Write(cmos.Get(i), 16, 2);
+							Console.Write(cmos.Get(i), 16, 2);
 					Console.Write(' ');
 					i++;
 				}
@@ -352,7 +348,7 @@ namespace Mosa.HelloWorld.x86
 		/// <summary>
 		/// Displays the seconds.
 		/// </summary>
-		private static void DisplayTime(CMOS cmos)
+		private static void DisplayTime()
 		{
 			Console.Goto(24, 52);
 			Console.Color = Colors.Green;

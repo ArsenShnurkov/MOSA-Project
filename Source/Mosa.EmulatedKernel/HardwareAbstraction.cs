@@ -14,14 +14,14 @@ namespace Mosa.EmulatedKernel
 	/// <summary>
 	///
 	/// </summary>
-	public class HardwareAbstraction : IHardwareAbstraction
+	public class HardwareAbstraction_Emulation : IHardwareAbstraction
 	{
 		/// <summary>
 		/// Requests an IO read/write port interface from the kernel
 		/// </summary>
 		/// <param name="port">The port number.</param>
 		/// <returns></returns>
-		IReadWriteIOPort IHardwareAbstraction.RequestIOPort(ushort port)
+		IReadWriteIOPort IPortControllerAbsctraction.RequestIOPort(ushort port)
 		{
 			return IOPortDispatch.RegisterIOPort(port);
 		}
@@ -32,7 +32,7 @@ namespace Mosa.EmulatedKernel
 		/// <param name="address">The address.</param>
 		/// <param name="size">The size.</param>
 		/// <returns></returns>
-		IMemory IHardwareAbstraction.RequestPhysicalMemory(uint address, uint size)
+		IMemory IMemoryControllerAbstraction.RequestPhysicalMemory(uint address, uint size)
 		{
 			return MemoryDispatch.RegisterMemory(address, size);
 		}
@@ -48,6 +48,10 @@ namespace Mosa.EmulatedKernel
 		/// Enables all interrupts.
 		/// </summary>
 		void IHardwareAbstraction.EnableAllInterrupts()
+		{
+		}
+
+		void IHardwareAbstraction.WaitForInterrupt()
 		{
 		}
 
@@ -69,12 +73,19 @@ namespace Mosa.EmulatedKernel
 		}
 
 		/// <summary>
+		/// </summary>
+		/// <param name="count">count</param>
+		void IHardwareAbstraction.WaitWithNops(uint count)
+		{
+		}
+
+		/// <summary>
 		/// Allocates the memory.
 		/// </summary>
 		/// <param name="size">The size.</param>
 		/// <param name="alignment">The alignment.</param>
 		/// <returns></returns>
-		IMemory IHardwareAbstraction.AllocateMemory(uint size, uint alignment)
+		IMemory IMemoryControllerAbstraction.AllocateMemory(uint size, uint alignment)
 		{
 			return null;
 		}
@@ -84,9 +95,17 @@ namespace Mosa.EmulatedKernel
 		/// </summary>
 		/// <param name="memory">The memory.</param>
 		/// <returns></returns>
-		uint IHardwareAbstraction.GetPhysicalAddress(IMemory memory)
+		uint IMemoryControllerAbstraction.GetPhysicalAddress(IMemory memory)
 		{
 			return memory.Address;
+		}
+
+		void IPortControllerAbsctraction.PortOut8(ushort port, byte val)
+		{
+		}
+		byte IPortControllerAbsctraction.PortIn8(ushort port)
+		{
+			return 0;
 		}
 	}
 }

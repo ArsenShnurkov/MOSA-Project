@@ -10,7 +10,7 @@
 using Mosa.DeviceSystem;
 using Mosa.Platform.Internal.x86;
 
-namespace Mosa.CoolWorld.x86.HAL
+namespace Mosa.Kernel.x86
 {
 	/// <summary>
 	/// Implementation of IReadWriteIOPort

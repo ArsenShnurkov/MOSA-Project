@@ -217,7 +217,7 @@ namespace Mosa.DeviceDrivers.PCI.VideoCard
 		/// <summary>
 		///
 		/// </summary>
-		public S3Trio64V2()
+		public S3Trio64V2(IHardwareAbstraction board):base(board)
 		{
 		}
 

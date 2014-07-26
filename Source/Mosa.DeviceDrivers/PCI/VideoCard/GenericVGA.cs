@@ -191,7 +191,7 @@ namespace Mosa.DeviceDrivers.PCI.VideoCard
 		/// <summary>
 		/// Initializes a new instance of the <see cref="GenericVGA"/> class.
 		/// </summary>
-		public GenericVGA()
+		public GenericVGA(IHardwareAbstraction board):base(board)
 		{
 		}
 

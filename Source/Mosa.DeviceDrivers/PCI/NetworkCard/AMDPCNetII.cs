@@ -103,7 +103,7 @@ namespace Mosa.DeviceDrivers.PCI.NetworkCard
 		/// <summary>
 		/// Initializes a new instance of the <see cref="AMDPCNet"/> class.
 		/// </summary>
-		public AMDPCNet()
+		public AMDPCNet(IHardwareAbstraction board):base(board)
 		{
 		}
 

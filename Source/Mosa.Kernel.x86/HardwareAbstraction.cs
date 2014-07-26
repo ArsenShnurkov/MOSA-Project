@@ -8,22 +8,21 @@
  */
 
 using Mosa.DeviceSystem;
-using Mosa.Kernel.x86;
 using Mosa.Platform.Internal.x86;
 
-namespace Mosa.CoolWorld.x86.HAL
+namespace Mosa.Kernel.x86
 {
 	/// <summary>
 	///
 	/// </summary>
-	public class HardwareAbstraction : IHardwareAbstraction
+	public class HardwareAbstraction_x86 : IHardwareAbstraction
 	{
 		/// <summary>
 		/// Requests an IO read/write port interface from the kernel
 		/// </summary>
 		/// <param name="port">The port number.</param>
 		/// <returns></returns>
-		IReadWriteIOPort IHardwareAbstraction.RequestIOPort(ushort port)
+		IReadWriteIOPort IPortControllerAbsctraction.RequestIOPort(ushort port)
 		{
 			return new IOPort(port);
 		}
@@ -34,7 +33,7 @@ namespace Mosa.CoolWorld.x86.HAL
 		/// <param name="address">The address.</param>
 		/// <param name="size">The size.</param>
 		/// <returns></returns>
-		IMemory IHardwareAbstraction.RequestPhysicalMemory(uint address, uint size)
+		IMemory IMemoryControllerAbstraction.RequestPhysicalMemory(uint address, uint size)
 		{
 			return new Memory(address, size);
 		}
@@ -53,6 +52,19 @@ namespace Mosa.CoolWorld.x86.HAL
 		void IHardwareAbstraction.EnableAllInterrupts()
 		{
 			Native.Sti();
+		}
+
+		void IHardwareAbstraction.WaitForInterrupt()
+		{
+			Native.Hlt();
+		}
+
+		void IHardwareAbstraction.WaitWithNops(uint count)
+		{
+			for (uint i = 0; i < count; ++i)
+			{
+				Native.Nop();
+			}
 		}
 
 		/// <summary>
@@ -78,7 +90,7 @@ namespace Mosa.CoolWorld.x86.HAL
 		/// <param name="size">The size.</param>
 		/// <param name="alignment">The alignment.</param>
 		/// <returns></returns>
-		IMemory IHardwareAbstraction.AllocateMemory(uint size, uint alignment)
+		IMemory IMemoryControllerAbstraction.AllocateMemory(uint size, uint alignment)
 		{
 			uint address = KernelMemory.AllocateMemory(size);
 
@@ -90,9 +102,19 @@ namespace Mosa.CoolWorld.x86.HAL
 		/// </summary>
 		/// <param name="memory">The memory.</param>
 		/// <returns></returns>
-		uint IHardwareAbstraction.GetPhysicalAddress(IMemory memory)
+		uint IMemoryControllerAbstraction.GetPhysicalAddress(IMemory memory)
 		{
 			return Mosa.Kernel.x86.PageTable.GetPhysicalAddressFromVirtual(memory.Address);
+		}
+
+		void IPortControllerAbsctraction.PortOut8(ushort port, byte val)
+		{
+			Native.Out8(port, val);
+		}
+
+		byte IPortControllerAbsctraction.PortIn8(ushort port)
+		{
+			return Native.In8(port);
 		}
 	}
 }

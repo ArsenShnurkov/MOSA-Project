@@ -10,13 +10,14 @@
 using Mosa.DeviceDrivers.ISA;
 using Mosa.DeviceSystem;
 using Mosa.DeviceSystem.PCI;
+using Mosa.Kernel.x86;
 
 namespace Mosa.CoolWorld.x86
 {
 	/// <summary>
 	/// Setup for the Device Driver System.
 	/// </summary>
-	public static class Setup
+	public class Setup : Kernel_x86
 	{
 		static private DeviceDriverRegistry deviceDriverRegistry;
 		static private IDeviceManager deviceManager;
@@ -61,11 +62,8 @@ namespace Mosa.CoolWorld.x86
 			// Create the Device Driver Manager
 			deviceDriverRegistry = new DeviceDriverRegistry(PlatformArchitecture.X86);
 
-			// Setup hardware abstraction interface
-			IHardwareAbstraction hardwareAbstraction = new Mosa.CoolWorld.x86.HAL.HardwareAbstraction();
-
 			// Set device driver system to the hardware HAL
-			Mosa.DeviceSystem.HAL.SetHardwareAbstraction(hardwareAbstraction);
+			Mosa.DeviceSystem.HAL.SetHardwareAbstraction(hal);
 
 			// Set the interrupt handler
 			Mosa.DeviceSystem.HAL.SetInterruptHandler(ResourceManager.InterruptManager.ProcessInterrupt);			
@@ -154,11 +152,11 @@ namespace Mosa.CoolWorld.x86
 			cmosAttributes.PortRange = 0x02;
 			cmosAttributes.Platforms = PlatformArchitecture.X86AndX64;
 
-			Keyboard = new StandardKeyboard();
-			PCI = new PCIController();
-			PIC = new PIC();
-			PIT = new PIT();
-			VGAText = new VGAText();
+			Keyboard = new StandardKeyboard(hal);
+			PCI = new PCIController(hal);
+			PIC = new PIC(hal);
+			PIT = new PIT(hal);
+			VGAText = new VGAText(hal);
 			CMOS = new CMOS2();
 
 			//StartDevice(picAttributes, PIC);

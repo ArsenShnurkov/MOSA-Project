@@ -41,7 +41,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PCIController"/> class.
 		/// </summary>
-		public PCIController()
+		public PCIController(IHardwareAbstraction board):base(board)
 		{
 		}
 

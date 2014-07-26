@@ -24,7 +24,7 @@ namespace Mosa.CoolWorld.x86
 		/// </summary>
 		public static void Main()
 		{
-			Mosa.Kernel.x86.Kernel.Setup();
+			Mosa.Kernel.x86.Kernel_x86.Setup();
 			//DebugClient.Setup(Serial.COM1);
 
 			Console = ConsoleManager.Controller.Boot;

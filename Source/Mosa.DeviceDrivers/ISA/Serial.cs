@@ -105,7 +105,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// </summary>
 		protected uint fifoEnd;
 
-		#region Flags
+#region Flags
 
 		/// <summary>
 		///
@@ -116,22 +116,26 @@ namespace Mosa.DeviceDrivers.ISA
 			/// <summary>
 			///
 			/// </summary>
-			DR = 0x01, // Data ready, it is generated if data waits to be read by the CPU.
+			DR = 0x01,
+			// Data ready, it is generated if data waits to be read by the CPU.
 
 			/// <summary>
 			///
 			/// </summary>
-			THRE = 0x02, // THR Empty, this interrupt tells the CPU to write characters to the THR.
+			THRE = 0x02,
+			// THR Empty, this interrupt tells the CPU to write characters to the THR.
 
 			/// <summary>
 			///
 			/// </summary>
-			SI = 0x04, // Status interrupt. It informs the CPU of occurred transmission errors during reception.
+			SI = 0x04,
+			// Status interrupt. It informs the CPU of occurred transmission errors during reception.
 
 			/// <summary>
 			///
 			/// </summary>
-			MSI = 0x08 // Modem status interrupt. It is triggered whenever one of the delta-bits is set (see MSR).
+			MSI = 0x08
+			// Modem status interrupt. It is triggered whenever one of the delta-bits is set (see MSR).
 		}
 
 		/// <summary>
@@ -143,22 +147,26 @@ namespace Mosa.DeviceDrivers.ISA
 			/// <summary>
 			///
 			/// </summary>
-			Enabled = 0x01, // FIFO enable.
+			Enabled = 0x01,
+			// FIFO enable.
 
 			/// <summary>
 			///
 			/// </summary>
-			CLR_RCVR = 0x02, // Clear receiver FIFO. This bit is self-clearing.
+			CLR_RCVR = 0x02,
+			// Clear receiver FIFO. This bit is self-clearing.
 
 			/// <summary>
 			///
 			/// </summary>
-			CLR_XMIT = 0x04, // Clear transmitter FIFO. This bit is self-clearing.
+			CLR_XMIT = 0x04,
+			// Clear transmitter FIFO. This bit is self-clearing.
 
 			/// <summary>
 			///
 			/// </summary>
-			DMA = 0x08, // DMA mode
+			DMA = 0x08,
+			// DMA mode
 
 			// Receiver FIFO trigger level
 			/// <summary>
@@ -192,59 +200,70 @@ namespace Mosa.DeviceDrivers.ISA
 			/// <summary>
 			///
 			/// </summary>
-			CS5 = 0x00, // 5bits
+			CS5 = 0x00,
+			// 5bits
 
 			/// <summary>
 			///
 			/// </summary>
-			CS6 = 0x01, // 6bits
+			CS6 = 0x01,
+			// 6bits
 
 			/// <summary>
 			///
 			/// </summary>
-			CS7 = 0x02, // 7bits
+			CS7 = 0x02,
+			// 7bits
 
 			/// <summary>
 			///
 			/// </summary>
-			CS8 = 0x03, // 8bits
+			CS8 = 0x03,
+			// 8bits
 
 			// Stop bit
 			/// <summary>
 			///
 			/// </summary>
-			ST1 = 0x00, // 1
+			ST1 = 0x00,
+			// 1
 
 			/// <summary>
 			///
 			/// </summary>
-			ST2 = 0x04, // 2
+			ST2 = 0x04,
+			// 2
 
 			// Parity
 			/// <summary>
 			///
 			/// </summary>
-			PNO = 0x00, // None
+			PNO = 0x00,
+			// None
 
 			/// <summary>
 			///
 			/// </summary>
-			POD = 0x08, // Odd
+			POD = 0x08,
+			// Odd
 
 			/// <summary>
 			///
 			/// </summary>
-			PEV = 0x18, // Even
+			PEV = 0x18,
+			// Even
 
 			/// <summary>
 			///
 			/// </summary>
-			PMK = 0x28, // Mark
+			PMK = 0x28,
+			// Mark
 
 			/// <summary>
 			///
 			/// </summary>
-			PSP = 0x38, // Space
+			PSP = 0x38,
+			// Space
 
 			/// <summary>
 			///
@@ -378,12 +397,13 @@ namespace Mosa.DeviceDrivers.ISA
 			DCD = 0x80
 		}
 
-		#endregion Flags
+#endregion Flags
 
 		/// <summary>
 		/// Initializes a new instance of the <see cref="Serial"/> class.
 		/// </summary>
-		public Serial()
+		public Serial(IHardwareAbstraction board)
+			: base(board)
 		{
 		}
 
@@ -625,6 +645,85 @@ namespace Mosa.DeviceDrivers.ISA
 			finally
 			{
 				spinLock.Exit();
+			}
+		}
+
+		public const ushort COM1 = 0x3F8;
+		public const ushort COM2 = 0x2F8;
+		public const ushort COM3 = 0x3E8;
+		public const ushort COM4 = 0x2E8;
+
+		private const byte COM_Data = 0x00;
+		private const byte COM_Interrupt = 0x01;
+		private const byte COM_LineControl = 0x02;
+		private const byte COM_ModemControl = 0x03;
+		private const byte COM_LineStatus = 0x04;
+		private const byte COM_ModemStatus = 0x05;
+		private const byte COM_Scratch = 0x06;
+
+		public void SetupPort(ushort com)
+		{
+
+			// Disable all interrupts
+			base.system.PortOut8((ushort)(com + COM_Interrupt), 0x00);
+
+			// Enable DLAB (set baud rate divisor)
+			base.system.PortOut8((ushort)(com + COM_ModemControl), 0x80);
+
+			// Set divisor to 3 (lo byte) 38400 baud
+			base.system.PortOut8((ushort)(com + COM_Data), 0x03);
+
+			// (hi byte)
+			base.system.PortOut8((ushort)(com + COM_Interrupt), 0x00);
+
+			// 8 bits, no parity, one stop bit
+			base.system.PortOut8((ushort)(com + COM_ModemControl), 0x03);
+
+			// Enable FIFO, clear them, with 14-byte threshold
+			base.system.PortOut8((ushort)(com + COM_LineControl), 0xC7);
+
+			// IRQs enabled, RTS/DSR set
+			base.system.PortOut8((ushort)(com + COM_LineStatus), 0x0B);
+
+			// Enable all interrupts
+			base.system.PortOut8((ushort)(com + COM_Interrupt), 0x0F);
+		}
+
+		public bool IsDataReady(ushort com)
+		{
+			return ((base.system.PortIn8((ushort)(com + COM_ModemStatus)) & 0x01) == 0x01);
+		}
+
+		public byte Read(ushort com)
+		{
+			while (!IsDataReady(com))
+			{
+				base.system.WaitForInterrupt();
+			}
+
+			return base.system.PortIn8(com);
+		}
+
+		public void WaitForWriteReady(ushort com)
+		{
+			while ((base.system.PortIn8((ushort)(com + COM_ModemStatus)) & 0x20) == 0x0)
+			{
+				base.system.WaitForInterrupt();
+			}
+		}
+
+		public void Write(ushort com, byte c)
+		{
+			WaitForWriteReady(com);
+
+			base.system.PortOut8(com, c);
+		}
+
+		public void Write(ushort com, string message)
+		{
+			foreach (var c in message)
+			{
+				Write(com, (byte)c);
 			}
 		}
 	}

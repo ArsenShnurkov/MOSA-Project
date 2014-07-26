@@ -8,13 +8,14 @@
 using Mosa.Kernel.x86;
 using Mosa.Platform.Internal.x86;
 using Mosa.TestWorld.x86.Tests;
+using Mosa.DeviceDrivers.ISA;
 
 namespace Mosa.TestWorld.x86
 {
 	/// <summary>
 	///
 	/// </summary>
-	public static class Boot
+	public class Boot : Kernel_x86
 	{
 		public static ConsoleSession Console;
 
@@ -22,6 +23,13 @@ namespace Mosa.TestWorld.x86
 		/// Main
 		/// </summary>
 		public static void Main()
+		{
+			Start();
+
+			//EnterDebugger();
+		}
+
+		public static void Start()
 		{
 			Screen.Color = 0x0;
 			Screen.Clear();
@@ -37,39 +45,37 @@ namespace Mosa.TestWorld.x86
 			Screen.Write("!");
 			Screen.Write(" ");
 
-			SSE.Setup();
-			Screen.Write('0');
 			DebugClient.Setup(Serial.COM1);
-			IDT.SetInterruptHandler(null);
-			Screen.Write('1');
-			Multiboot.Setup();
-			Screen.Write('2');
-			PIC.Setup();
-			Screen.Write('3');
-			GDT.Setup();
-			Screen.Write('4');
-			IDT.Setup();
-			Screen.Write('5');
-			PageFrameAllocator.Setup();
-			Screen.Write('6');
-			PageTable.Setup();
-			Screen.Write('7');
-			VirtualPageAllocator.Setup();
-			Screen.Write('8');
-			ProcessManager.Setup();
-			Screen.Write('9');
-			TaskManager.Setup();
 			Screen.Write('0');
-			IDT.SetInterruptHandler(ProcessInterrupt);
+			SSE.Setup();
+			Screen.Write('1');
+			IDT.SetInterruptHandler(null);
+			Screen.Write('2');
+			Multiboot.Setup();
+			Screen.Write('3');
+			PIC.Setup(hal);
+			Screen.Write('4');
+			GDT.Setup();
+			Screen.Write('5');
+			IDT.Setup();
+			Screen.Write('6');
+			PageFrameAllocator.Setup();
+			Screen.Write('7');
+			PageTable.Setup();
+			Screen.Write('8');
+			VirtualPageAllocator.Setup();
+			Screen.Write('9');
+			ProcessManager.Setup();
+			Screen.Write('0');
+			TaskManager.Setup();
 			Screen.Write('A');
-			ConsoleManager.Setup();
+			IDT.SetInterruptHandler(ProcessInterrupt);
 			Screen.Write('B');
 			Runtime.Metadata_InitializeLookup();
 			Screen.Write('C');
-			CMOS cmos = new CMOS();
-			Screen.Write('D');
+			CMOS cmos = new CMOS(hal);
 			int second = cmos.Second;
-			Screen.Write('E');
+			Screen.Write('D');
 			Console = ConsoleManager.Controller.Boot;
 			Screen.Write('F');
 
@@ -104,7 +110,6 @@ namespace Mosa.TestWorld.x86
 
 		public static void Process()
 		{
-			CMOS cmos = new CMOS();
 			byte last = 0;
 
 			while (true)
@@ -112,11 +117,9 @@ namespace Mosa.TestWorld.x86
 				if (cmos.Second != last)
 				{
 					last = cmos.Second;
-					//DebugClient.SendAlive();
+					DebugClient.SendAlive();
 					Screen.Write('.');
 				}
-
-				//DebugClient.Process();
 
 				Native.Hlt();
 			}
@@ -169,9 +172,34 @@ namespace Mosa.TestWorld.x86
 			Console.BackgroundColor = back;
 		}
 
-		public static void Test()
+		public static void EnterDebugger()
 		{
-			// Stub
+			Screen.Color = 0x0;
+			Screen.Clear();
+			Screen.GotoTop();
+			Screen.Color = 0x0E;
+			Screen.Write('D');
+			Screen.Write('E');
+			Screen.Write('B');
+			Screen.Write('U');
+			Screen.Write('G');
+			Screen.NextLine();
+			Screen.NextLine();
+
+			DebugClient.Setup(Serial.COM1);
+
+			byte last = 0;
+
+			while (true)
+			{
+				byte second = cmos.Second;
+
+				if (second % 10 != 5 & last != second)
+				{
+					last = cmos.Second;
+					DebugClient.SendAlive();
+				}
+			}
 		}
 
 		//public static void Mandelbrot()
@@ -223,5 +251,4 @@ namespace Mosa.TestWorld.x86
 		//	}
 		//}
 	}
-
 }

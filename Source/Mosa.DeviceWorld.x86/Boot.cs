@@ -9,13 +9,14 @@ using Mosa.Kernel.x86;
 using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
 using System;
+using Mosa.DeviceDrivers.ISA;
 
 namespace Mosa.HelloWorld.x86
 {
 	/// <summary>
 	///
 	/// </summary>
-	public static class Boot
+	public class Boot : Kernel_x86
 	{
 		public static ConsoleSession Console;
 
@@ -24,7 +25,7 @@ namespace Mosa.HelloWorld.x86
 		/// </summary>
 		public static void Main()
 		{
-			Mosa.Kernel.x86.Kernel.Setup();
+			Mosa.Kernel.x86.Kernel_x86.Setup();
 			//DebugClient.Setup(Serial.COM1);
 
 			Console = ConsoleManager.Controller.Boot;
@@ -300,7 +301,7 @@ namespace Mosa.HelloWorld.x86
 
 			Console.Goto(12, 0);
 
-			CMOS cmos = new CMOS();
+			CMOS cmos = new CMOS(hal);
 
 			byte last = 0;
 

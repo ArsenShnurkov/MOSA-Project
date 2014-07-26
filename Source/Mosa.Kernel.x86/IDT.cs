@@ -348,7 +348,7 @@ namespace Mosa.Kernel.x86
 			Set(254, Native.GetIDTJumpLocation(254), 0x08, 0x8E);
 			Set(255, Native.GetIDTJumpLocation(255), 0x08, 0x8E);
 		}
-
+		/*
 		/// <summary>
 		/// Interrupts the handler.
 		/// </summary>
@@ -364,6 +364,8 @@ namespace Mosa.Kernel.x86
 		/// <param name="errorCode">The error code.</param>
 		private static void ProcessInterrupt(uint edi, uint esi, uint ebp, uint esp, uint ebx, uint edx, uint ecx, uint eax, uint interrupt, uint errorCode)
 		{
+			DebugClient.Process();
+
 			if (interrupt == 14)
 			{
 				PageFaultHandler.Fault (errorCode);
@@ -374,5 +376,6 @@ namespace Mosa.Kernel.x86
 
 			PIC.SendEndOfInterrupt(interrupt);
 		}
+		*/
 	}
 }

@@ -22,8 +22,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -63,10 +61,8 @@
     <Compile Include="ConsoleSession.cs" />
     <Compile Include="SSE.cs" />
     <Compile Include="DebugClient.cs" />
-    <Compile Include="Serial.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="KernelMemory.cs" />
-    <Compile Include="CMOS.cs" />
     <Compile Include="Colors.cs" />
     <Compile Include="CpuInfo.cs" />
     <Compile Include="GDT.cs" />
@@ -79,7 +75,6 @@
     <Compile Include="PageFaultHandler.cs" />
     <Compile Include="PageFrameAllocator.cs" />
     <Compile Include="PageTable.cs" />
-    <Compile Include="PIC.cs" />
     <Compile Include="ProcessManager.cs" />
     <Compile Include="Smbios\BiosInformationStructure.cs" />
     <Compile Include="Smbios\CpuStructure.cs" />
@@ -89,6 +84,9 @@
     <Compile Include="VirtualPageAllocator.cs" />
     <Compile Include="Panic.cs" />
     <Compile Include="Screen.cs" />
+    <Compile Include="HardwareAbstraction.cs" />
+    <Compile Include="IOPort.cs" />
+    <Compile Include="CMOSExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Internal.Plug\Mosa.Internal.Plug.csproj">
@@ -98,6 +96,18 @@
     <ProjectReference Include="..\Mosa.Platform.Internal.x86\Mosa.Platform.Internal.x86.csproj">
       <Project>{A47B7998-4EE8-4AF8-9373-C664FDEDDC65}</Project>
       <Name>Mosa.Platform.Internal.x86</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.DeviceDrivers\Mosa.DeviceDrivers.csproj">
+      <Project>{4DBD4C50-BEC5-48D9-B471-9FB0A7F69999}</Project>
+      <Name>Mosa.DeviceDrivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.DeviceSystem\Mosa.DeviceSystem.csproj">
+      <Project>{6509477A-7360-4937-A1B9-26FED0A75CDA}</Project>
+      <Name>Mosa.DeviceSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Platform.x86\Mosa.Platform.x86.csproj">
+      <Project>{DE30CBE9-50F3-4A3E-BCC9-A8A36348530E}</Project>
+      <Name>Mosa.Platform.x86</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

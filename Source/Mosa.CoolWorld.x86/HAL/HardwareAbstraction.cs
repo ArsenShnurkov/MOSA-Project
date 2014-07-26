@@ -16,7 +16,7 @@ namespace Mosa.CoolWorld.x86.HAL
 	/// <summary>
 	///
 	/// </summary>
-	public class HardwareAbstraction : IHardwareAbstraction
+	public class HardwareAbstraction_CoolWorld : IHardwareAbstraction
 	{
 		/// <summary>
 		/// Requests an IO read/write port interface from the kernel

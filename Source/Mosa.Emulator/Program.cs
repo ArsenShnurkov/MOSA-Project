@@ -57,7 +57,7 @@ namespace Mosa.Emulator
 		public static void Start()
 		{
 			// Setup hardware abstraction interface
-			IHardwareAbstraction hardwareAbstraction = new Mosa.EmulatedKernel.HardwareAbstraction();
+			IHardwareAbstraction hardwareAbstraction = new Mosa.EmulatedKernel.HardwareAbstraction_Emulation();
 
 			// Set device driver system to the emulator port and memory methods
 			Mosa.DeviceSystem.HAL.SetHardwareAbstraction(hardwareAbstraction);

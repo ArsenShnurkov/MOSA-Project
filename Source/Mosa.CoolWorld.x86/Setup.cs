@@ -10,17 +10,18 @@
 using Mosa.DeviceDrivers.ISA;
 using Mosa.DeviceSystem;
 using Mosa.DeviceSystem.PCI;
+using Mosa.Kernel.x86;
 
 namespace Mosa.CoolWorld.x86
 {
 	/// <summary>
 	/// Setup for the Device Driver System.
 	/// </summary>
-	public static class Setup
+	public class Setup : Kernel_x86
 	{
-		static private DeviceDriverRegistry deviceDriverRegistry;
-		static private IDeviceManager deviceManager;
-		static private IResourceManager resourceManager;
+		static protected DeviceDriverRegistry deviceDriverRegistry;
+		static protected IDeviceManager deviceManager;
+		static protected IResourceManager resourceManager;
 
 		/// <summary>
 		/// Gets the device driver library
@@ -62,7 +63,7 @@ namespace Mosa.CoolWorld.x86
 			deviceDriverRegistry = new DeviceDriverRegistry(PlatformArchitecture.X86);
 
 			// Setup hardware abstraction interface
-			IHardwareAbstraction hardwareAbstraction = new Mosa.CoolWorld.x86.HAL.HardwareAbstraction();
+			IHardwareAbstraction hardwareAbstraction = new Mosa.CoolWorld.x86.HAL.HardwareAbstraction_CoolWorld();
 
 			// Set device driver system to the hardware HAL
 			Mosa.DeviceSystem.HAL.SetHardwareAbstraction(hardwareAbstraction);

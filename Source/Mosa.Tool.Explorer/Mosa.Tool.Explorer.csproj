@@ -11,8 +11,6 @@
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -98,10 +96,6 @@
       <Project>{F970F8CB-8FF1-4244-9A31-D00C6D7AABE5}</Project>
       <Name>Mosa.Compiler.Pdb</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.Platform.ARMv6\Mosa.Platform.ARMv6.csproj">
-      <Project>{0FB92651-3EE8-441D-84F2-C4DFDA68E8A5}</Project>
-      <Name>Mosa.Platform.ARMv6</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mosa.Compiler.InternalTrace\Mosa.Compiler.InternalTrace.csproj">
       <Project>{540BEAC7-A2C3-4C46-9F4A-E6E1DF4EF6FC}</Project>
       <Name>Mosa.Compiler.InternalTrace</Name>
@@ -137,6 +131,10 @@
     <ProjectReference Include="..\Mosa.Utility.GUI.Common\Mosa.Utility.GUI.Common.csproj">
       <Project>{5A813793-78E2-413C-AA05-FCDD12B7DB04}</Project>
       <Name>Mosa.Utility.GUI.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Platform.ARMv6\Mosa.Platform.ARMv6.csproj">
+      <Project>{0FB92651-3EE8-441D-84F2-C4DFDA68E8A5}</Project>
+      <Name>Mosa.Platform.ARMv6</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

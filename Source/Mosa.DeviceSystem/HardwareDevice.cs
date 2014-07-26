@@ -14,6 +14,7 @@ namespace Mosa.DeviceSystem
 	/// </summary>
 	public abstract class HardwareDevice : Device, IHardwareDevice
 	{
+		protected IHardwareAbstraction system;
 		/// <summary>
 		///
 		/// </summary>
@@ -22,8 +23,9 @@ namespace Mosa.DeviceSystem
 		/// <summary>
 		/// Initializes a new instance of the <see cref="HardwareDevice"/> class.
 		/// </summary>
-		public HardwareDevice()
+		public HardwareDevice(IHardwareAbstraction system)
 		{
+			this.system = system;
 			base.deviceStatus = DeviceStatus.Initializing;
 		}
 

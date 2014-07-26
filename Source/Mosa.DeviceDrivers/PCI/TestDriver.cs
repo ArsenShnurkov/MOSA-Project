@@ -65,7 +65,7 @@ namespace Mosa.DeviceDrivers.PCI
 		/// <summary>
 		/// Initializes a new instance of the <see cref="TestDriver"/> class.
 		/// </summary>
-		public TestDriver()
+		public TestDriver(IHardwareAbstraction board):base(board)
 		{
 		}
 

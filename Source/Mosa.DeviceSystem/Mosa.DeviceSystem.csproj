@@ -20,8 +20,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <BaseAddress>285212672</BaseAddress>
@@ -159,9 +157,6 @@
     <Compile Include="IFrameBuffer.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="IHardwareAbstraction.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="IHardwareDevice.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -283,6 +278,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="VHD.cs" />
+    <Compile Include="ControllerAbstractions\IHardwareAbstraction.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ControllerAbstractions\IMemoryControllerAbstraction.cs" />
+    <Compile Include="ControllerAbstractions\IInterruptControllerAbstraction.cs" />
+    <Compile Include="ControllerAbstractions\IPortControllerAbsctraction.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
@@ -291,4 +292,7 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="ControllerAbstractions\" />
+  </ItemGroup>
 </Project>

@@ -167,7 +167,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="DMA8Bit"/> class.
 		/// </summary>
-		public DMA8Bit()
+		public DMA8Bit(IHardwareAbstraction board):base(board)
 		{
 		}
 

@@ -145,7 +145,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="VGAText"/> class.
 		/// </summary>
-		public VGAText()
+		public VGAText(IHardwareAbstraction board):base(board)
 		{
 		}
 

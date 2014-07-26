@@ -57,7 +57,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="PIT"/> class.
 		/// </summary>
-		public PIT()
+		public PIT(IHardwareAbstraction board):base(board)
 		{
 		}
 

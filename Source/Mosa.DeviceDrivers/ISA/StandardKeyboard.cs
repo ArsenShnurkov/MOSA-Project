@@ -55,7 +55,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="StandardKeyboard"/> class.
 		/// </summary>
-		public StandardKeyboard()
+		public StandardKeyboard(IHardwareAbstraction board):base(board)
 		{
 		}
 

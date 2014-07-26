@@ -15,7 +15,7 @@ namespace Mosa.CoolWorld.x86
 	/// <summary>
 	///
 	/// </summary>
-	public static class Boot
+	public class Boot : Setup
 	{
 		public static ConsoleSession Console;
 
@@ -24,8 +24,7 @@ namespace Mosa.CoolWorld.x86
 		/// </summary>
 		public static void Main()
 		{
-			Mosa.Kernel.x86.Kernel.Setup();
-			//DebugClient.Setup(Serial.COM1);
+			Mosa.Kernel.x86.Kernel_x86.Setup();
 
 			Console = ConsoleManager.Controller.Boot;
 
@@ -102,7 +101,9 @@ namespace Mosa.CoolWorld.x86
 					if (keyevent.KeyPress == KeyEvent.Press.Make)
 					{
 						if (keyevent.Character != 0)
+						{
 							Console.Write(keyevent.Character);
+						}
 
 						if (keyevent.KeyType == KeyType.F1)
 							ConsoleManager.Controller.Active = ConsoleManager.Controller.Boot;

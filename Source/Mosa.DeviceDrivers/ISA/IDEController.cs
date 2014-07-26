@@ -166,7 +166,7 @@ namespace Mosa.DeviceDrivers.ISA
 		/// <summary>
 		/// Initializes a new instance of the <see cref="IDEController"/> class.
 		/// </summary>
-		public IDEController()
+		public IDEController(IHardwareAbstraction board):base(board)
 		{
 			driveInfo = new DriveInfo[DrivesPerConroller];
 		}

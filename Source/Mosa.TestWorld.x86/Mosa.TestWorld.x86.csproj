@@ -23,8 +23,6 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-    <ProductVersion>12.0.0</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
@@ -93,6 +91,14 @@
     <ProjectReference Include="..\Mosa.Test.Collection\Mosa.Test.Collection.csproj">
       <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
       <Name>Mosa.Test.Collection</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.DeviceDrivers\Mosa.DeviceDrivers.csproj">
+      <Project>{4DBD4C50-BEC5-48D9-B471-9FB0A7F69999}</Project>
+      <Name>Mosa.DeviceDrivers</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.DeviceSystem\Mosa.DeviceSystem.csproj">
+      <Project>{6509477A-7360-4937-A1B9-26FED0A75CDA}</Project>
+      <Name>Mosa.DeviceSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
