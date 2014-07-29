@@ -104,7 +104,6 @@
     <Compile Include="DeviceWorld\Kernel\GDT.cs" />
     <Compile Include="DeviceWorld\Kernel\IdleTask.cs" />
     <Compile Include="DeviceWorld\Kernel\IDT.cs" />
-    <Compile Include="DeviceWorld\Kernel\Kernel.cs" />
     <Compile Include="DeviceWorld\Kernel\Keyboard.cs" />
     <Compile Include="DeviceWorld\Kernel\Memory.cs" />
     <Compile Include="DeviceWorld\Kernel\Multiboot.cs" />

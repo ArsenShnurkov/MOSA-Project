@@ -70,11 +70,11 @@
     <Compile Include="ITraceListener.cs" />
     <Compile Include="IInternalTrace.cs" />
   </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
       <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
       <Name>Mosa.Compiler.MosaTypeSystem</Name>
     </ProjectReference>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

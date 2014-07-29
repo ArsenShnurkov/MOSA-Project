@@ -11,7 +11,7 @@ using System;
 using System.Collections.Generic;
 using Mosa.Compiler.Metadata;
 using Mosa.Compiler.Metadata.Signatures;
-using Mosa.Compiler.TypeSystem;
+using Mosa.Compiler.MosaTypeSystem;
 
 namespace Mosa.Compiler.Framework.Stages
 {

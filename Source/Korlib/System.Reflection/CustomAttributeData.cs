@@ -13,40 +13,52 @@ using System.Collections.Generic;
 
 namespace System.Reflection
 {
-	public class CustomAttributeTypedArgument {}
-
-	public class CustomAttributeNamedArgument {}
-
 	/// <summary>
 	/// Provides access to custom attribute data for assemblies, modules, types, members and parameters that are loaded into the reflection-only context.
 	/// </summary>
 	[Serializable]
-	abstract public class CustomAttributeData
+	public class CustomAttributeData
 	{
-		/// <summary>
-		/// Initializes a new instance of the <see cref="CustomAttributeData">CustomAttributeData</see> class.
-		/// </summary>
-		protected CustomAttributeData() { }
+		private ConstructorInfo ctorInfo;
+		private IList<CustomAttributeTypedArgument> ctorArgs;
+		private IList<CustomAttributeNamedArgument> namedArgs;
 
 		/// <summary>
 		/// The type of the attribute.
 		/// </summary>
-		abstract public Type AttributeType { get; }
+		public Type AttributeType
+		{
+			get { return ctorInfo.DeclaringType; }
+		}
 
 		/// <summary>
 		/// An object that represents the constructor that would have initialized the custom attribute represented by the current instance of the CustomAttributeData class.
 		/// </summary>
-		abstract public ConstructorInfo Constructor { get; }
+		public virtual ConstructorInfo Constructor
+		{
+			get { return this.ctorInfo; }
+		}
 
 		/// <summary>
 		/// A collection of structures that represent the positional arguments specified for the custom attribute instance.
 		/// </summary>
-		abstract public IList<CustomAttributeTypedArgument> ConstructorArguments { get; }
+		public virtual IList<CustomAttributeTypedArgument> ConstructorArguments
+		{
+			get { return this.ctorArgs; }
+		}
 
 		/// <summary>
 		/// A collection of structures that represent the named arguments specified for the custom attribute instance.
 		/// </summary>
-		abstract public IList<CustomAttributeNamedArgument> NamedArguments { get; }
+		public virtual IList<CustomAttributeNamedArgument> NamedArguments
+		{
+			get { return this.namedArgs; }
+		}
+
+		/// <summary>
+		/// Initializes a new instance of the <see cref="CustomAttributeData">CustomAttributeData</see> class.
+		/// </summary>
+		protected CustomAttributeData() { }
 
 		/// <summary>
 		/// Returns a list of <see cref="CustomAttributeData">CustomAttributeData</see> objects representing data about the attributes that have been applied to the target assembly.

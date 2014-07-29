@@ -68,10 +68,6 @@
       <Project>{27A3C89C-1967-45FF-A77E-94F44995C42C}</Project>
       <Name>Mosa.ClassLib</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.EmulatedKernel\Mosa.EmulatedKernel.csproj">
-      <Project>{A6C1F330-B858-44DE-89E6-C89D2B80DA62}</Project>
-      <Name>Mosa.EmulatedKernel</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Emulated\VGAConsole.cs" />
@@ -103,6 +99,37 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Synthetic\PixelGraphicDevice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PCIDevice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IIOPortDevice.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOPort.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOPortDispatch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IOPortHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PCIBus.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PortRange.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Memory.cs" />
+    <Compile Include="MemoryDispatch.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MemoryHandler.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="IHardwareDevice.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

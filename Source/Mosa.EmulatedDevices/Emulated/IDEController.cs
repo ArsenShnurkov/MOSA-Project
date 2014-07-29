@@ -7,9 +7,9 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
-using Mosa.ClassLib;
-using Mosa.EmulatedKernel;
 using System.IO;
+using Mosa.ClassLib;
+using Mosa.DeviceSystem;
 
 namespace Mosa.EmulatedDevices.Emulated
 {

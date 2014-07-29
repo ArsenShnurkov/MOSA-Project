@@ -68,41 +68,15 @@
       <Project>{6509477A-7360-4937-A1B9-26FED0A75CDA}</Project>
       <Name>Mosa.DeviceSystem</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mosa.EmulatedDevices\Mosa.EmulatedDevices.csproj">
+      <Project>{4BCC3783-8374-4E44-A843-22C0C5624C92}</Project>
+      <Name>Mosa.EmulatedDevices</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Memory.cs" />
     <Compile Include="Native.cs" />
-    <Compile Include="IOPort.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="HardwareAbstraction.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IHardwareDevice.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IIOPortDevice.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IOPortDispatch.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IOPortHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MemoryDispatch.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MemoryHandler.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PCIBus.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PCIDevice.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PortRange.cs">
+    <Compile Include="Kernel_x86.cs" />
+    <Compile Include="HardwareAbstraction_Emulation.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>

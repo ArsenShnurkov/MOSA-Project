@@ -102,6 +102,9 @@
     <Compile Include="Units\MosaField.cs" />
     <Compile Include="Units\MosaParameter.cs" />
     <Compile Include="Units\MosaType.cs" />
+    <Compile Include="MosaFieldAttributes.cs" />
+    <Compile Include="MosaPropertyAttributes.cs" />
+    <Compile Include="Units\MosaProperty.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

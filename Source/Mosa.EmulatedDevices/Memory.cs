@@ -9,7 +9,7 @@
 
 using Mosa.DeviceSystem;
 
-namespace Mosa.EmulatedKernel
+namespace Mosa.EmulatedDevices
 {
 	/// <summary>
 	///

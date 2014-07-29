@@ -1,14 +1,14 @@
 ﻿/*
- * (c) 2013 MOSA - The Managed Operating System Alliance
+ * (c) 2014 MOSA - The Managed Operating System Alliance
  *
  * Licensed under the terms of the New BSD License.
  *
  * Authors:
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
+ *  Stefan Andres Charsley (charsleysa) <charsleysa@gmail.com>
  */
 
 using System;
-using System.Text;
 
 namespace Mosa.Compiler.MosaTypeSystem
 {
@@ -18,19 +18,10 @@ namespace Mosa.Compiler.MosaTypeSystem
 
 		public MosaMethod DeclaringMethod { get; private set; }
 
-		public MosaType Type { get; private set; }
+		public MosaType ParameterType { get; private set; }
 
 		internal MosaParameter()
 		{
-		}
-
-		public MosaParameter(string name, MosaType type)
-		{
-			// set base fields
-			var m = new Mutator(this);
-			m.Name = name;
-			// this fields
-			this.Type = type;
 		}
 
 		internal MosaParameter Clone()
@@ -38,26 +29,17 @@ namespace Mosa.Compiler.MosaTypeSystem
 			return (MosaParameter)base.MemberwiseClone();
 		}
 
-		public override string ToString()
-		{
-			var res = new StringBuilder();
-			res.AppendFormat("{0} {1} {2}", Type, Name, this.CustomAttributes.Count);
-			res.AppendLine();
-			var str = string.Format(new ListFormatProvider("CustomAttributes"), "[{0}]", this.CustomAttributes);
-			res.AppendFormat(str);
-			var str2 = this.ParameterAttributes.ToString();
-			res.AppendFormat(str2);
-			return res.ToString();
-		}
-
 		public bool Equals(MosaParameter parameter)
 		{
-			return Type.Equals(parameter.Type) && ParameterAttributes.Equals(parameter.ParameterAttributes);
+			return ParameterType.Equals(parameter.ParameterType);
+				//&& ParameterAttributes.Equals(parameter.ParameterAttributes)
+				//&& CustomAttributes.Equals(parameter.CustomAttributes)
+				//&& Name.Equals(parameter.Name);
 		}
 
 		public bool Equals(MosaType type)
 		{
-			return Type.Equals(type);
+			return ParameterType.Equals(type);
 		}
 
 		public class Mutator : MosaUnit.MutatorBase
@@ -74,14 +56,15 @@ namespace Mosa.Compiler.MosaTypeSystem
 
 			public MosaMethod DeclaringMethod { set { parameter.DeclaringMethod = value; } }
 
-			public MosaType ParameterType { set { parameter.Type = value; } }
+			public MosaType ParameterType { set { parameter.ParameterType = value; } }
 
 			public override void Dispose()
 			{
-				if (parameter.Type != null)
+				if (parameter.ParameterType != null)
 				{
-					parameter.FullName = string.Concat(parameter.Type.FullName, " ", parameter.DeclaringMethod.FullName, "::", parameter.Name);
-					parameter.ShortName = string.Concat(parameter.Name, " : ", parameter.Type.ShortName);
+					string signatureName = (parameter.DeclaringMethod == null) ? "<FunctionPointer>" : parameter.DeclaringMethod.FullName;
+					parameter.FullName = string.Concat(parameter.ParameterType.FullName, " ", signatureName, "::", parameter.Name);
+					parameter.ShortName = string.Concat(parameter.Name, " : ", parameter.ParameterType.ShortName);
 				}
 			}
 		}

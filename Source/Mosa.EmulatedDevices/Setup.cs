@@ -7,11 +7,11 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
-using Mosa.EmulatedDevices.Emulated;
-using Mosa.EmulatedDevices.Synthetic;
-using Mosa.EmulatedKernel;
 using System.Threading;
 using System.Windows.Forms;
+using Mosa.DeviceSystem;
+using Mosa.EmulatedDevices.Emulated;
+using Mosa.EmulatedDevices.Synthetic;
 
 namespace Mosa.EmulatedDevices
 {

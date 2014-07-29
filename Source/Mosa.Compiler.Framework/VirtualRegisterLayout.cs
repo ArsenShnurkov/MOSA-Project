@@ -16,7 +16,7 @@ namespace Mosa.Compiler.Framework
 	/// Contains the layout of the stack
 	/// </summary>
 	public sealed class VirtualRegisterLayout
-	{
+	{/*
 		#region Data members
 
 		private IArchitecture architecture;
@@ -54,6 +54,6 @@ namespace Mosa.Compiler.Framework
 			virtualRegisters.Add(virtualRegister);
 
 			return virtualRegister;
-		}
+		}*/
 	}
 }

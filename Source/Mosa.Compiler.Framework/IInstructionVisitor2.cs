@@ -6,6 +6,7 @@
  * Authors:
  *  Michael Ruck (<mailto:sharpos@michaelruck.de>)
  */
+using Mosa.Compiler.Framework;
 
 namespace Mosa.Runtime.CompilerFramework
 {

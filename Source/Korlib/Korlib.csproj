@@ -167,6 +167,23 @@
     <Compile Include="System.Runtime.CompilerServices\CompilerGeneratedAttribute.cs" />
     <Compile Include="System.Runtime.InteropServices\ComVisible.cs" />
     <Compile Include="System.Runtime.InteropServices\OutAttribute.cs" />
+    <Compile Include="System.Globalization\CultureInfo.cs" />
+    <Compile Include="System\IFormatProvider.cs" />
+    <Compile Include="System\TypeLoadException.cs" />
+    <Compile Include="System.Reflection\Binder.cs" />
+    <Compile Include="System.Reflection\BindingFlags.cs" />
+    <Compile Include="System.Reflection\CallingConventions.cs" />
+    <Compile Include="System.Reflection\CustomAttributeNamedArgument.cs" />
+    <Compile Include="System.Reflection\CustomAttributeTypedArgument.cs" />
+    <Compile Include="System.Reflection\FieldAttributes.cs" />
+    <Compile Include="System.Reflection\FieldInfo.cs" />
+    <Compile Include="System.Reflection\MethodInfo.cs" />
+    <Compile Include="System.Reflection\ParameterModifier.cs" />
+    <Compile Include="System.Reflection\PropertyAttributes.cs" />
+    <Compile Include="System.Reflection\PropertyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+  <ItemGroup>
+    <Folder Include="System.Globalization\" />
+  </ItemGroup>
 </Project>

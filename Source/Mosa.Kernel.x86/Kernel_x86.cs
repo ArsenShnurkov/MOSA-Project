@@ -35,9 +35,11 @@ namespace Mosa.Kernel.x86
 			PageTable.Setup();
 			VirtualPageAllocator.Setup();
 
-			SmbiosManager.Setup();
+			Runtime.Metadata_InitializeLookup();
 
+			SmbiosManager.Setup();
 			CMOS = new CMOS(hal);
+
 			Multiboot.Setup();
 			PIC = new PIC(hal);
 			PIC.Setup();

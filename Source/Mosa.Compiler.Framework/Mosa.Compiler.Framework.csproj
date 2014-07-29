@@ -111,7 +111,6 @@
     <Compile Include="RegisterAllocator\LiveInterval.cs" />
     <Compile Include="RegisterAllocator\VirtualRegister.cs" />
     <Compile Include="RegisterAllocator\GreedyRegisterAllocator.cs" />
-    <Compile Include="Stages\ConvertCompoundMoveStage.cs" />
     <Compile Include="Stages\PromoteTempVariablesStage.cs" />
     <Compile Include="Stages\PromoteLocalVariablesStage.cs" />
     <Compile Include="Stages\StopStage.cs" />
@@ -360,6 +359,28 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="IR\VmCall.cs" />
+    <Compile Include="Stages\ConvertCompoundStage.cs" />
+    <Compile Include="Stages\GenericsResolverStage.cs" />
+    <Compile Include="Stages\LocalCSEStage.cs" />
+    <Compile Include="Stages\LocalVariablePromotionStage.cs" />
+    <Compile Include="Stages\OperandUsageAnalyzerStage.cs" />
+    <Compile Include="Stages\RegisterUsageAnalyzerStage.cs" />
+    <Compile Include="Stages\SimpleRegisterAllocatorStage.cs" />
+    <Compile Include="Stages\TypeLayoutStage.cs" />
+    <Compile Include="Intrinsics\InternalsBase.cs" />
+    <Compile Include="BootType.cs" />
+    <Compile Include="IBlockOptimizationStage.cs" />
+    <Compile Include="IBlockOrderStage.cs" />
+    <Compile Include="IBlockReorderStage.cs" />
+    <Compile Include="IInstructionVisitor2.cs" />
+    <Compile Include="IStackLayoutProvider.cs" />
+    <Compile Include="LiveRangeAnalysis.cs" />
+    <Compile Include="PipelineStageOrder.cs" />
+    <Compile Include="RegisterBitmap.cs" />
+    <Compile Include="SimpleRegisterAllocator.cs" />
+    <Compile Include="StackRegisterAllocator.cs" />
+    <Compile Include="VirtualRegisterLayout.cs" />
+    <Compile Include="Platform\IRegisterUsage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Compiler.Common\Mosa.Compiler.Common.csproj">
@@ -370,13 +391,17 @@
       <Project>{540BEAC7-A2C3-4C46-9F4A-E6E1DF4EF6FC}</Project>
       <Name>Mosa.Compiler.InternalTrace</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
-      <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
-      <Name>Mosa.Compiler.MosaTypeSystem</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mosa.Compiler.Linker\Mosa.Compiler.Linker.csproj">
       <Project>{65866A51-B229-44C5-AC81-87A90FA1741C}</Project>
       <Name>Mosa.Compiler.Linker</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.Metadata\Mosa.Compiler.Metadata.csproj">
+      <Project>{7033B213-2055-4C6A-B008-D9856267F5D7}</Project>
+      <Name>Mosa.Compiler.Metadata</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
+      <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
+      <Name>Mosa.Compiler.MosaTypeSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

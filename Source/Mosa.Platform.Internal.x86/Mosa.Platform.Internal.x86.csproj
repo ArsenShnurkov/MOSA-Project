@@ -65,6 +65,10 @@
     <Compile Include="SpinLock.cs" />
     <Compile Include="Runtime.cs" />
     <Compile Include="Native.cs" />
+    <Compile Include="MetadataStructures\MetadataAssemblyStruct.cs" />
+    <Compile Include="MetadataStructures\MetadataTypeStruct.cs" />
+    <Compile Include="Builders\_Type.cs" />
+    <Compile Include="Implementations\TypeImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Korlib\Korlib.csproj">
@@ -83,4 +87,8 @@
     <PostBuildEvent>
     </PostBuildEvent>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="MetadataStructures\" />
+    <Folder Include="Implementations\" />
+  </ItemGroup>
 </Project>

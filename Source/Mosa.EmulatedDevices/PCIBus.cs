@@ -9,7 +9,7 @@
 
 using System.Collections.Generic;
 
-namespace Mosa.EmulatedKernel
+namespace Mosa.EmulatedDevices
 {
 	/// <summary>
 	///

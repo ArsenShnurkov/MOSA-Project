@@ -8,8 +8,8 @@
  */
 
 using Mosa.EmulatedDevices.Synthetic;
-using Mosa.EmulatedKernel;
 using System.Drawing;
+using Mosa.DeviceSystem;
 
 namespace Mosa.EmulatedDevices.Emulated
 {
@@ -268,8 +268,8 @@ namespace Mosa.EmulatedDevices.Emulated
 			Mosa.DeviceSystem.Color palettecolor = palette.GetColor(colorindex);
 			Mosa.DeviceSystem.Color palettebackground = palette.GetColor(backgroundindex);
 
-			Brush color = new SolidBrush(Color.FromArgb(palettecolor.Red, palettecolor.Green, palettecolor.Blue));
-			Brush background = new SolidBrush(Color.FromArgb(palettebackground.Red, palettebackground.Green, palettebackground.Blue));
+			Brush color = new SolidBrush(System.Drawing.Color.FromArgb(palettecolor.Red, palettecolor.Green, palettecolor.Blue));
+			Brush background = new SolidBrush(System.Drawing.Color.FromArgb(palettebackground.Red, palettebackground.Green, palettebackground.Blue));
 
 			lock (dislayForm.bitmap)
 			{
