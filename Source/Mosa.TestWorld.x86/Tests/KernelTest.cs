@@ -8,6 +8,7 @@
 
 using Mosa.ClassLib;
 using Mosa.Kernel.x86;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 
 namespace Mosa.TestWorld.x86.Tests
 {

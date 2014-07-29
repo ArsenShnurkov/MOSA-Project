@@ -10,6 +10,7 @@ using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
 using System;
 using Mosa.DeviceDrivers.ISA;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 
 namespace Mosa.HelloWorld.x86
 {

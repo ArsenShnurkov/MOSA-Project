@@ -9,6 +9,7 @@ using Mosa.Kernel.x86;
 using Mosa.Platform.Internal.x86;
 using Mosa.TestWorld.x86.Tests;
 using Mosa.DeviceDrivers.ISA;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 
 namespace Mosa.TestWorld.x86
 {
@@ -53,7 +54,7 @@ namespace Mosa.TestWorld.x86
 			Screen.Write('2');
 			Multiboot.Setup();
 			Screen.Write('3');
-			PIC.Setup(hal);
+
 			Screen.Write('4');
 			GDT.Setup();
 			Screen.Write('5');
@@ -73,8 +74,9 @@ namespace Mosa.TestWorld.x86
 			Screen.Write('B');
 			Runtime.Metadata_InitializeLookup();
 			Screen.Write('C');
-			CMOS cmos = new CMOS(hal);
-			int second = cmos.Second;
+			Kernel_x86.Setup();
+
+			int second = Kernel_x86.CMOS.Second;
 			Screen.Write('D');
 			Console = ConsoleManager.Controller.Boot;
 			Screen.Write('F');
@@ -114,9 +116,9 @@ namespace Mosa.TestWorld.x86
 
 			while (true)
 			{
-				if (cmos.Second != last)
+					if (Kernel_x86.CMOS.Second != last)
 				{
-					last = cmos.Second;
+							last = Kernel_x86.CMOS.Second;
 					DebugClient.SendAlive();
 					Screen.Write('.');
 				}
@@ -192,11 +194,11 @@ namespace Mosa.TestWorld.x86
 
 			while (true)
 			{
-				byte second = cmos.Second;
+					byte second = Kernel_x86.CMOS.Second;
 
 				if (second % 10 != 5 & last != second)
 				{
-					last = cmos.Second;
+							last = Kernel_x86.CMOS.Second;
 					DebugClient.SendAlive();
 				}
 			}

@@ -7,10 +7,11 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
-using Mosa.DeviceDrivers.ISA;
+using Mosa.Kernel.x86;
 using Mosa.DeviceSystem;
 using Mosa.DeviceSystem.PCI;
-using Mosa.Kernel.x86;
+using Mosa.DeviceDrivers.ISA;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 
 namespace Mosa.CoolWorld.x86
 {
@@ -43,10 +44,9 @@ namespace Mosa.CoolWorld.x86
 
 		static public StandardKeyboard Keyboard = null;
 		static public PCIController PCI = null;
-		static public PIC PIC = null;
 		static public PIT PIT = null;
 		static public VGAText VGAText = null;
-		static public CMOS2 CMOS = null;
+		//		static public CMOS2 CMOS = null;
 
 		/// <summary>
 		/// Initializes the Device Driver System.
@@ -157,7 +157,7 @@ namespace Mosa.CoolWorld.x86
 			PIC = new PIC(hal);
 			PIT = new PIT(hal);
 			VGAText = new VGAText(hal);
-			CMOS = new CMOS2();
+			CMOS = new CMOS(hal);
 
 			//StartDevice(picAttributes, PIC);
 			StartDevice(pitAttributes, PIT);
@@ -213,7 +213,7 @@ namespace Mosa.CoolWorld.x86
 
 			Mosa.CoolWorld.x86.Boot.BulletPoint();
 			Boot.Console.Write("Adding device ");
-			Boot.InBrackets(hardwareDevice.Name, Mosa.Kernel.x86.Colors.White, Mosa.Kernel.x86.Colors.LightGreen);
+			Boot.InBrackets(hardwareDevice.Name, Colors.White, Colors.LightGreen);
 			Boot.Console.WriteLine();
 
 			if (resourceManager.ClaimResources(hardwareResources))

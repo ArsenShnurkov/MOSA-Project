@@ -8,6 +8,7 @@
  */
 
 using Mosa.Platform.Internal.x86;
+using Mosa.DeviceDrivers.ISA;
 
 namespace Mosa.Kernel.x86
 {
@@ -198,7 +199,7 @@ namespace Mosa.Kernel.x86
 		/// <param name="nexttask">The nexttask.</param>
 		public static void Switch(uint nexttask)
 		{
-			PIC.SendEndOfInterrupt(0x20);
+			Kernel_x86.PIC.SendEndOfInterrupt(0x20);
 
 			// Update current task
 			currenttask = nexttask;

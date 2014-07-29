@@ -9,6 +9,7 @@ using Mosa.Kernel.x86;
 using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
 using Mosa.DeviceDrivers.ISA;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 using System;
 
 namespace Mosa.HelloWorld.x86
@@ -307,11 +308,11 @@ namespace Mosa.HelloWorld.x86
 				DisplayCMOS();
 				DisplayTime();
 
-					byte second = cmos.Second;
+					byte second = Kernel_x86.CMOS.Second;
 
 				if (second % 10 != 5 & last != second)
 				{
-							last = cmos.Second;
+							last = Kernel_x86.CMOS.Second;
 					DebugClient.SendAlive();
 				}
 
@@ -337,7 +338,7 @@ namespace Mosa.HelloWorld.x86
 				Console.Column = 65;
 				for (byte y = 0; y < 4; y++)
 				{
-							Console.Write(cmos.Get(i), 16, 2);
+							Console.Write(Kernel_x86.CMOS.Get(i), 16, 2);
 					Console.Write(' ');
 					i++;
 				}
@@ -356,34 +357,34 @@ namespace Mosa.HelloWorld.x86
 
 			byte bcd = 10;
 
-			if (cmos.BCD)
+			if (Kernel_x86.CMOS.BCD)
 				bcd = 16;
 
 			Console.Color = Colors.White;
-			Console.Write(cmos.Hour, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Hour, bcd, 2);
 			Console.Color = Colors.Gray;
 			Console.Write(':');
 			Console.Color = Colors.White;
-			Console.Write(cmos.Minute, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Minute, bcd, 2);
 			Console.Color = Colors.Gray;
 			Console.Write(':');
 			Console.Color = Colors.White;
-			Console.Write(cmos.Second, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Second, bcd, 2);
 			Console.Write(' ');
 			Console.Color = Colors.Gray;
 			Console.Write('(');
 			Console.Color = Colors.White;
-			Console.Write(cmos.Month, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Month, bcd, 2);
 			Console.Color = Colors.Gray;
 			Console.Write('/');
 			Console.Color = Colors.White;
-			Console.Write(cmos.Day, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Day, bcd, 2);
 			Console.Color = Colors.Gray;
 			Console.Write('/');
 			Console.Color = Colors.White;
 			Console.Write('2');
 			Console.Write('0');
-			Console.Write(cmos.Year, bcd, 2);
+			Console.Write(Kernel_x86.CMOS.Year, bcd, 2);
 			Console.Color = Colors.Gray;
 			Console.Write(')');
 		}

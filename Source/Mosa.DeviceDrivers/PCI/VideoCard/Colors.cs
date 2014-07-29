@@ -5,7 +5,7 @@
  *
  */
 
-namespace Mosa.Kernel.x86
+namespace Mosa.DeviceDrivers.PCI.VideoCard
 {
 	public static class Colors
 	{

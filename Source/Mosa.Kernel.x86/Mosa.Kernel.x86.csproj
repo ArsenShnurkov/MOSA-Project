@@ -63,7 +63,6 @@
     <Compile Include="DebugClient.cs" />
     <Compile Include="Debug.cs" />
     <Compile Include="KernelMemory.cs" />
-    <Compile Include="Colors.cs" />
     <Compile Include="CpuInfo.cs" />
     <Compile Include="GDT.cs" />
     <Compile Include="IdleTask.cs" />

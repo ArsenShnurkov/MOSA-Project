@@ -9,6 +9,7 @@ using Mosa.DeviceSystem;
 using Mosa.Kernel.x86;
 using Mosa.Kernel.x86.Smbios;
 using Mosa.Platform.Internal.x86;
+using Mosa.DeviceDrivers.PCI.VideoCard;
 
 namespace Mosa.CoolWorld.x86
 {
