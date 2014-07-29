@@ -14,7 +14,7 @@ namespace Mosa.Kernel.x86
 	/// <summary>
 	///
 	/// </summary>
-	public static class ProcessManager
+	public class ProcessManager
 	{
 		private static uint slots = 4096;
 		private static uint table;

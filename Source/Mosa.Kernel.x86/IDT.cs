@@ -18,7 +18,7 @@ namespace Mosa.Kernel.x86
 	{
 		public delegate void InterruptHandler(uint irq, uint error);
 
-		private static InterruptHandler interruptHandler;
+		private static InterruptHandler interruptHandler = null;
 
 		private static uint idtTable = 0x1411000;
 		private static uint idtEntries = idtTable + 6;
@@ -348,7 +348,7 @@ namespace Mosa.Kernel.x86
 			Set(254, Native.GetIDTJumpLocation(254), 0x08, 0x8E);
 			Set(255, Native.GetIDTJumpLocation(255), 0x08, 0x8E);
 		}
-		/*
+
 		/// <summary>
 		/// Interrupts the handler.
 		/// </summary>
@@ -374,8 +374,7 @@ namespace Mosa.Kernel.x86
 				interruptHandler (interrupt, errorCode);
 			}
 
-			PIC.SendEndOfInterrupt(interrupt);
+			Kernel_x86.PIC.SendEndOfInterrupt(interrupt);
 		}
-		*/
 	}
 }

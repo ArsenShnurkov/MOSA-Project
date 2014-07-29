@@ -50,6 +50,7 @@ namespace Mosa.DeviceDrivers.ISA
 
 			commandPort = base.hardwareResources.GetIOPort(0, 0);
 			dataPort = base.hardwareResources.GetIOPort(0, 4);
+			//dataPort = base.hardwareResources.GetIOPort(0, 1);
 
 			return true;
 		}
@@ -81,10 +82,16 @@ namespace Mosa.DeviceDrivers.ISA
 		public byte Read(byte address)
 		{
 			spinLock.Enter();
-			commandPort.Write8(address);
-			byte b = dataPort.Read8();
-			spinLock.Exit();
-			return b;
+			try
+			{
+				commandPort.Write8(address);
+				byte b = dataPort.Read8();
+				return b;
+			}
+			finally
+			{
+				spinLock.Exit();
+			}
 		}
 
 		/// <summary>
@@ -179,6 +186,5 @@ namespace Mosa.DeviceDrivers.ISA
 		/// </summary>
 		/// <value>The BCD.</value>
 		public bool BCD { get { return (Get(0x0B) & 0x04) == 0x00; } }
-
 	}
 }

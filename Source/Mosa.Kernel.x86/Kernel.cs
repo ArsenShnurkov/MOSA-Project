@@ -21,8 +21,9 @@ namespace Mosa.Kernel.x86
 	public class Kernel_x86
 	{
 		public static IHardwareAbstraction hal = null;
-		public static CMOS cmos;
-		public static PIC pic;
+		public static CMOS CMOS = null;
+		public static PIC PIC = null;
+		public static ProcessManager ProcessManager = null;
 
 		public static void Setup()
 		{
@@ -36,10 +37,10 @@ namespace Mosa.Kernel.x86
 
 			SmbiosManager.Setup();
 
-			cmos = new CMOS(hal);
+			CMOS = new CMOS(hal);
 			Multiboot.Setup();
-			pic = new PIC(hal);
-			pic.Setup();
+			PIC = new PIC(hal);
+			PIC.Setup();
 			DebugClient.Setup(Serial.COM1);
 
 			ProcessManager.Setup();
