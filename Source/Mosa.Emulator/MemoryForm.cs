@@ -9,6 +9,7 @@
 
 using System;
 using System.Windows.Forms;
+using Mosa.EmulatedDevices;
 
 namespace Mosa.Emulator
 {
@@ -61,7 +62,7 @@ namespace Mosa.Emulator
 				string d = string.Empty;
 				for (int x = 0; x < 16; x++)
 				{
-					byte mem = Mosa.EmulatedKernel.MemoryDispatch.Read8(at);
+					byte mem = MemoryDispatch.Read8(at);
 					if (x % 4 == 0) l = l + ' ';
 					l = l + mem.ToString("X").PadLeft(2, '0');
 					char b = (char)mem;
@@ -93,9 +94,9 @@ namespace Mosa.Emulator
 			switch (cbSelect.SelectedIndex)
 			{
 				case 0: tbMemory.Text = "0xB8000"; break;
-				case 1: tbMemory.Text = "0x" + Mosa.EmulatedKernel.MemoryDispatch.Read32(0x200004).ToString("X"); break;
-				case 2: tbMemory.Text = "0x" + Mosa.EmulatedKernel.MemoryDispatch.CR3.ToString("X"); break;
-				case 3: tbMemory.Text = "0x" + Mosa.EmulatedKernel.MemoryDispatch.Read32(1024 * 1024 * 28).ToString("X"); break;
+				case 1: tbMemory.Text = "0x" + MemoryDispatch.Read32(0x200004).ToString("X"); break;
+				case 2: tbMemory.Text = "0x" + MemoryDispatch.CR3.ToString("X"); break;
+				case 3: tbMemory.Text = "0x" + MemoryDispatch.Read32(1024 * 1024 * 28).ToString("X"); break;
 				case 4: tbMemory.Text = "0x" + (1024 * 1024 * 21).ToString("X"); break;
 				default: break;
 			}

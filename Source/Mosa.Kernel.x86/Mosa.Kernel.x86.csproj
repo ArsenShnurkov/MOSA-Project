@@ -4,7 +4,7 @@
     <ProjectType>Local</ProjectType>
     <ProjectGuid>{FF099D48-3FA5-4ED6-BBA0-1497D734962A}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">ARMv6</Platform>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>Mosa.Kernel.x86</AssemblyName>
@@ -12,7 +12,6 @@
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>
     </AppDesignerFolder>
@@ -22,39 +21,8 @@
     <OldToolsVersion>3.5</OldToolsVersion>
     <UpgradeBackupLocation />
     <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <RemoveIntegerChecks>False</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
-    <NoWarn>0219,0414</NoWarn>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\bin\Mosa.Kernel.x86.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <RemoveIntegerChecks>False</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>none</DebugType>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <UseMSBuildEngine>False</UseMSBuildEngine>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="ConsoleManager.cs" />
@@ -104,6 +72,14 @@
       <Project>{DE30CBE9-50F3-4A3E-BCC9-A8A36348530E}</Project>
       <Name>Mosa.Platform.x86</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mosa.Platform.Internal.x86\Mosa.Platform.Internal.x86.csproj">
+      <Project>{A47B7998-4EE8-4AF8-9373-C664FDEDDC65}</Project>
+      <Name>Mosa.Platform.Internal.x86</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.Metadata\Mosa.Compiler.Metadata.csproj">
+      <Project>{7033B213-2055-4C6A-B008-D9856267F5D7}</Project>
+      <Name>Mosa.Compiler.Metadata</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
@@ -112,5 +88,37 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARMv6' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ARMv6\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARMv6' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ARMv6\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
 </Project>

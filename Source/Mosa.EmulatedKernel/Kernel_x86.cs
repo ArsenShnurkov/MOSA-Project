@@ -1,15 +1,16 @@
 ﻿using System;
 using Mosa.EmulatedKernel;
 using Mosa.EmulatedDevices.Emulated;
+using Mosa.DeviceDrivers.ISA;
 
 namespace Mosa.Kernel.x86
 {
 	public class Kernel_x86
 	{
 		public static HardwareAbstraction_Emulation hal = null;
-		public static CMOS CMOS = null;
-//		public static PIC PIC = null;
-//		public static ProcessManager ProcessManager = null;
+		public static Mosa.EmulatedDevices.Emulated.CMOS CMOS = null;
+		public static PIC PIC = null;
+		//public static ProcessManager ProcessManager = null;
 
 		public static void Setup()
 		{

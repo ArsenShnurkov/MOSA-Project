@@ -164,11 +164,11 @@ namespace Mosa.Compiler.Framework.Stages
 			Operand source;
 			if (context.MosaType != null)
 			{
-				source = Operand.CreateManagedSymbol(TypeSystem, TypeSystem.GetTypeByName("System", "RuntimeTypeHandle"), context.MosaType.FullName + Metadata.TypeDefinition);
+					source = Operand.CreateManagedSymbol(TypeSystem, TypeSystem.GetTypeByName("System", "RuntimeTypeHandle"), context.MosaType.FullName + Mosa.Compiler.Common.Metadata.TypeDefinition);
 			}
 			else if (context.MosaField != null)
 			{
-				source = Operand.CreateManagedSymbol(TypeSystem, TypeSystem.GetTypeByName("System", "RuntimeFieldHandle"), context.MosaField.FullName + Metadata.FieldDefinition);
+					source = Operand.CreateManagedSymbol(TypeSystem, TypeSystem.GetTypeByName("System", "RuntimeFieldHandle"), context.MosaField.FullName + Mosa.Compiler.Common.Metadata.FieldDefinition);
 			}
 			else
 				throw new NotImplementCompilerException();
@@ -540,7 +540,7 @@ namespace Mosa.Compiler.Framework.Stages
 
 		private Operand GetTypeDefinitionSymbol(MosaType runtimeType)
 		{
-			return Operand.CreateUnmanagedSymbolPointer(TypeSystem, runtimeType.FullName + Metadata.TypeDefinition);
+			return Operand.CreateUnmanagedSymbolPointer(TypeSystem, runtimeType.FullName + Mosa.Compiler.Common.Metadata.TypeDefinition);
 		}
 
 		/// <summary>
@@ -791,7 +791,7 @@ namespace Mosa.Compiler.Framework.Stages
 			var stream = symbol.Stream;
 
 			// Type Definition and sync block
-			linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, symbol, 0, 0, "System.String" + Metadata.TypeDefinition, SectionKind.ROData, 0);
+			linker.Link(LinkType.AbsoluteAddress, BuiltInPatch.I4, symbol, 0, 0, "System.String" + Mosa.Compiler.Common.Metadata.TypeDefinition, SectionKind.ROData, 0);
 
 			stream.WriteZeroBytes(NativePointerSize * 2);
 

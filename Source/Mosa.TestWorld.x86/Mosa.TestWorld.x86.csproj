@@ -57,7 +57,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Boot.cs" />
-    <Compile Include="Tests\ComparisonTest.cs" />
     <Compile Include="Tests\OtherTest.cs" />
     <Compile Include="Tests\DelegateTest.cs" />
     <Compile Include="Tests\ExceptionTest.cs" />
@@ -87,10 +86,6 @@
     <ProjectReference Include="..\Mosa.Platform.Internal.x86\Mosa.Platform.Internal.x86.csproj">
       <Project>{A47B7998-4EE8-4AF8-9373-C664FDEDDC65}</Project>
       <Name>Mosa.Platform.Internal.x86</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.Test.Collection\Mosa.Test.Collection.csproj">
-      <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
-      <Name>Mosa.Test.Collection</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.DeviceDrivers\Mosa.DeviceDrivers.csproj">
       <Project>{4DBD4C50-BEC5-48D9-B471-9FB0A7F69999}</Project>

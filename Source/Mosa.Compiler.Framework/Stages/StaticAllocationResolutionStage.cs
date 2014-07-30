@@ -10,9 +10,9 @@
 using Mosa.Compiler.Common;
 using Mosa.Compiler.Framework.CIL;
 using Mosa.Compiler.Linker;
-using Mosa.Compiler.MosaTypeSystem;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Mosa.Compiler.MosaTypeSystem;
 
 namespace Mosa.Compiler.Framework.Stages
 {
@@ -88,7 +88,7 @@ namespace Mosa.Compiler.Framework.Stages
 		{
 			if (!allocatedType.IsValueType)
 			{
-				return allocatedType.FullName + Metadata.TypeDefinition;
+					return allocatedType.FullName + Mosa.Compiler.Common.Metadata.TypeDefinition;
 			}
 
 			return null;

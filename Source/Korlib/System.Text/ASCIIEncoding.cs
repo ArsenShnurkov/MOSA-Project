@@ -15,7 +15,7 @@ namespace System.Text
 	public class ASCIIEncoding : Encoding
 	{
 		// Decode a buffer of bytes into a string.
-		public unsafe override String GetString(byte[] bytes, int byteIndex, int byteCount)
+		public override String GetString(byte[] bytes, int byteIndex, int byteCount)
 		{
 			if (byteCount == 0)
 				return String.Empty;

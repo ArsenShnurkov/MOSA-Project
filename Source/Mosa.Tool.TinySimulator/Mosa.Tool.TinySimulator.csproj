@@ -245,22 +245,6 @@
       <Project>{DE30CBE9-50F3-4A3E-BCC9-A8A36348530E}</Project>
       <Name>Mosa.Platform.x86</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.Adaptor\Mosa.TinyCPUSimulator.Adaptor.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-F6979D2D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.Adaptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86.Adaptor\Mosa.TinyCPUSimulator.x86.Adaptor.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-F6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.x86.Adaptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86\Mosa.TinyCPUSimulator.x86.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-E6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.x86</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator\Mosa.TinyCPUSimulator.csproj">
-      <Project>{6F7C06B2-09BF-45BD-8E6B-AE9BF7C7E250}</Project>
-      <Name>Mosa.TinyCPUSimulator</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mosa.Utility.GUI.Common\Mosa.Utility.GUI.Common.csproj">
       <Project>{5A813793-78E2-413C-AA05-FCDD12B7DB04}</Project>
       <Name>Mosa.Utility.GUI.Common</Name>

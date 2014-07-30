@@ -71,10 +71,6 @@
       <Project>{599D1C00-7C78-4211-A958-1285C4CB76C9}</Project>
       <Name>Mosa.Platform.Internal.ARMv6</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.Test.Collection\Mosa.Test.Collection.csproj">
-      <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
-      <Name>Mosa.Test.Collection</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Mosa.Kernel.ARMv6\Mosa.Kernel.ARMv6.csproj">
       <Project>{4CFF6607-4D83-46E6-A1D0-EF045311C98B}</Project>
       <Name>Mosa.Kernel.ARMv6</Name>

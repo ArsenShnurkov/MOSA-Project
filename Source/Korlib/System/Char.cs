@@ -21,8 +21,10 @@ namespace System
 
 		public int CompareTo(char value)
 		{
-			if (_value < value) return -1;
-			else if (_value > value) return 1;
+			if (_value < value)
+				return -1;
+			else if (_value > value)
+					return 1;
 			return 0;
 		}
 
@@ -38,11 +40,8 @@ namespace System
 
 		public static bool IsUpper(char c)
 		{
-			unsafe
-			{
-				var value = (ushort)c;
-				return value >= 65 && value <= 90;
-			}
+			var value = (ushort)c;
+			return value >= 65 && value <= 90;
 		}
 
 		public static bool IsUpper(string s, int index)

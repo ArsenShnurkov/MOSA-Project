@@ -48,14 +48,6 @@
       <Project>{067AAB6B-447A-45BA-9E0D-DFEA886B4F69}</Project>
       <Name>Mosa.Test.Collection</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.TestSystem\Mosa.TinyCPUSimulator.TestSystem.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-A6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.TestSystem</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86.Adaptor\Mosa.TinyCPUSimulator.x86.Adaptor.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-F6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.x86.Adaptor</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DelegateFixture.cs" />

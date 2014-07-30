@@ -2,37 +2,52 @@
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">ARMv6</Platform>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Mosa.Tool.Launcher</RootNamespace>
     <AssemblyName>Mosa.Tool.Launcher</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
     <ProjectGuid>{B69C2F31-5161-47BB-9FD3-2F2F2BCCF659}</ProjectGuid>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>..\..\bin\Mosa.Tool.Debugger.xml</DocumentationFile>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <UseMSBuildEngine>False</UseMSBuildEngine>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject>Mosa.Tool.Launcher.Program</StartupObject>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARMv6' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ARMv6\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARMv6' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ARMv6\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -91,22 +106,6 @@
     <ProjectReference Include="..\Mosa.Platform.x86\Mosa.Platform.x86.csproj">
       <Project>{DE30CBE9-50F3-4A3E-BCC9-A8A36348530E}</Project>
       <Name>Mosa.Platform.x86</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.Adaptor\Mosa.TinyCPUSimulator.Adaptor.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-F6979D2D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.Adaptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86.Adaptor\Mosa.TinyCPUSimulator.x86.Adaptor.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-F6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.x86.Adaptor</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator.x86\Mosa.TinyCPUSimulator.x86.csproj">
-      <Project>{50568E2D-5360-4F71-87E0-E6979D1D858A}</Project>
-      <Name>Mosa.TinyCPUSimulator.x86</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Mosa.TinyCPUSimulator\Mosa.TinyCPUSimulator.csproj">
-      <Project>{6F7C06B2-09BF-45BD-8E6B-AE9BF7C7E250}</Project>
-      <Name>Mosa.TinyCPUSimulator</Name>
     </ProjectReference>
     <ProjectReference Include="..\Mosa.Utility.BootImage\Mosa.Utility.BootImage.csproj">
       <Project>{65F7691A-B355-4D98-BB97-0B19F13E2190}</Project>

@@ -35,7 +35,7 @@ namespace Mosa.Kernel.x86
 			PageTable.Setup();
 			VirtualPageAllocator.Setup();
 
-			Runtime.Metadata_InitializeLookup();
+			//Runtime.Metadata_InitializeLookup();
 
 			SmbiosManager.Setup();
 			CMOS = new CMOS(hal);

@@ -4,7 +4,7 @@
     <ProjectType>Local</ProjectType>
     <ProjectGuid>{75A12A8A-8C8F-4D1E-801B-689D8F781BF4}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Platform Condition=" '$(Platform)' == '' ">ARMv6</Platform>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
     <AssemblyName>Mosa.Compiler.Framework</AssemblyName>
@@ -12,7 +12,6 @@
     <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
     <DefaultTargetSchema>IE50</DefaultTargetSchema>
     <DelaySign>false</DelaySign>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <OutputType>Library</OutputType>
     <RootNamespace>Mosa.Compiler.Framework</RootNamespace>
     <FileUpgradeFlags>
@@ -35,39 +34,40 @@
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <ReleaseVersion>0.2</ReleaseVersion>
+    <UseMSBuildEngine>False</UseMSBuildEngine>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <FileAlignment>4096</FileAlignment>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|ARMv6' ">
     <Optimize>false</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <RemoveIntegerChecks>False</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <OutputPath>bin\ARMv6\Debug</OutputPath>
     <WarningLevel>4</WarningLevel>
-    <DebugType>full</DebugType>
-    <NoWarn>0414,0219</NoWarn>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <BaseAddress>285212672</BaseAddress>
-    <ConfigurationOverrideFile>
-    </ConfigurationOverrideFile>
-    <DefineConstants>TRACE</DefineConstants>
-    <DocumentationFile>..\..\bin\Mosa.Compiler.Framework.xml</DocumentationFile>
-    <FileAlignment>4096</FileAlignment>
-    <Optimize>true</Optimize>
-    <OutputPath>..\..\bin\</OutputPath>
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <RemoveIntegerChecks>False</RemoveIntegerChecks>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <WarningLevel>2</WarningLevel>
-    <DebugType>none</DebugType>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARMv6' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\ARMv6\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <PlatformTarget>x86</PlatformTarget>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Release</OutputPath>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86_64' ">
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86_64\Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -171,16 +171,13 @@
     <Compile Include="Stages\PlugStage.cs" />
     <Compile Include="Stages\ExceptionPrologueStage.cs" />
     <Compile Include="IR\ExceptionPrologue.cs" />
-    <Compile Include="Stages\MetadataStage.cs" />
     <Compile Include="Stages\EnterSSAStage.cs" />
     <Compile Include="InstructionLogger.cs" />
     <Compile Include="Stages\LeaveSSAStage.cs" />
     <Compile Include="Stages\OperandAssignmentStage.cs" />
     <Compile Include="CompilerOptions.cs" />
     <Compile Include="Stages\PhiPlacementStage.cs" />
-    <Compile Include="Stages\StaticAllocationResolutionStage.cs" />
     <Compile Include="IR\Throw.cs" />
-    <Compile Include="Intrinsics\InternalAllocateString.cs" />
     <Compile Include="IR\AddFloat.cs" />
     <Compile Include="IR\AddSigned.cs" />
     <Compile Include="IR\AddUnsigned.cs" />
@@ -202,7 +199,6 @@
     <Compile Include="Stages\PlatformStubStage.cs" />
     <Compile Include="IIntrinsicPlatformMethod.cs" />
     <Compile Include="IPipelineStage.cs" />
-    <Compile Include="Stages\CILTransformationStage.cs" />
     <Compile Include="CIL\ConstrainedPrefixInstruction.cs" />
     <Compile Include="CIL\ConversionInstruction.cs" />
     <Compile Include="CIL\CILInstruction.cs" />
@@ -360,13 +356,6 @@
     </Compile>
     <Compile Include="IR\VmCall.cs" />
     <Compile Include="Stages\ConvertCompoundStage.cs" />
-    <Compile Include="Stages\GenericsResolverStage.cs" />
-    <Compile Include="Stages\LocalCSEStage.cs" />
-    <Compile Include="Stages\LocalVariablePromotionStage.cs" />
-    <Compile Include="Stages\OperandUsageAnalyzerStage.cs" />
-    <Compile Include="Stages\RegisterUsageAnalyzerStage.cs" />
-    <Compile Include="Stages\SimpleRegisterAllocatorStage.cs" />
-    <Compile Include="Stages\TypeLayoutStage.cs" />
     <Compile Include="Intrinsics\InternalsBase.cs" />
     <Compile Include="BootType.cs" />
     <Compile Include="IBlockOptimizationStage.cs" />
@@ -374,13 +363,16 @@
     <Compile Include="IBlockReorderStage.cs" />
     <Compile Include="IInstructionVisitor2.cs" />
     <Compile Include="IStackLayoutProvider.cs" />
-    <Compile Include="LiveRangeAnalysis.cs" />
     <Compile Include="PipelineStageOrder.cs" />
     <Compile Include="RegisterBitmap.cs" />
-    <Compile Include="SimpleRegisterAllocator.cs" />
-    <Compile Include="StackRegisterAllocator.cs" />
     <Compile Include="VirtualRegisterLayout.cs" />
     <Compile Include="Platform\IRegisterUsage.cs" />
+    <Compile Include="ReplacementTargetAttribute.cs" />
+    <Compile Include="Stages\MetadataStage.cs" />
+    <Compile Include="Stages\StaticAllocationResolutionStage.cs" />
+    <Compile Include="Stages\CILTransformationStage.cs" />
+    <Compile Include="Stages\MethodPipelineExportStage.cs" />
+    <Compile Include="Stages\MapFileGenerationStage.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Mosa.Compiler.Common\Mosa.Compiler.Common.csproj">
@@ -398,6 +390,10 @@
     <ProjectReference Include="..\Mosa.Compiler.MosaTypeSystem\Mosa.Compiler.MosaTypeSystem.csproj">
       <Project>{5F30A68E-05BF-40EA-B576-5EBCDE520559}</Project>
       <Name>Mosa.Compiler.MosaTypeSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.Trace\Mosa.Compiler.Trace.csproj">
+      <Project>{540BEAC7-A2C3-4C46-9F4A-E6E1DF4EF6FC}</Project>
+      <Name>Mosa.Compiler.Trace</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

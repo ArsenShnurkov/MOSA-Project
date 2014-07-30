@@ -11,7 +11,6 @@
  */
 
 using System;
-using System.Runtime.InteropServices;
 using System.Reflection;
 
 namespace Mosa.Platform.Internal.x86
@@ -75,7 +74,7 @@ namespace Mosa.Platform.Internal.x86
 
 		#region Metadata Lookup
 
-		internal static _Assembly[] Assemblies;
+		internal static System._Assembly[] Assemblies;
 
 		public static string InitializeMetadataString(uint* ptr)
 		{
