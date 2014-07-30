@@ -9,16 +9,18 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
+using Mosa.Compiler.Common;
+using Mosa.Compiler.Framework;
+using Mosa.Compiler.InternalTrace;
+using Mosa.Compiler.Linker;
+using Mosa.Compiler.Linker.Elf32;
+using Mosa.Compiler.Linker.PE;
+using Mosa.Utility.Aot;
+using NDesk.Options;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
-using NDesk.Options;
-using Mosa.Compiler.Common;
-using Mosa.Compiler.Framework;
-using Mosa.Compiler.Linker;
-using Mosa.Compiler.Linker.Elf32;
-using Mosa.Compiler.Linker.PE;
 
 namespace Mosa.Tool.Compiler
 {
@@ -27,7 +29,7 @@ namespace Mosa.Tool.Compiler
 	/// </summary>
 	public class Compiler
 	{
-#region Data
+		#region Data
 
 		/// <summary>
 		/// Holds the compiler options
@@ -58,9 +60,9 @@ namespace Mosa.Tool.Compiler
 		/// </summary>
 		private readonly string usageString;
 
-#endregion Data
+		#endregion Data
 
-#region Constructors
+		#region Constructors
 
 		/// <summary>
 		/// Initializes a new instance of the Compiler class.
@@ -76,7 +78,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"local|version",
 				"Display version information.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					if (v != null)
 					{
 						// only show header and exit
@@ -87,7 +90,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"h|?|help",
 				"Display the full set of available options.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					if (v != null)
 					{
 						this.ShowHelp();
@@ -99,7 +103,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"<>",
 				"Input files.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					if (!File.Exists(v))
 					{
 						throw new OptionException(String.Format("Input file or option '{0}' doesn't exist.", v), String.Empty);
@@ -127,7 +132,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"b|boot=",
 				"Specify the bootable format of the produced binary [{mb0.7}].",
-				delegate(string format) {
+				delegate(string format)
+				{
 					compilerOptions.BootStageFactory = GetBootStageFactory(format);
 				}
 			);
@@ -135,7 +141,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"a|Architecture=",
 				"Select one of the MOSA architectures to compile for [{x86|ARMv6}].",
-				delegate(string arch) {
+				delegate(string arch)
+				{
 					compilerOptions.Architecture = SelectArchitecture(arch);
 				}
 			);
@@ -143,7 +150,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"f|format=",
 				"Select the format of the binary file to create [{ELF32|ELF64|PE}].",
-				delegate(string format) {
+				delegate(string format)
+				{
 					compilerOptions.LinkerFactory = GetLinkerFactory(format);
 
 					if (compilerOptions.LinkerFactory == null)
@@ -154,7 +162,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"o|out=",
 				"The name of the output {file}.",
-				delegate(string file) {
+				delegate(string file)
+				{
 					compilerOptions.OutputFile = file;
 				}
 			);
@@ -162,7 +171,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"map=",
 				"Generate a map {file} of the produced binary.",
-				delegate(string file) {
+				delegate(string file)
+				{
 					compilerOptions.MapFile = file;
 				}
 			);
@@ -170,7 +180,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"interrupt-pipeline-export-dir|mped=",
 				"The interrupt pipeline export directory {file}.",
-				delegate(string dir) {
+				delegate(string dir)
+				{
 					compilerOptions.MethodPipelineExportDirectory = dir;
 				}
 			);
@@ -196,7 +207,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"stats=",
 				"Generate instruction statistics {file} of the produced binary.",
-				delegate(string file) {
+				delegate(string file)
+				{
 					compilerOptions.StatisticsFile = file;
 				}
 			);
@@ -204,7 +216,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"multibootHeader-video-mode=",
 				"Specify the video mode for multibootHeader [{text|graphics}].",
-				delegate(string v) {
+				delegate(string v)
+				{
 					switch (v.ToLower())
 					{
 						case "text":
@@ -224,7 +237,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"multibootHeader-video-width=",
 				"Specify the {width} for video output, in pixels for graphics mode or in characters for text mode.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					uint val;
 					if (uint.TryParse(v, out val))
 					{
@@ -241,7 +255,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"multibootHeader-video-height=",
 				"Specify the {height} for video output, in pixels for graphics mode or in characters for text mode.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					uint val;
 					if (uint.TryParse(v, out val))
 					{
@@ -258,7 +273,8 @@ namespace Mosa.Tool.Compiler
 			optionSet.Add(
 				"multibootHeader-video-depth=",
 				"Specify the {depth} (number of bits per pixel) for graphics mode.",
-				delegate(string v) {
+				delegate(string v)
+				{
 					uint val;
 					if (uint.TryParse(v, out val))
 					{
@@ -274,9 +290,9 @@ namespace Mosa.Tool.Compiler
 			#endregion Setup options
 		}
 
-#endregion Constructors
+		#endregion Constructors
 
-#region Public Methods
+		#region Public Methods
 
 		/// <summary>
 		/// Runs the command line parser and the compilation process.
@@ -346,28 +362,7 @@ namespace Mosa.Tool.Compiler
 
 			try
 			{
-				try
-				{
-					Compile();
-				}
-				catch (Exception ex)
-				{
-					Console.WriteLine(string.Format("Exception of type {0}", ex.GetType().ToString()));
-					foreach (var v in ex.Data.Keys)
-					{
-						if (v is IFormatProvider)
-						{
-							var provider = v as IFormatProvider;
-                            var str = string.Format(provider, "{0}", ex.Data[v]);
-									Console.WriteLine("!!!{0}", str);
-						}
-						else
-						{
-							Console.WriteLine("{0} -> {1}", v, ex.Data[v]);
-						}
-					}
-					Console.WriteLine("{0}", ex.ToString());
-				}
+				Compile();
 			}
 			catch (CompilerException ce)
 			{
@@ -397,13 +392,19 @@ namespace Mosa.Tool.Compiler
 			return sb.ToString();
 		}
 
-#endregion Public Methods
+		#endregion Public Methods
 
-#region Private Methods
+		#region Private Methods
 
 		private void Compile()
 		{
-			AotCompiler.Compile(compilerOptions, inputFiles);
+			CompilerTrace compilerTrace = new CompilerTrace();
+			
+			var listener = new ConsoleEventListener();
+			//listener.Quiet = false;
+			compilerTrace.CompilerEventListener = listener;
+
+			AotCompiler.Compile(compilerOptions, inputFiles, compilerTrace);
 		}
 
 		/// <summary>
@@ -451,9 +452,9 @@ namespace Mosa.Tool.Compiler
 			this.optionSet.WriteOptionDescriptions(Console.Out);
 		}
 
-#endregion Private Methods
+		#endregion Private Methods
 
-#region Internal Methods
+		#region Internal Methods
 
 		/// <summary>
 		/// Selects the architecture.
@@ -464,16 +465,8 @@ namespace Mosa.Tool.Compiler
 		{
 			switch (architecture.ToLower())
 			{
-				case "x86":
-					return Mosa.Platform.x86.Architecture.CreateArchitecture(Mosa.Platform.x86.ArchitectureFeatureFlags.AutoDetect);
-
-			//case "avr32":
-			//	return Mosa.Platform.AVR32.Architecture.CreateArchitecture(Mosa.Platform.AVR32.ArchitectureFeatureFlags.AutoDetect);
-
-				case "x64":
-
-				default:
-					throw new OptionException(String.Format("Unknown or unsupported Architecture {0}.", architecture), "Architecture");
+				case "x86": return Mosa.Platform.x86.Architecture.CreateArchitecture(Mosa.Platform.x86.ArchitectureFeatureFlags.AutoDetect);
+				default: throw new NotImplementCompilerException(String.Format("Unknown or unsupported Architecture {0}.", architecture));
 			}
 		}
 
@@ -482,12 +475,8 @@ namespace Mosa.Tool.Compiler
 			switch (format.ToLower())
 			{
 				case "multibootHeader-0.7":
-				case "mb0.7":
-					return delegate {
-						return new Mosa.Platform.x86.Stages.Multiboot0695Stage();
-					};
-				default:
-					throw new OptionException(String.Format("Unknown or unsupported boot format {0}.", format), "boot");
+				case "mb0.7": return delegate { return new Mosa.Platform.x86.Stages.Multiboot0695Stage(); };
+				default: throw new NotImplementCompilerException(String.Format("Unknown or unsupported boot format {0}.", format));
 			}
 		}
 
@@ -495,24 +484,14 @@ namespace Mosa.Tool.Compiler
 		{
 			switch (format.ToLower())
 			{
-				case "pe":
-					return delegate {
-						return new PELinker();
-					};
-				case "elf":
-					return delegate {
-						return new Elf32();
-					};
-				case "elf32":
-					return delegate {
-						return new Elf32();
-					};
-			//case "elf64": return delegate { return new Elf64Linker(); };
-				default:
-					return null;
+				case "pe": return delegate { return new PELinker(); };
+				case "elf": return delegate { return new Elf32(); };
+				case "elf32": return delegate { return new Elf32(); };
+				//case "elf64": return delegate { return new Elf64Linker(); };
+				default: return null;
 			}
 		}
 
-#endregion Internal Methods
+		#endregion Internal Methods
 	}
 }
