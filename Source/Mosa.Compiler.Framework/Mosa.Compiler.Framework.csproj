@@ -76,7 +76,7 @@
     <Compile Include="Analysis\NaturalBlockOrder.cs" />
     <Compile Include="Analysis\ReverseBlockOrder.cs" />
     <Compile Include="Analysis\SimpleTraceBlockOrder.cs" />
-    <Compile Include="DominanceAnalysis.cs" />
+    <Compile Include="Analysis\Dominance.cs" />
     <Compile Include="Analysis\IDominanceAnalysis.cs" />
     <Compile Include="BaseCallingConventionExtended.cs" />
     <Compile Include="DelegatePatcher.cs" />
@@ -357,16 +357,8 @@
     <Compile Include="IR\VmCall.cs" />
     <Compile Include="Stages\ConvertCompoundStage.cs" />
     <Compile Include="Intrinsics\InternalsBase.cs" />
-    <Compile Include="BootType.cs" />
-    <Compile Include="IBlockOptimizationStage.cs" />
-    <Compile Include="IBlockOrderStage.cs" />
-    <Compile Include="IBlockReorderStage.cs" />
-    <Compile Include="IInstructionVisitor2.cs" />
     <Compile Include="IStackLayoutProvider.cs" />
-    <Compile Include="PipelineStageOrder.cs" />
-    <Compile Include="RegisterBitmap.cs" />
     <Compile Include="VirtualRegisterLayout.cs" />
-    <Compile Include="Platform\IRegisterUsage.cs" />
     <Compile Include="ReplacementTargetAttribute.cs" />
     <Compile Include="Stages\MetadataStage.cs" />
     <Compile Include="Stages\StaticAllocationResolutionStage.cs" />

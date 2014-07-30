@@ -28,12 +28,6 @@
     <Compile Include="Native.cs" />
     <Compile Include="Runtime.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Korlib\Korlib.csproj">
-      <Project>{631BC4F3-E2D8-4319-814C-13904CAA17CE}</Project>
-      <Name>Korlib</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <PropertyGroup>
     <PreBuildEvent>
@@ -46,14 +40,12 @@
     <OutputPath>bin\ARMv6\Debug</OutputPath>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|ARMv6' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\ARMv6\Release</OutputPath>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
     <Optimize>false</Optimize>
@@ -61,7 +53,6 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <Optimize>false</Optimize>
@@ -69,20 +60,17 @@
     <WarningLevel>4</WarningLevel>
     <PlatformTarget>x86</PlatformTarget>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86_64' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\x86_64\Release</OutputPath>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86_64' ">
     <Optimize>false</Optimize>
     <OutputPath>bin\x86_64\Debug</OutputPath>
     <WarningLevel>4</WarningLevel>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <NoStdLib>true</NoStdLib>
   </PropertyGroup>
 </Project>
