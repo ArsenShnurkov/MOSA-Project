@@ -63,7 +63,7 @@ namespace Mosa.Platform.Internal.x86
 				for (int j = 0; j < Runtime.Assemblies[i].handles.Length; j++)
 				{
 					// If its not a match then skip
-					if (Runtime.Assemblies[i].handles[j] != handle) continue;
+							if (Runtime.Assemblies[i].handles[j] != (object)handle) continue;
 
 					// If we get here then its a match so return it
 					return Runtime.Assemblies[i].types[j];

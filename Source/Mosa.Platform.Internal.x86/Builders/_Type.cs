@@ -21,7 +21,7 @@ namespace System
 		private string fullname;
 
 		internal _Type(RuntimeTypeHandle handle, _Assembly assembly)
-			: base(handle)
+		//: base(handle)
 		{
 			this.assembly = assembly;
 			this.typeStruct = (MetadataTypeStruct*)((uint**)&handle)[0];
@@ -152,5 +152,77 @@ namespace System
 		{
 			throw new NotImplementedException();
 		}
+
+		#region implemented abstract members of Type
+
+		public override EventInfo GetEvent(string name, BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override EventInfo[] GetEvents(BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override Type GetNestedType(string name, BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override Type[] GetNestedTypes(BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override PropertyInfo[] GetProperties(BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected override PropertyInfo GetPropertyImpl(string name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
+		{
+			throw new NotImplementedException();
+		}
+
+		protected override bool IsCOMObjectImpl()
+		{
+			throw new NotImplementedException();
+		}
+
+		public override ConstructorInfo[] GetConstructors(BindingFlags bindingAttr)
+		{
+			throw new NotImplementedException();
+		}
+
+		public override string AssemblyQualifiedName {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public override Guid GUID {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public override Module Module {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		public override Type UnderlyingSystemType {
+			get
+			{
+				throw new NotImplementedException();
+			}
+		}
+
+		#endregion
 	}
 }
