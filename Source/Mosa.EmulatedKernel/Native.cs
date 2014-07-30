@@ -7,6 +7,8 @@
  *  Phil Garcia (tgiphil) <phil@thinkedge.com>
  */
 
+using Mosa.EmulatedDevices;
+
 namespace Mosa.Platform.Internal.x86
 {
 	/// <summary>
@@ -21,7 +23,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="value">The value.</param>
 		public static void Out(ushort address, byte value)
 		{
-			EmulatedKernel.IOPortDispatch.Write8(address, value);
+			IOPortDispatch.Write8(address, value);
 		}
 
 		/// <summary>
@@ -31,7 +33,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="value">The value.</param>
 		public static void Out8(ushort address, byte value)
 		{
-			EmulatedKernel.IOPortDispatch.Write8(address, value);
+			IOPortDispatch.Write8(address, value);
 		}
 
 		/// <summary>
@@ -41,7 +43,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static byte In(ushort address)
 		{
-			return EmulatedKernel.IOPortDispatch.Read8(address);
+			return IOPortDispatch.Read8(address);
 		}
 
 		/// <summary>
@@ -51,7 +53,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static byte In8(ushort address)
 		{
-			return EmulatedKernel.IOPortDispatch.Read8(address);
+			return IOPortDispatch.Read8(address);
 		}
 
 		/// <summary>
@@ -61,7 +63,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="value">The value.</param>
 		public static void Set32(uint location, uint value)
 		{
-			Mosa.EmulatedKernel.MemoryDispatch.Write32(location, value);
+			MemoryDispatch.Write32(location, value);
 		}
 
 		/// <summary>
@@ -71,7 +73,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="value">The value.</param>
 		public static void Set16(uint location, ushort value)
 		{
-			Mosa.EmulatedKernel.MemoryDispatch.Write16(location, value);
+			MemoryDispatch.Write16(location, value);
 		}
 
 		/// <summary>
@@ -81,7 +83,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="value">The value.</param>
 		public static void Set8(uint location, byte value)
 		{
-			Mosa.EmulatedKernel.MemoryDispatch.Write8(location, value);
+			MemoryDispatch.Write8(location, value);
 		}
 
 		/// <summary>
@@ -91,7 +93,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static byte Get8(uint location)
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.Read8(location);
+			return MemoryDispatch.Read8(location);
 		}
 
 		/// <summary>
@@ -101,7 +103,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static ushort Get16(uint location)
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.Read16(location);
+			return MemoryDispatch.Read16(location);
 		}
 
 		/// <summary>
@@ -111,7 +113,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static uint Get32(uint location)
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.Read32(location);
+			return MemoryDispatch.Read32(location);
 		}
 
 		/// <summary>
@@ -121,7 +123,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static ulong Get64(ulong location)
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.Read64((uint)location);
+			return MemoryDispatch.Read64((uint)location);
 		}
 
 		/// <summary>
@@ -236,7 +238,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <param name="status">The status.</param>
 		public static void SetCR0(uint status)
 		{
-			Mosa.EmulatedKernel.MemoryDispatch.CR0 = status;
+			MemoryDispatch.CR0 = status;
 		}
 
 		/// <summary>
@@ -252,7 +254,7 @@ namespace Mosa.Platform.Internal.x86
 		/// </summary>
 		public static void SetCR3(uint status)
 		{
-			Mosa.EmulatedKernel.MemoryDispatch.CR3 = status;
+			MemoryDispatch.CR3 = status;
 		}
 
 		/// <summary>
@@ -269,7 +271,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static uint GetCR0()
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.CR0;
+			return MemoryDispatch.CR0;
 		}
 
 		/// <summary>
@@ -287,7 +289,7 @@ namespace Mosa.Platform.Internal.x86
 		/// <returns></returns>
 		public static uint GetCR3()
 		{
-			return Mosa.EmulatedKernel.MemoryDispatch.CR3;
+			return MemoryDispatch.CR3;
 		}
 
 		/// <summary>

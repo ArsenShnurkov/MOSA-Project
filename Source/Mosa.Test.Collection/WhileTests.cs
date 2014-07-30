@@ -39,6 +39,7 @@ namespace Mosa.Test.Collection
 
 		public static bool WhileFalse()
 		{
+#pragma warning disable 162
 			bool called = false;
 
 			while (false)
@@ -47,6 +48,7 @@ namespace Mosa.Test.Collection
 			}
 
 			return called;
+#pragma warning restore 162
 		}
 
 		public static bool WhileContinueBreak()

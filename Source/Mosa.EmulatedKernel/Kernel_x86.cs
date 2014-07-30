@@ -8,11 +8,12 @@ namespace Mosa.Kernel.x86
 	{
 		public static HardwareAbstraction_Emulation hal = null;
 		public static CMOS CMOS = null;
-		public static PIC PIC = null;
-		public static ProcessManager ProcessManager = null;
+//		public static PIC PIC = null;
+//		public static ProcessManager ProcessManager = null;
 
 		public static void Setup()
 		{
+/*
 			IDT.SetInterruptHandler(null);
 			SSE.Setup();
 			GDT.Setup();
@@ -35,6 +36,7 @@ namespace Mosa.Kernel.x86
 			//Runtime.Metadata_InitializeLookup();
 			TaskManager.Setup();
 			ConsoleManager.Setup();
+*/
 		}
 	}
 }

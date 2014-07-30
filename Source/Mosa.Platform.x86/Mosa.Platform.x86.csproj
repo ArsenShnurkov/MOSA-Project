@@ -73,6 +73,10 @@
       <Project>{65866A51-B229-44C5-AC81-87A90FA1741C}</Project>
       <Name>Mosa.Compiler.Linker</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Mosa.Compiler.Trace\Mosa.Compiler.Trace.csproj">
+      <Project>{540BEAC7-A2C3-4C46-9F4A-E6E1DF4EF6FC}</Project>
+      <Name>Mosa.Compiler.Trace</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Architecture.cs">
